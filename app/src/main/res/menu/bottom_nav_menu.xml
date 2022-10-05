@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/trueques"
+        android:icon="@drawable/ic_action_trueques"
+        android:title="Trueques" />
+
+    <item
+        android:id="@+id/notificationes"
+        android:icon="@drawable/ic_action_notificaciones"
+        android:title="Notificaciones" />
+
+    <item
+        android:id="@+id/buscar"
+        android:icon="@drawable/ic_action_buscar"
+        android:title="Buscar" />
+
+    <item
+        android:id="@+id/publicaciones"
+        android:icon="@drawable/ic_action_publicaciones"
+        android:title="Publicaciones" />
+    <item
+        android:id="@+id/miPerfil"
+        android:icon="@drawable/ic_action_perfil"
+        android:title="Mi perfil" />
+
+
+</menu>

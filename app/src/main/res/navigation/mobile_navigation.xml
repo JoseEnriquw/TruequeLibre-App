@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/notificaciones"
+    android:label="@string/title_notificationes"
+    app:startDestination="@id/buscar">
+
+    <fragment
+        android:id="@+id/buscar"
+        android:name="com.example.truequelibre.ui.buscar.BuscarFragment"
+        android:label="@string/title_buscar"
+        tools:layout="@layout/fragment_buscar" />
+
+    <fragment
+        android:id="@+id/trueques"
+        android:name="com.example.truequelibre.ui.trueques.TruequesFragment"
+        android:label="@string/title_trueques"
+        tools:layout="@layout/fragment_trueques" />
+
+    <fragment
+        android:id="@+id/notificationes"
+        android:name="com.example.truequelibre.ui.notifications.NotificationesFragment"
+        android:label="@string/title_notificationes"
+        tools:layout="@layout/fragment_notificationes" />
+    <fragment
+        android:id="@+id/miPerfil"
+        android:name="com.example.truequelibre.MiPerfil"
+        android:label="@string/title_mi_perfil"
+        tools:layout="@layout/fragment_mi_perfil" />
+    <fragment
+        android:id="@+id/publicaciones"
+        android:name="com.example.truequelibre.Publicaciones"
+        android:label="@string/title_publicaciones"
+        tools:layout="@layout/fragment_publicaciones" />
+</navigation>
