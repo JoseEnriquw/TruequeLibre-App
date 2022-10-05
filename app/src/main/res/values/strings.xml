@@ -1,3 +1,11 @@
 <resources>
     <string name="app_name">Trueque Libre</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_buscar">Buscar</string>
+    <string name="title_trueques">Trueques</string>
+    <string name="title_notificationes">Notificationes</string>
+    <string name="title_mi_perfil">Mi perfil</string>
+    <string name="title_publicaciones">Publicaciones</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
