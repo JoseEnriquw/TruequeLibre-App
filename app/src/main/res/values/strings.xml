@@ -6,6 +6,8 @@
     <string name="title_notificationes">Notificationes</string>
     <string name="title_mi_perfil">Mi perfil</string>
     <string name="title_publicaciones">Publicaciones</string>
+    <string name="btn_agregar_publicacion">Agregar Publicaciones +</string>
+    <string name="txt_mis_publicacion">Mis Publicaciones</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
