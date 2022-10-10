@@ -10,7 +10,6 @@ public class PublicacionesViewModel extends ViewModel {
 
     public PublicacionesViewModel() {
         mText = new MutableLiveData<>();
-        mText.setValue("");
     }
 
     public LiveData<String> getText() {

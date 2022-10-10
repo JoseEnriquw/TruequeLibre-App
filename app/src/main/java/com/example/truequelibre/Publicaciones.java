@@ -1,5 +1,7 @@
 package com.example.truequelibre;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -9,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
 import com.example.truequelibre.databinding.FragmentPublicacionesBinding;
 
@@ -67,8 +70,10 @@ public class Publicaciones extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
+
         View view=inflater.inflate(R.layout.fragment_publicaciones, container, false);
+
+        //Cargar el RecyclerView
         _recyclerView =(RecyclerView) view.findViewById(R.id.rvPublicaciones);
         List<EPublicaciones> lista = new ArrayList<EPublicaciones>();
         lista.add(new EPublicaciones("Bici", "Alta bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg"));
@@ -81,6 +86,19 @@ public class Publicaciones extends Fragment {
         _recyclerView.setLayoutManager(gridLayoutManager);
         _recyclerView.setHasFixedSize(true);
         _recyclerView.setAdapter(_adapter);
+
+        //Onclick btn Agregar Publicacion
+        Button btnAgregarPublicacion= (Button) view.findViewById(R.id.btnAgregarPublicacion);
+        btnAgregarPublicacion.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent= new Intent(getActivity().getApplicationContext(),AgregarPublicaciones.class);
+                        startActivity(intent);
+                    }
+                }
+        );
+
         return view;
     }
 }
