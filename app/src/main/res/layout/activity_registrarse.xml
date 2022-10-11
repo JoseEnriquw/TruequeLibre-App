@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Registrarse">
+
+    <ScrollView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.428"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:id="@+id/linearLayoutRegistrarse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:paddingLeft="20sp"
+            android:paddingRight="20sp">
+
+            <TextView
+                android:id="@+id/tvTruequeLibre"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/concert_one"
+                android:text="@string/tvTruequeLibre"
+                android:textAlignment="center"
+                android:textColor="#2196F3"
+                android:textSize="30sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvIngresarDatos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@string/tvRegistrarse"
+                android:textSize="16sp"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/txtLogin"
+                android:id="@+id/name_text_input_layout"
+                android:hint="@string/txtNombre"
+                 >
+                <EditText
+
+                    android:id="@+id/txtNombre"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textSize="16sp"  />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/txtLogin"
+                android:id="@+id/lastname_text_input_layout"
+                android:hint="@string/txtApellido"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/txtApellido"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textSize="16sp"  />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/txtLogin"
+                android:id="@+id/birthday_text_input_layout"
+                android:hint="@string/txtFechaNacimiento"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/txtFechaNacimiento"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="date"
+                    android:maxLines="1"
+                    android:textSize="16sp"  />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/txtLogin"
+                android:id="@+id/DNI_text_input_layout"
+                android:hint="@string/txtDNI"
+                 >
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/txtDNI"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="number"
+                    android:maxLines="1"
+                    android:textSize="16sp"  />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/txtLogin"
+                android:id="@+id/email_text_input_layout"
+                android:hint="@string/txtCorreo"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/txtCorreo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textSize="16sp"  />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/txtLogin"
+                android:id="@+id/cellphone_text_input_layout"
+                android:hint="@string/txtTelefono"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/txtTelefono"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textSize="16sp"  />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/txtLogin"
+                android:id="@+id/address_text_input_layout"
+                android:hint="@string/txtDireccion"
+                 >
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/txtDireccion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textSize="16sp"  />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/txtLogin"
+                android:id="@+id/locale_text_input_layout"
+                android:hint="@string/txtLocalidad"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/txtLocalidad"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="text"
+                    android:maxLines="1"
+                    android:textSize="16sp"  />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/password_text_input_layout"
+
+                android:hint="@string/txtContrasenia"
+                app:endIconMode="password_toggle"
+                style="@style/txtLogin"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/txtContrasenia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/confirm_password_text_input_layout"
+                android:hint="@string/txtConfirmarContrasenia"
+                app:endIconMode="password_toggle"
+                style="@style/txtLogin"
+                >
+                <com.google.android.material.textfield.TextInputEditText
+
+                    android:id="@+id/txtConfirmarContrasenia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <Button
+                android:id="@+id/btnLogin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="12sp"
+                android:backgroundTint="#016EEB"
+                android:fontFamily="@font/concert_one"
+                android:onClick="btnRegistrarse"
+                android:padding="10dp"
+                android:text="@string/btnRegistrarse"
+                android:textColor="#FFFFFF"
+                android:textStyle="bold"
+                app:cornerRadius="10dp" />
+
+            <TextView
+                android:id="@+id/tvIniciarSesion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="10sp"
+                android:layout_marginBottom="30sp"
+                android:autoLink="all"
+                android:linksClickable="false"
+                android:text="@string/lnkIniciarSesion"
+                android:textAlignment="center"
+                android:textColor="#4F92C6" />
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
