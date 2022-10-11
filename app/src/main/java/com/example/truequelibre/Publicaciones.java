@@ -1,12 +1,22 @@
 package com.example.truequelibre;
 
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+
+import com.example.truequelibre.databinding.FragmentPublicacionesBinding;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,6 +29,8 @@ public class Publicaciones extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private RecyclerView _recyclerView;
+    private AdapterPublicaciones _adapter;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -58,7 +70,35 @@ public class Publicaciones extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_publicaciones, container, false);
+
+        View view=inflater.inflate(R.layout.fragment_publicaciones, container, false);
+
+        //Cargar el RecyclerView
+        _recyclerView =(RecyclerView) view.findViewById(R.id.rvPublicaciones);
+        List<EPublicaciones> lista = new ArrayList<EPublicaciones>();
+        lista.add(new EPublicaciones("Bici", "Alta bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg"));
+        lista.add(new EPublicaciones("Teclado", "Alto teclado hp", "https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png"));
+        lista.add(new EPublicaciones("Mouse", "Alto mouse Redragon", "https://www.venex.com.ar/products_images/1582916326_m7191.png"));
+        lista.add(new EPublicaciones("Auricular", "Altos Auriculares", "https://www.fullh4rd.com.ar/img/productos/Pics_Prod/auriculares-logitech-g935-wireless-71-981000742-0.jpg"));
+        _adapter= new AdapterPublicaciones(getContext(),lista);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
+        _recyclerView.setLayoutManager(gridLayoutManager);
+        _recyclerView.setHasFixedSize(true);
+        _recyclerView.setAdapter(_adapter);
+
+        //Onclick btn Agregar Publicacion
+        Button btnAgregarPublicacion= (Button) view.findViewById(R.id.btnAgregarPublicacion);
+        btnAgregarPublicacion.setOnClickListener(
+                new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent= new Intent(getActivity().getApplicationContext(),AgregarPublicaciones.class);
+                        startActivity(intent);
+                    }
+                }
+        );
+
+        return view;
     }
 }

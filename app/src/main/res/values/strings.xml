@@ -6,6 +6,19 @@
     <string name="title_notificationes">Notificationes</string>
     <string name="title_mi_perfil">Mi perfil</string>
     <string name="title_publicaciones">Publicaciones</string>
+    <string name="btn_agregar_publicacion">Agregar Publicaciones +</string>
+    <string name="txt_mis_publicacion">Mis Publicaciones</string>
+    <string name="tv_publicar_articulo">Publicacar Articulo/Servicio</string>
+    <string name="btn_agreger_imagenes_publicacion">Agregar Imagen</string>
+    <string name="tv_imagenes_agregar_publicacion">Imagenes</string>
+    <string name="tv_categoria_agregar_publicacion">Categoría</string>
+    <string name="tv_titulo_agregar_publicacion">Título</string>
+    <string name="tv_descripcion_agregar_publicacion">Descripción</string>
+    <string name="tv_condicion_agregar_publicacion">Condición</string>
+    <string name="tv_ubicacion_agregar_publicacion">Ubicación</string>
+    <string name="tv_motivo_agregar_publicacion">¿Por qué querés canjear?</string>
+    <string name="tv_preferencias_agregar_publicacion">¿Que deseas a cambio?</string>
+    <string name="btn_publicar_agregar_publicacion">Publicar</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="tvTruequeLibre">Trueque Libre</string>
