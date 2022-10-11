@@ -10,11 +10,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.google.android.material.textfield.TextInputLayout;
-
-import java.lang.reflect.Field;
-import java.util.Arrays;
 
 public class Registrarse extends AppCompatActivity {
 
@@ -65,7 +61,7 @@ public class Registrarse extends AppCompatActivity {
 
     public boolean validarCampos(){
         boolean bnd = true;
-        LinearLayout llyParent = findViewById(R.id.linearLayout);
+        LinearLayout llyParent = findViewById(R.id.linearLayoutRegistrarse);
         int count = llyParent.getChildCount();
         for (int i=0;i<count;i++){
             if (llyParent.getChildAt(i) instanceof TextInputLayout){
@@ -74,7 +70,6 @@ public class Registrarse extends AppCompatActivity {
                 int id = frameLayout.getChildAt(0).getId();
                 EditText et = ((EditText) findViewById(id));
                 if (et.length() == 0){
-                    layout.setErrorEnabled(false);
                     layout.setError("Complete este campo!");
                     bnd = false;
                 }

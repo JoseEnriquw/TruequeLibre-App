@@ -5,11 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.material.textfield.TextInputLayout;
 
 public class Login extends AppCompatActivity {
 
@@ -43,19 +46,28 @@ public class Login extends AppCompatActivity {
         if (validarCampos()){
             String usuario = String.valueOf(txtUsuario.getText());
             String contrasenia = String.valueOf(txtContrasenia.getText());
-            login();
+            if (usuario.equals("admin") && contrasenia.equals("admin")){
+                Intent i = new Intent(this,MainActivity.class);
+                startActivity(i);
+            }
         }
     }
 
     public boolean validarCampos(){
         boolean bnd = true;
-        if(txtUsuario.length() == 0){
-            txtUsuario.setError("Complete este campo!");
-            bnd=false;
-        }
-        if(txtContrasenia.length() == 0){
-            txtContrasenia.setError("Complete este campo!");
-            bnd=false;
+        LinearLayout llyParent = findViewById(R.id.linearLayoutLogin);
+        int count = llyParent.getChildCount();
+        for (int i=0;i<count;i++){
+            if (llyParent.getChildAt(i) instanceof TextInputLayout){
+                TextInputLayout layout = (TextInputLayout) llyParent.getChildAt(i);
+                FrameLayout frameLayout = (FrameLayout) layout.getChildAt(0);
+                int id = frameLayout.getChildAt(0).getId();
+                EditText et = ((EditText) findViewById(id));
+                if (et.length() == 0){
+                    layout.setError("Complete este campo!");
+                    bnd = false;
+                }
+            }
         }
 
         return bnd;
