@@ -8,6 +8,39 @@
     <string name="title_publicaciones">Publicaciones</string>
     <string name="btn_agregar_publicacion">Agregar Publicaciones +</string>
     <string name="txt_mis_publicacion">Mis Publicaciones</string>
+    <string name="tv_publicar_articulo">Publicacar Articulo/Servicio</string>
+    <string name="btn_agreger_imagenes_publicacion">Agregar Imagen</string>
+    <string name="tv_imagenes_agregar_publicacion">Imagenes</string>
+    <string name="tv_categoria_agregar_publicacion">Categoría</string>
+    <string name="tv_titulo_agregar_publicacion">Título</string>
+    <string name="tv_descripcion_agregar_publicacion">Descripción</string>
+    <string name="tv_condicion_agregar_publicacion">Condición</string>
+    <string name="tv_ubicacion_agregar_publicacion">Ubicación</string>
+    <string name="tv_motivo_agregar_publicacion">¿Por qué querés canjear?</string>
+    <string name="tv_preferencias_agregar_publicacion">¿Que deseas a cambio?</string>
+    <string name="btn_publicar_agregar_publicacion">Publicar</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tvTruequeLibre">Trueque Libre</string>
+    <string name="tvRegistrarse">Para registrarse complete los siguientes datos.</string>
+    <string name="tvIniciarSesion">Ingrese sus credenciales.</string>
+    <string name="txtUsuario">Correo electrónico</string>
+    <string name="txtContrasenia">Contraseña</string>
+    <string name="btnLogin">INICIAR SESIÓN</string>
+    <string name="btnRegistrarse">REGISTRARSE</string>
+    <string name="lnkOlvideContrasenia">Olvidé mi contraseña</string>
+    <string name="chkRecordarme">Recordarme</string>
+    <string name="lnkRegistrarse">No tenés cuenta? Registrate acá</string>
+    <string name="lnkIniciarSesion">Ya tenés cuenta? Inicia sesión acá</string>
+
+    <string name="txtNombre">Nombre</string>
+    <string name="txtApellido">Apellido</string>
+    <string name="txtFechaNacimiento">Fecha de nacimiento</string>
+    <string name="txtDNI">DNI</string>
+    <string name="txtCorreo">Correo electrónico</string>
+    <string name="txtDireccion">Dirección</string>
+    <string name="txtLocalidad">Localidad</string>
+    <string name="txtTelefono">Teléfono</string>
+    <string name="txtConfirmarContrasenia">Confirmar contraseña</string>
+
 </resources>
