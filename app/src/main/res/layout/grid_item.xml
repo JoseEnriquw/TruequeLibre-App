@@ -6,7 +6,8 @@
     android:layout_height="wrap_content"
     android:layout_marginHorizontal="10dp"
     android:layout_marginVertical="20dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    >
 
     <com.google.android.material.card.MaterialCardView
         android:layout_width="180dp"
@@ -17,20 +18,37 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5" >
+        app:layout_constraintVertical_bias="0.5"
+        app:cardUseCompatPadding="true"
+        >
 
         <RelativeLayout
             android:id="@+id/rlCardPublicaciones"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:padding="10dp"
+            >
+
+            <ImageButton
+                android:id="@+id/ibMoreOptions"
+                android:layout_width="10dp"
+                android:layout_height="20dp"
+                android:backgroundTint="@color/cardview_light_background"
+                android:layout_alignParentRight="true"
+                app:srcCompat="@drawable/menu_show" />
+
 
             <ImageView
                 android:id="@+id/imgvPublicaciones"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
                 android:padding="4pt"
+                android:layout_marginTop="4dp"
                 android:scaleType="centerCrop"
+                android:layout_toLeftOf="@id/ibMoreOptions"
+                android:layout_alignParentLeft="true"
+
                 tools:srcCompat="@tools:sample/avatars" />
 
             <TextView
@@ -45,8 +63,11 @@
                 android:id="@+id/tvSubtitulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:layout_below="@id/tvTitulo"
                 android:text="TextView" />
+
+
         </RelativeLayout>
 
     </com.google.android.material.card.MaterialCardView>
