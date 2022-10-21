@@ -42,5 +42,7 @@
     <string name="txtLocalidad">Localidad</string>
     <string name="txtTelefono">Teléfono</string>
     <string name="txtConfirmarContrasenia">Confirmar contraseña</string>
+    <string name="item_editar">Editar</string>
+    <string name="item_eliminar">Eliminar</string>
 
 </resources>
