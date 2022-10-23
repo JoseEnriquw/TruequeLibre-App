@@ -58,21 +58,15 @@
                     app:srcCompat="@android:drawable/ic_input_add"
                     android:layout_below="@id/tvImagenesAgregarPublicacion"/>
 
-                <TextView
-                    android:id="@+id/tvCategoriaAgregarPublicacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_categoria_agregar_publicacion"
-                    android:layout_below="@id/btnAgregarImagenesPublicacion"/>
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tfCategoriaAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_below="@id/tvCategoriaAgregarPublicacion">
+                    style="@style/txtOutlined"
+                    android:hint="@string/tv_categoria_agregar_publicacion"
+                    android:layout_below="@id/btnAgregarImagenesPublicacion">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -81,21 +75,14 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/tvTituloAgregarPublicacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_titulo_agregar_publicacion"
-                    android:layout_below="@id/tfCategoriaAgregarPublicacion"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tfTituloAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_below="@id/tvTituloAgregarPublicacion">
+                    style="@style/txtOutlined"
+                    android:hint="@string/tv_titulo_agregar_publicacion"
+                    android:layout_below="@id/tfCategoriaAgregarPublicacion">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -104,21 +91,14 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/tvDescripcionAgregarPublicacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_descripcion_agregar_publicacion"
-                    android:layout_below="@id/tfTituloAgregarPublicacion"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tfDescripcionAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_below="@id/tvDescripcionAgregarPublicacion">
+                    style="@style/txtOutlined"
+                    android:hint="@string/tv_descripcion_agregar_publicacion"
+                    android:layout_below="@id/tfTituloAgregarPublicacion">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -129,21 +109,14 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/tvCondicionAgregarPublicacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_condicion_agregar_publicacion"
-                    android:layout_below="@id/tfDescripcionAgregarPublicacion"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tfCondicionAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_below="@id/tvCondicionAgregarPublicacion">
+                    style="@style/txtOutlined"
+                    android:hint="@string/tv_condicion_agregar_publicacion"
+                    android:layout_below="@id/tfDescripcionAgregarPublicacion">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -152,21 +125,14 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/tvUbicacionAgregarPublicacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_ubicacion_agregar_publicacion"
-                    android:layout_below="@id/tfCondicionAgregarPublicacion"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tfUbicacionAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_below="@id/tvUbicacionAgregarPublicacion">
+                    style="@style/txtOutlined"
+                    android:hint="@string/tv_ubicacion_agregar_publicacion"
+                    android:layout_below="@id/tfCondicionAgregarPublicacion">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -175,21 +141,14 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/tvMotivoAgregarPublicacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_motivo_agregar_publicacion"
-                    android:layout_below="@id/tfUbicacionAgregarPublicacion"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tfMotivoAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_below="@id/tvMotivoAgregarPublicacion">
+                    style="@style/txtOutlined"
+                    android:hint="@string/tv_motivo_agregar_publicacion"
+                    android:layout_below="@id/tfUbicacionAgregarPublicacion">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -198,21 +157,14 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/tvPreferenciasAgregarPublicacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_preferencias_agregar_publicacion"
-                    android:layout_below="@id/tfMotivoAgregarPublicacion"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tfPreferenciasAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_below="@id/tvPreferenciasAgregarPublicacion">
+                    style="@style/txtOutlined"
+                    android:hint="@string/tv_preferencias_agregar_publicacion"
+                    android:layout_below="@id/tfMotivoAgregarPublicacion">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -232,6 +184,12 @@
                     android:layout_marginBottom="20dp"
                     android:text="@string/btn_publicar_agregar_publicacion"
                     android:textAlignment="center" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvAgregarImagenesPublicacion2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/btnPublicarAgregarPublicacion" />
 
             </RelativeLayout>
         </ScrollView>
