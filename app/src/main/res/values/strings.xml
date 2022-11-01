@@ -42,5 +42,9 @@
     <string name="txtLocalidad">Localidad</string>
     <string name="txtTelefono">Teléfono</string>
     <string name="txtConfirmarContrasenia">Confirmar contraseña</string>
+    <string name="txt_recibidos">Recibidos</string>
+    <string name="txt_enviados">Enviados</string>
+    <string name="txt_aceptados">Aceptados</string>
+    <string name="txt_mistruques">Mis Trueques</string>
 
 </resources>
