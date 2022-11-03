@@ -8,9 +8,8 @@
 
     <fragment
         android:id="@+id/buscar"
-        android:name="com.example.truequelibre.ui.buscar.BuscarFragment"
-        android:label="@string/title_buscar"
-        tools:layout="@layout/fragment_buscar" />
+        android:name="com.example.truequelibre.Buscar"
+        android:label="@string/title_buscar" />
 
     <fragment
         android:id="@+id/trueques"

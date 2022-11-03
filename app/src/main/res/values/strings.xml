@@ -21,4 +21,32 @@
     <string name="btn_publicar_agregar_publicacion">Publicar</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="tvTruequeLibre">Trueque Libre</string>
+    <string name="tvRegistrarse">Para registrarse complete los siguientes datos.</string>
+    <string name="tvIniciarSesion">Ingrese sus credenciales.</string>
+    <string name="txtUsuario">Correo electrónico</string>
+    <string name="txtContrasenia">Contraseña</string>
+    <string name="btnLogin">INICIAR SESIÓN</string>
+    <string name="btnRegistrarse">REGISTRARSE</string>
+    <string name="lnkOlvideContrasenia">Olvidé mi contraseña</string>
+    <string name="chkRecordarme">Recordarme</string>
+    <string name="lnkRegistrarse">No tenés cuenta? Registrate acá</string>
+    <string name="lnkIniciarSesion">Ya tenés cuenta? Inicia sesión acá</string>
+
+    <string name="txtNombre">Nombre</string>
+    <string name="txtApellido">Apellido</string>
+    <string name="txtFechaNacimiento">Fecha de nacimiento</string>
+    <string name="txtDNI">DNI</string>
+    <string name="txtCorreo">Correo electrónico</string>
+    <string name="txtDireccion">Dirección</string>
+    <string name="txtLocalidad">Localidad</string>
+    <string name="txtTelefono">Teléfono</string>
+    <string name="txtConfirmarContrasenia">Confirmar contraseña</string>
+    <string name="txt_recibidos">Recibidos</string>
+    <string name="txt_enviados">Enviados</string>
+    <string name="txt_aceptados">Aceptados</string>
+    <string name="txt_mistruques">Mis Trueques</string>
+    <string name="item_editar">Editar</string>
+    <string name="item_eliminar">Eliminar</string>
+
 </resources>
