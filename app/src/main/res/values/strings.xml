@@ -46,5 +46,7 @@
     <string name="txt_enviados">Enviados</string>
     <string name="txt_aceptados">Aceptados</string>
     <string name="txt_mistruques">Mis Trueques</string>
+    <string name="item_editar">Editar</string>
+    <string name="item_eliminar">Eliminar</string>
 
 </resources>
