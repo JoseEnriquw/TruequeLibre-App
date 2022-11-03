@@ -1,6 +1,7 @@
 package com.example.truequelibre;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
@@ -21,61 +22,60 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
-public class AdapterCategorias extends BaseAdapter {
+public class AdapterCategorias extends RecyclerView.Adapter <AdapterCategorias.ViewHolderCategorias>{
 
     private Context context;
-    private List<ECategorias> articulos ;
+    private List<ECategorias> publicaciones;
 
-
-    public AdapterCategorias(Context context, List<ECategorias> arts) {
-
+    public AdapterCategorias(Context context, List<ECategorias> publicaciones) {
         this.context = context;
-        articulos = arts;
+        this.publicaciones = publicaciones;
     }
 
-    @Override
-    public int getCount() {
+    public  static  class ViewHolderCategorias extends RecyclerView.ViewHolder
+    {
+        ImageView imageView;
+        TextView tvTitulo;
 
-        return articulos != null ? articulos.size() : 0;
-    }
+        public ViewHolderCategorias(@NonNull View itemView) {
+            super(itemView);
 
-    @Override
-    public ECategorias getItem(int position) {
-        return articulos != null ?  articulos.get(position): null;
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return getItem(position).getIds();
-
-    }
-
-    @Override
-    public View getView(int position, View view, ViewGroup viewGroup) {
-        if(view== null){
-            LayoutInflater inflater=(LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-            view =inflater.inflate(R.layout.grid_item_categorias, viewGroup, false);
+            imageView= itemView.findViewById(R.id.idimgcategorias);
+            tvTitulo=itemView.findViewById(R.id.idcategoriastitulo);
 
         }
+    }
 
+    @NonNull
+    @Override
+    public AdapterCategorias.ViewHolderCategorias onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view= LayoutInflater.from(context).inflate(R.layout.grid_item_categorias,parent,false);
+        return new AdapterCategorias.ViewHolderCategorias(view);
+    }
 
-        TextView Titulo = ((TextView) view.findViewById(R.id.idcategoriastitulo));
-        ImageView Img = (ImageView) view.findViewById(R.id.idimgcategorias);
+    @Override
+    public void onBindViewHolder(@NonNull AdapterCategorias.ViewHolderCategorias holder, int position) {
+        holder.tvTitulo.setText(publicaciones.get(position).getTitulo());
+       Picasso.get()
+                .load(publicaciones.get(position).getUrlImg())
+                .into(holder.imageView);
 
-        if(articulos != null){
-            ECategorias item = (ECategorias) getItem(position);
+        holder.imageView.setOnClickListener( new View.OnClickListener() {
+                                                 @Override
+                                                 public void onClick(View view) {
+                                                     Intent intent= new Intent(view.getContext().getApplicationContext(),PublicacionesPorCategoria.class);
+                                                     view.getContext().startActivity(intent);
 
-            Titulo.setText( item.getTitulo());
+                                                 }
+                                             }
+        );
+    }
 
-            Picasso.get()
-                    .load(item.getUrlImg())
-                    .into(Img);
+    @Override
+    public int getItemCount() {
+        return publicaciones.size();
+    }
 
-        }
-
-
-
-        return view; }
 
 
 }
