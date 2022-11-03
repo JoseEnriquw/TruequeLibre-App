@@ -6,17 +6,89 @@ android:layout_width="match_parent"
 android:layout_height="match_parent"
 tools:context=".ui.miPerfil.MiPerfilFragment">
 
-<TextView
-    android:id="@+id/text_miPerfil"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="8dp"
-    android:layout_marginTop="8dp"
-    android:layout_marginEnd="8dp"
-    android:textAlignment="center"
-    android:textSize="20sp"
-    app:layout_constraintBottom_toBottomOf="parent"
-    app:layout_constraintEnd_toEndOf="parent"
-    app:layout_constraintStart_toStartOf="parent"
-    app:layout_constraintTop_toTopOf="parent" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="16dp">
+
+        <ImageView
+            android:id="@+id/ivFotoPerfil"
+            android:layout_width="180dp"
+            android:layout_height="100dp"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            tools:src="@tools:sample/avatars" />
+
+
+        <TextView
+            android:id="@+id/tvNombreApellidoPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivFotoPerfil"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp"
+            android:text="Nombre y Apellido"
+            android:textSize="15dp" />
+
+
+        <ImageButton
+            android:id="@+id/imageButton"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_below="@id/ivFotoPerfil"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:layout_toRightOf="@id/tvNombreApellidoPerfil"
+            android:background="@color/white"
+            android:src="@drawable/ic_edit" />
+
+        <View
+            android:id="@+id/divider3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@id/tvNombreApellidoPerfil"
+            android:layout_marginTop="10dp"
+            android:background="?android:attr/listDivider" />
+
+        <TextView
+            android:id="@+id/tvValoracionesMiPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/divider3"
+            android:text="Valoraciones"
+            android:textAlignment="center"
+            android:textSize="20dp"
+            android:layout_marginTop="25dp"/>
+
+
+        <RatingBar
+            android:id="@+id/rbMiPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvValoracionesMiPerfil"
+            android:layout_centerHorizontal="true"
+            android:scaleX="0.6"
+            android:scaleY="0.6"
+            android:numStars="5"/>
+
+
+        <TextView
+            android:id="@+id/tvComentariosMiPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comentarios:"
+            android:layout_below="@id/rbMiPerfil"
+            android:layout_marginLeft="10dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvComentariosMiPerfil"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/tvComentariosMiPerfil"/>
+
+    </RelativeLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
