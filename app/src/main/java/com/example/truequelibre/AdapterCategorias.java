@@ -10,13 +10,9 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.bumptech.glide.Glide;
 import com.squareup.picasso.Picasso;
-
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
