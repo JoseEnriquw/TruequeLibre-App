@@ -25,8 +25,8 @@ public class MiPerfilFragment extends Fragment {
         binding = FragmentMiPerfilBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        final TextView textView = binding.textMiPerfil;
-        homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
+        //final TextView textView = binding.textMiPerfil;
+        //homeViewModel.getText().observe(getViewLifecycleOwner(), textView::setText);
         return root;
     }
 
