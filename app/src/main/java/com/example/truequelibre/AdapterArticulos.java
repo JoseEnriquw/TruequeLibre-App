@@ -2,6 +2,7 @@ package com.example.truequelibre;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -73,6 +74,15 @@ public class AdapterArticulos extends RecyclerView.Adapter <AdapterArticulos.Vie
         Picasso.get()
                 .load(publicaciones.get(position).getIdusuario().getUrlImg())
                 .into(holder.imfotoperfil);
+
+        holder.btnOpciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(view.getContext().getApplicationContext(),DetalleArticulo.class);
+                view.getContext().startActivity(intent);
+
+            }
+        });
 
     }
 

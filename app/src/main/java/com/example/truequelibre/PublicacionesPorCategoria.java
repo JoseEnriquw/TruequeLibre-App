@@ -32,7 +32,7 @@ public class PublicacionesPorCategoria extends AppCompatActivity {
         lista.add(new EPublicaciones("Bici", "Alta bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg", 01,"descripcion loca", usu));
         _adapter= new AdapterArticulos(this,lista);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,2,GridLayoutManager.VERTICAL,false);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this,1,GridLayoutManager.VERTICAL,false);
         _recyclerView.setLayoutManager(gridLayoutManager);
         _recyclerView.setHasFixedSize(true);
         _recyclerView.setAdapter(_adapter);
