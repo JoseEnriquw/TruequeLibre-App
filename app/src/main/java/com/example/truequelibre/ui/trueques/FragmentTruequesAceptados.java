@@ -3,12 +3,26 @@ package com.example.truequelibre.ui.trueques;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 
+import com.example.truequelibre.AdapterAceptados;
+import com.example.truequelibre.AdapterComentariosMiPerfil;
+import com.example.truequelibre.ECalificacionUsuario;
+import com.example.truequelibre.EPersona;
+import com.example.truequelibre.EPublicaciones;
+import com.example.truequelibre.EUsuario;
+import com.example.truequelibre.Publicaciones;
 import com.example.truequelibre.R;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +30,9 @@ import com.example.truequelibre.R;
  * create an instance of this fragment.
  */
 public class FragmentTruequesAceptados extends Fragment {
+
+    private RecyclerView _recyclerView;
+    private AdapterAceptados _adapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,7 +83,26 @@ public class FragmentTruequesAceptados extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view= inflater.inflate(R.layout.fragment_trueques_aceptados, container, false);
+        _recyclerView =(RecyclerView) view.findViewById(R.id.rvAceptados);
+        List<EPublicaciones> lista = new ArrayList<EPublicaciones>();
+
+
+
+        //EPersona per = new EPersona("34695008d","regina","laurentino");
+        //EUsuario usu = new EUsuario(01,per,"regina@laurentino", "zarasa", true,"https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg");
+
+        lista.add(new EPublicaciones("Titulo 1", "Subtitulo 1","https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg"));
+        lista.add(new EPublicaciones("Titulo 2", "Subtitulo 2","https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg"));
+        lista.add(new EPublicaciones("Titulo 3", "Subtitulo 3","https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg"));
+        _adapter= new AdapterAceptados(getContext(),lista);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),1,GridLayoutManager.VERTICAL,false);
+        _recyclerView.setLayoutManager(gridLayoutManager);
+        _recyclerView.setHasFixedSize(true);
+        _recyclerView.setAdapter(_adapter);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trueques_aceptados, container, false);
+        return view;
     }
 }
