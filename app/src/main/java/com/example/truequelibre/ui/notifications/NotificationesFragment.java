@@ -39,7 +39,7 @@ public class NotificationesFragment extends Fragment {
         binding = FragmentNotificationesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        _recyclerView =(RecyclerView) root.findViewById(R.id.rvnotificaciones);
+        _recyclerView =(RecyclerView) root.findViewById(R.id.rvNotificaciones);
 
         List<EPublicaciones> lista = new ArrayList<EPublicaciones>();
 
