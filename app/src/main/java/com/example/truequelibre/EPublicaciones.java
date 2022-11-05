@@ -25,6 +25,7 @@ public class EPublicaciones {
         this.idusuario = idusuario;
     }
 
+
     public EPublicaciones(String titulo, String subtitulo, String urlImg, Integer idpublicacion, String descripcion, ECategorias idcategoria, ECategorias idcategoriapretendida, EUsuario idusuario, ECondicion idcondicion, EEstado idestado, ELocalidad idubicacion, ELocalidad idubicacionpretendida) {
         this.titulo = titulo;
         this.subtitulo = subtitulo;
