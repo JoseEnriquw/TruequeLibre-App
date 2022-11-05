@@ -6,13 +6,48 @@
     android:layout_height="match_parent"
     tools:context=".PublicacionesPorCategoria">
 
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="133dp"
-        android:layout_height="23dp"
-        android:text="hola q hace"
-        app:layout_constraintBottom_toBottomOf="parent"
+
+
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/idcvbuscadorporcategoria"
+        android:layout_width="244dp"
+        android:layout_height="51dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:elevation="12dp"
+        android:innerRadius="0dp"
+        android:shape="ring"
+        android:thicknessRatio="1.9"
+        app:cardCornerRadius="40dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <SearchView
+            android:id="@+id/simpleSearchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:queryHint="Que estas buscando?" >
+
+        </SearchView>
+
+    </com.google.android.material.card.MaterialCardView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvarticulos"
+        android:layout_width="408dp"
+        android:layout_height="617dp"
+        android:layout_marginTop="40dp"
+        android:layout_below="@id/idcvbuscadorporcategoria"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/idcvbuscadorporcategoria"
+        app:layout_constraintVertical_bias="0.499" />
+
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
