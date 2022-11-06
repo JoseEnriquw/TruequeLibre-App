@@ -1,17 +1,16 @@
 package com.example.truequelibre;
 
-public class EEstado {
+public class Estado {
     private Integer id;
     private String Nombre;
-    private String Descripcion;
 
-    public EEstado() {
+
+    public Estado() {
     }
 
-    public EEstado(Integer id, String nombre, String descripcion) {
+    public Estado(Integer id, String nombre) {
         this.id = id;
         Nombre = nombre;
-        Descripcion = descripcion;
     }
 
     public Integer getId() {
@@ -30,11 +29,5 @@ public class EEstado {
         Nombre = nombre;
     }
 
-    public String getDescripcion() {
-        return Descripcion;
-    }
 
-    public void setDescripcion(String descripcion) {
-        Descripcion = descripcion;
-    }
 }

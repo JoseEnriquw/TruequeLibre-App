@@ -11,17 +11,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.squareup.picasso.Picasso;
-
 import java.util.List;
 
 public class AdapterEnviados extends RecyclerView.Adapter <AdapterEnviados.ViewHolderEnviados>{
 
     private Context context;
-    private List<EOferta> ofertas;
+    private List<Oferta> ofertas;
 
-    public AdapterEnviados(Context context, List<EOferta> ofertas) {
+    public AdapterEnviados(Context context, List<Oferta> ofertas) {
         this.context = context;
         this.ofertas = ofertas;
     }
@@ -56,15 +53,15 @@ public class AdapterEnviados extends RecyclerView.Adapter <AdapterEnviados.ViewH
     @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(@NonNull AdapterEnviados.ViewHolderEnviados holder, int position) {
-        holder.tvNombreofertado.setText(ofertas.get(position).getPublicacionprincipal().getTitulo());
-        holder.tvNombrequerido.setText(ofertas.get(position).getOfertas().getTitulo());
-        Picasso.get()
+        holder.tvNombreofertado.setText(ofertas.get(position).getPublicacionprincipal().getNombre());
+        holder.tvNombrequerido.setText(ofertas.get(position).getOfertas().getNombre());
+       /* Picasso.get()
                 .load(ofertas.get(position).getOfertas().getUrlImg())
                 .into(holder.imageViewarticuloquerido);
 
         Picasso.get()
                 .load(ofertas.get(position).getPublicacionprincipal().getUrlImg())
-                .into(holder.imageViewarticuloofertado);
+                .into(holder.imageViewarticuloofertado);*/
 
 
     }

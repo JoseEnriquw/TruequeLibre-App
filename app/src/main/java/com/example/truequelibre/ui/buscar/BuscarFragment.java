@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.truequelibre.AdapterCategorias;
-import com.example.truequelibre.ECategorias;
+import com.example.truequelibre.Categoria;
 import com.example.truequelibre.databinding.FragmentBuscarBinding;
 
 import java.util.ArrayList;
@@ -28,7 +28,7 @@ public class BuscarFragment extends Fragment {
     private AdapterCategorias _adapter;
     private GridView gridView;
     Context contexto ;
-    List<ECategorias> lista = new ArrayList<ECategorias>();
+    List<Categoria> lista = new ArrayList<Categoria>();
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,

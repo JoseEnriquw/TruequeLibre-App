@@ -10,13 +10,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.truequelibre.AdapterNotificaciones;
 import com.example.truequelibre.AdapterRecibidos;
-import com.example.truequelibre.EEstado;
-import com.example.truequelibre.EOferta;
-import com.example.truequelibre.EPersona;
-import com.example.truequelibre.EPublicaciones;
-import com.example.truequelibre.EUsuario;
+import com.example.truequelibre.Categoria;
+import com.example.truequelibre.Condicion;
+import com.example.truequelibre.Estado;
+import com.example.truequelibre.Oferta;
+import com.example.truequelibre.Persona;
+import com.example.truequelibre.Publicacion;
+import com.example.truequelibre.Usuario;
 import com.example.truequelibre.R;
 
 import java.util.ArrayList;
@@ -87,23 +88,27 @@ public class FragmentTruequesRecibidos extends Fragment {
 
         _recyclerView =(RecyclerView) view.findViewById(R.id.rvrecibidos);
 
-        List<EOferta> lista = new ArrayList<EOferta>();
+        List<Oferta> lista = new ArrayList<Oferta>();
 
-        EPersona per = new EPersona("34695008d","regina","laurentino");
-        EUsuario usu = new EUsuario(01,per,"regina@laurentino", "zarasa", true,"https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg");
-        EPublicaciones publi = new EPublicaciones("publicacion", "Alta bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg", 01,"descripcion loca", usu);
-        EPublicaciones ofert = new EPublicaciones("oferta", "Alta bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg", 01,"descripcion loca", usu);
+        Persona per = new Persona("34695008d","regina","laurentino");
+        Estado Estado = new Estado();
+        Usuario usu = new Usuario(01,"mail","regina@laurentino", Estado, per);
+        Categoria cat = new Categoria();
+        Condicion CONDI = new Condicion();
 
-        EEstado estado = new EEstado();
+        Publicacion publi = new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI);
+        Publicacion ofert = new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI);
 
-         lista.add(new EOferta(estado,publi, ofert));
-        lista.add(new EOferta(estado,publi, ofert));
-        lista.add(new EOferta(estado,publi, ofert));
-        lista.add(new EOferta(estado,publi, ofert));
-        lista.add(new EOferta(estado,publi, ofert));
-        lista.add(new EOferta(estado,publi, ofert));
-        lista.add(new EOferta(estado,publi, ofert));
-        lista.add(new EOferta(estado,publi, ofert));
+        com.example.truequelibre.Estado estado = new Estado();
+
+         lista.add(new Oferta(estado,publi, ofert));
+        lista.add(new Oferta(estado,publi, ofert));
+        lista.add(new Oferta(estado,publi, ofert));
+        lista.add(new Oferta(estado,publi, ofert));
+        lista.add(new Oferta(estado,publi, ofert));
+        lista.add(new Oferta(estado,publi, ofert));
+        lista.add(new Oferta(estado,publi, ofert));
+        lista.add(new Oferta(estado,publi, ofert));
 
 
         _adapter= new AdapterRecibidos(getContext(),lista);

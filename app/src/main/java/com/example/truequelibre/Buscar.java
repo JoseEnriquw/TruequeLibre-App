@@ -63,12 +63,12 @@ public class Buscar extends Fragment {
         View view=inflater.inflate(R.layout.fragment_buscar, container, false);
 
         _recyclerView =(RecyclerView) view.findViewById(R.id.rvCategorias);
-        List<ECategorias> lista = new ArrayList<ECategorias>();
-        lista.add(new ECategorias("Bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg"));
-        lista.add(new ECategorias("Teclado",  "https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png"));
-        lista.add(new ECategorias("Mouse",  "https://www.venex.com.ar/products_images/1582916326_m7191.png"));
-        lista.add(new ECategorias("Auricular",  "https://www.fullh4rd.com.ar/img/productos/Pics_Prod/auriculares-logitech-g935-wireless-71-981000742-0.jpg"));
-        _adapter= new AdapterCategorias(getContext(),lista);
+        List<Categoria> lista = new ArrayList<Categoria>();
+        lista.add(new Categoria(1, "holis"));
+        lista.add(new Categoria(1, "holis"));
+        lista.add(new Categoria(1, "holis"));
+        lista.add(new Categoria(1, "holis"));
+      _adapter= new AdapterCategorias(getContext(),lista);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
         _recyclerView.setLayoutManager(gridLayoutManager);

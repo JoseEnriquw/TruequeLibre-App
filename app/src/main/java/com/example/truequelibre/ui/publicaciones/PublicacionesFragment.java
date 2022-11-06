@@ -9,15 +9,10 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.truequelibre.AdapterPublicaciones;
-import com.example.truequelibre.EPublicaciones;
-import com.example.truequelibre.R;
 import com.example.truequelibre.databinding.FragmentPublicacionesBinding;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class PublicacionesFragment extends Fragment {

@@ -3,17 +3,12 @@ package com.example.truequelibre;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -23,9 +18,9 @@ import java.util.List;
 public class AdapterAceptados extends RecyclerView.Adapter <AdapterAceptados.ViewHolderAceptados>{
 
     private Context context;
-    private List<EPublicaciones> publicaciones;
+    private List<Publicacion> publicaciones;
 
-    public AdapterAceptados (Context context, List<EPublicaciones> publicaciones) {
+    public AdapterAceptados (Context context, List<Publicacion> publicaciones) {
         this.context = context;
         this.publicaciones = publicaciones;
     }
@@ -57,11 +52,11 @@ public class AdapterAceptados extends RecyclerView.Adapter <AdapterAceptados.Vie
     @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(@NonNull AdapterAceptados.ViewHolderAceptados holder, int position) {
-        holder.tvTitulo.setText(publicaciones.get(position).getTitulo());
+        holder.tvTitulo.setText(publicaciones.get(position).getNombre());
         holder.tvDescripcion.setText(publicaciones.get(position).getDescripcion());
-        Picasso.get()
-                .load(publicaciones.get(position).getUrlImg())
-                .into(holder.imageView);
+      /*  Picasso.get()
+                .load(publicaciones.get(position).getImagenes())
+                .into(holder.imageView);*/
 
     }
 

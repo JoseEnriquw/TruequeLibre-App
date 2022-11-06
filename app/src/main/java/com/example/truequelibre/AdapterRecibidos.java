@@ -4,15 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -23,9 +20,9 @@ import java.util.List;
 public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.ViewHolderRecibidos>{
 
     private Context context;
-    private List<EOferta> ofertas;
+    private List<Oferta> ofertas;
 
-    public AdapterRecibidos(Context context, List<EOferta> ofertas) {
+    public AdapterRecibidos(Context context, List<Oferta> ofertas) {
         this.context = context;
         this.ofertas = ofertas;
     }
@@ -62,11 +59,11 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
     @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(@NonNull AdapterRecibidos.ViewHolderRecibidos holder, int position) {
-        holder.tvArticulo.setText(ofertas.get(position).getOfertas().getTitulo());
+        holder.tvArticulo.setText(ofertas.get(position).getOfertas().getNombre());
         holder.tvdescripcionbreveo.setText(ofertas.get(position).getOfertas().getDescripcion());
-        Picasso.get()
-                .load(ofertas.get(position).getOfertas().getUrlImg())
-                .into(holder.imageViewarticulo);
+       /* Picasso.get()
+                .load(ofertas.get(position).getOfertas().getImagenes())
+                .into(holder.imageViewarticulo);*/
 
         holder.btnaceptar.setOnClickListener(new View.OnClickListener() {
             @Override
