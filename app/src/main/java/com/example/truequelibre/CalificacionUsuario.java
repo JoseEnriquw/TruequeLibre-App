@@ -1,13 +1,12 @@
 package com.example.truequelibre;
 
 import android.widget.RatingBar;
-import android.widget.TextView;
 
 import java.util.Date;
 
-public class ECalificacionUsuario {
+public class CalificacionUsuario {
     private Integer id;
-    EUsuario eUsuario;
+    Usuario usuario;
     RatingBar ratingBar;
     String comentarioMiPerfil;
     Date fechaComentario;
@@ -20,12 +19,12 @@ public class ECalificacionUsuario {
         this.id = id;
     }
 
-    public EUsuario geteUsuario() {
-        return eUsuario;
+    public Usuario geteUsuario() {
+        return usuario;
     }
 
-    public void seteUsuario(EUsuario eUsuario) {
-        this.eUsuario = eUsuario;
+    public void seteUsuario(Usuario usuario) {
+        this.usuario = usuario;
     }
 
     public RatingBar getRatingBar() {
@@ -52,14 +51,14 @@ public class ECalificacionUsuario {
         this.fechaComentario = fechaComentario;
     }
 
-    public ECalificacionUsuario(Integer id, EUsuario eUsuario, RatingBar ratingBar, String comentarioMiPerfil, Date fechaComentario) {
+    public CalificacionUsuario(Integer id, Usuario usuario, RatingBar ratingBar, String comentarioMiPerfil, Date fechaComentario) {
         this.id = id;
-        this.eUsuario = eUsuario;
+        this.usuario = usuario;
         this.ratingBar = ratingBar;
         this.comentarioMiPerfil = comentarioMiPerfil;
         this.fechaComentario = fechaComentario;
     }
-    public ECalificacionUsuario(){
+    public CalificacionUsuario(){
 
     }
 }

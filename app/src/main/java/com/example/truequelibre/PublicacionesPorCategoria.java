@@ -21,15 +21,19 @@ public class PublicacionesPorCategoria extends AppCompatActivity {
         _recyclerView =(RecyclerView) findViewById(R.id.rvarticulos);
 
 
-        List<EPublicaciones> lista = new ArrayList<EPublicaciones>();
+        List<Publicacion> lista = new ArrayList<Publicacion>();
 
-        EPersona per = new EPersona("34695008d","regina","laurentino");
-        EUsuario usu = new EUsuario(01,per,"regina@laurentino", "zarasa", true,"https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg");
+        Persona per = new Persona("34695008d","regina","laurentino");
+        Estado Estado = new Estado();
+        Usuario usu = new Usuario(01,"mail","regina@laurentino", Estado, per);
+        Categoria cat = new Categoria();
+        Condicion CONDI = new Condicion();
 
-        lista.add(new EPublicaciones("Bici", "Alta bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg", 01,"descripcion loca", usu));
-        lista.add(new EPublicaciones("Bici", "Alta bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg", 01,"descripcion loca", usu));
-        lista.add(new EPublicaciones("Bici", "Alta bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg", 01,"descripcion loca", usu));
-        lista.add(new EPublicaciones("Bici", "Alta bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg", 01,"descripcion loca", usu));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
         _adapter= new AdapterArticulos(this,lista);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,1,GridLayoutManager.VERTICAL,false);

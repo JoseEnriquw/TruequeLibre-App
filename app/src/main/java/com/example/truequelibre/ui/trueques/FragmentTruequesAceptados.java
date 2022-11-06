@@ -9,19 +9,17 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.RatingBar;
 
 import com.example.truequelibre.AdapterAceptados;
-import com.example.truequelibre.AdapterComentariosMiPerfil;
-import com.example.truequelibre.ECalificacionUsuario;
-import com.example.truequelibre.EPersona;
-import com.example.truequelibre.EPublicaciones;
-import com.example.truequelibre.EUsuario;
-import com.example.truequelibre.Publicaciones;
+import com.example.truequelibre.Categoria;
+import com.example.truequelibre.Condicion;
+import com.example.truequelibre.Estado;
+import com.example.truequelibre.Persona;
+import com.example.truequelibre.Publicacion;
+import com.example.truequelibre.Usuario;
 import com.example.truequelibre.R;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -85,16 +83,21 @@ public class FragmentTruequesAceptados extends Fragment {
                              Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_trueques_aceptados, container, false);
         _recyclerView =(RecyclerView) view.findViewById(R.id.rvAceptados);
-        List<EPublicaciones> lista = new ArrayList<EPublicaciones>();
+        List<Publicacion> lista = new ArrayList<Publicacion>();
 
 
 
-        //EPersona per = new EPersona("34695008d","regina","laurentino");
-        //EUsuario usu = new EUsuario(01,per,"regina@laurentino", "zarasa", true,"https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg");
+        Persona per = new Persona("34695008d","regina","laurentino");
+        Estado Estado = new Estado();
+        Usuario usu = new Usuario(01,"mail","regina@laurentino", Estado, per);
+        Categoria cat = new Categoria();
+        Condicion CONDI = new Condicion();
 
-        lista.add(new EPublicaciones("Titulo 1", "Subtitulo 1","https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg"));
-        lista.add(new EPublicaciones("Titulo 2", "Subtitulo 2","https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg"));
-        lista.add(new EPublicaciones("Titulo 3", "Subtitulo 3","https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg"));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
         _adapter= new AdapterAceptados(getContext(),lista);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),1,GridLayoutManager.VERTICAL,false);

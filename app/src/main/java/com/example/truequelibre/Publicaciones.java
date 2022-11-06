@@ -1,27 +1,17 @@
 package com.example.truequelibre;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
-
-import com.example.truequelibre.databinding.FragmentPublicacionesBinding;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -84,11 +74,20 @@ public class Publicaciones extends Fragment {
 
         //Cargar el RecyclerView
         _recyclerView =(RecyclerView) view.findViewById(R.id.rvPublicaciones);
-        List<EPublicaciones> lista = new ArrayList<EPublicaciones>();
-        lista.add(new EPublicaciones("Bici", "Alta bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg"));
-        lista.add(new EPublicaciones("Teclado", "Alto teclado hp", "https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png"));
-        lista.add(new EPublicaciones("Mouse", "Alto mouse Redragon", "https://www.venex.com.ar/products_images/1582916326_m7191.png"));
-        lista.add(new EPublicaciones("Auricular", "Altos Auriculares", "https://www.fullh4rd.com.ar/img/productos/Pics_Prod/auriculares-logitech-g935-wireless-71-981000742-0.jpg"));
+        List<Publicacion> lista = new ArrayList<Publicacion>();
+
+        Persona per = new Persona("34695008d","regina","laurentino");
+        Estado Estado = new Estado();
+        Usuario usu = new Usuario(01,"mail","regina@laurentino", Estado, per);
+        Categoria cat = new Categoria();
+        Condicion CONDI = new Condicion();
+
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+
         _adapter= new AdapterPublicaciones(getContext(),lista);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
