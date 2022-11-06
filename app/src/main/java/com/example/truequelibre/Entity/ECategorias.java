@@ -1,4 +1,4 @@
-package com.example.truequelibre;
+package com.example.truequelibre.Entity;
 
 import android.net.Uri;
 

@@ -1,7 +1,9 @@
-package com.example.truequelibre;
+package com.example.truequelibre.Entity;
 
 import android.widget.RatingBar;
 import android.widget.TextView;
+
+import com.example.truequelibre.EUsuario;
 
 import java.util.Date;
 

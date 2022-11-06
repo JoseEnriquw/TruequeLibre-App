@@ -1,4 +1,4 @@
-package com.example.truequelibre;
+package com.example.truequelibre.Entity;
 
 public class EPais {
     private Integer idpais;

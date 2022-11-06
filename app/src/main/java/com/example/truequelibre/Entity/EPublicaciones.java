@@ -1,13 +1,18 @@
-package com.example.truequelibre;
+package com.example.truequelibre.Entity;
 
-import android.provider.ContactsContract;
+import com.example.truequelibre.EUsuario;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 public class EPublicaciones {
-    private String titulo;
-    private String subtitulo;
+    @SerializedName("nombre")
+    @Expose
+    private String nombre;
+    @SerializedName("descripcion")
+    @Expose
+    private String descripcion;
     private String urlImg;
     private Integer idpublicacion;
-    private String Descripcion;
     private ECategorias idcategoria;
     private ECategorias idcategoriapretendida;
     private EUsuario idusuario;
@@ -16,21 +21,19 @@ public class EPublicaciones {
     private ELocalidad idubicacion;
     private ELocalidad idubicacionpretendida;
 
-    public EPublicaciones(String titulo, String subtitulo, String urlImg, Integer idpublicacion, String descripcion, EUsuario idusuario) {
-        this.titulo = titulo;
-        this.subtitulo = subtitulo;
+    public EPublicaciones(String nombre, String descripcion, String urlImg, Integer idpublicacion,  EUsuario idusuario) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
         this.urlImg = urlImg;
         this.idpublicacion = idpublicacion;
-        Descripcion = descripcion;
         this.idusuario = idusuario;
     }
 
-    public EPublicaciones(String titulo, String subtitulo, String urlImg, Integer idpublicacion, String descripcion, ECategorias idcategoria, ECategorias idcategoriapretendida, EUsuario idusuario, ECondicion idcondicion, EEstado idestado, ELocalidad idubicacion, ELocalidad idubicacionpretendida) {
-        this.titulo = titulo;
-        this.subtitulo = subtitulo;
+    public EPublicaciones(String nombre, String descripcion, String urlImg, Integer idpublicacion, ECategorias idcategoria, ECategorias idcategoriapretendida, EUsuario idusuario, ECondicion idcondicion, EEstado idestado, ELocalidad idubicacion, ELocalidad idubicacionpretendida) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
         this.urlImg = urlImg;
         this.idpublicacion = idpublicacion;
-        Descripcion = descripcion;
         this.idcategoria = idcategoria;
         this.idcategoriapretendida = idcategoriapretendida;
         this.idusuario = idusuario;
@@ -46,14 +49,6 @@ public class EPublicaciones {
 
     public void setIdpublicacion(Integer idpublicacion) {
         this.idpublicacion = idpublicacion;
-    }
-
-    public String getDescripcion() {
-        return Descripcion;
-    }
-
-    public void setDescripcion(String descripcion) {
-        Descripcion = descripcion;
     }
 
     public ECategorias getIdcategoria() {
@@ -115,26 +110,26 @@ public class EPublicaciones {
     public EPublicaciones() {
     }
 
-    public EPublicaciones(String titulo, String subtitulo, String urlImg) {
-        this.titulo = titulo;
-        this.subtitulo = subtitulo;
+    public EPublicaciones(String nombre, String descripcion, String urlImg) {
+        this.nombre = nombre;
+        this.descripcion = descripcion;
         this.urlImg = urlImg;
     }
 
-    public String getTitulo() {
-        return titulo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
-    public String getSubtitulo() {
-        return subtitulo;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setSubtitulo(String subtitulo) {
-        this.subtitulo = subtitulo;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     public String getUrlImg() {

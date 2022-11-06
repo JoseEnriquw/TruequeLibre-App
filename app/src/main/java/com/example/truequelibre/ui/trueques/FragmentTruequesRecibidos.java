@@ -10,12 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.truequelibre.AdapterNotificaciones;
 import com.example.truequelibre.AdapterRecibidos;
-import com.example.truequelibre.EEstado;
-import com.example.truequelibre.EOferta;
-import com.example.truequelibre.EPersona;
-import com.example.truequelibre.EPublicaciones;
+import com.example.truequelibre.Entity.EEstado;
+import com.example.truequelibre.Entity.EOferta;
+import com.example.truequelibre.Entity.EPersona;
+import com.example.truequelibre.Entity.EPublicaciones;
 import com.example.truequelibre.EUsuario;
 import com.example.truequelibre.R;
 
@@ -91,8 +90,8 @@ public class FragmentTruequesRecibidos extends Fragment {
 
         EPersona per = new EPersona("34695008d","regina","laurentino");
         EUsuario usu = new EUsuario(01,per,"regina@laurentino", "zarasa", true,"https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg");
-        EPublicaciones publi = new EPublicaciones("publicacion", "Alta bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg", 01,"descripcion loca", usu);
-        EPublicaciones ofert = new EPublicaciones("oferta", "Alta bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg", 01,"descripcion loca", usu);
+        EPublicaciones publi = new EPublicaciones("publicacion", "Alta bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg", 01, usu);
+        EPublicaciones ofert = new EPublicaciones("oferta", "Alta bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg", 01, usu);
 
         EEstado estado = new EEstado();
 

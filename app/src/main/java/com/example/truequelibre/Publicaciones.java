@@ -1,30 +1,28 @@
 package com.example.truequelibre;
 
 import android.annotation.SuppressLint;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.Toast;
 
-import com.example.truequelibre.databinding.FragmentPublicacionesBinding;
+import com.example.truequelibre.Entity.EPublicaciones;
+import com.example.truequelibre.Utils.IPublicacionService;
+import com.example.truequelibre.Utils.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -39,6 +37,8 @@ public class Publicaciones extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private RecyclerView _recyclerView;
     private AdapterPublicaciones _adapter;
+    IPublicacionService service;
+    List<EPublicaciones> lista= new ArrayList<>();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -82,13 +82,30 @@ public class Publicaciones extends Fragment {
 
         View view=inflater.inflate(R.layout.fragment_publicaciones, container, false);
 
+        //Call<List<EPublicaciones>> call =service.getPublicaciones();
+
+        RetrofitClient client = new RetrofitClient("http://localhost:8080");
+
+        client.getServies().getPublicaciones().enqueue(new Callback<List<EPublicaciones>>() {
+            @Override
+            public void onResponse(Call<List<EPublicaciones>> call, Response<List<EPublicaciones>> response) {
+                  lista=response.body();
+            }
+
+            @Override
+            public void onFailure(Call<List<EPublicaciones>> call, Throwable t) {
+
+            }
+        });
+
         //Cargar el RecyclerView
         _recyclerView =(RecyclerView) view.findViewById(R.id.rvPublicaciones);
-        List<EPublicaciones> lista = new ArrayList<EPublicaciones>();
+     /*   List<EPublicaciones> lista = new ArrayList<EPublicaciones>();
         lista.add(new EPublicaciones("Bici", "Alta bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg"));
         lista.add(new EPublicaciones("Teclado", "Alto teclado hp", "https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png"));
         lista.add(new EPublicaciones("Mouse", "Alto mouse Redragon", "https://www.venex.com.ar/products_images/1582916326_m7191.png"));
         lista.add(new EPublicaciones("Auricular", "Altos Auriculares", "https://www.fullh4rd.com.ar/img/productos/Pics_Prod/auriculares-logitech-g935-wireless-71-981000742-0.jpg"));
+       */
         _adapter= new AdapterPublicaciones(getContext(),lista);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);

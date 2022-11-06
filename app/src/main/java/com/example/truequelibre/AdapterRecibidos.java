@@ -3,17 +3,15 @@ package com.example.truequelibre;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.view.menu.MenuBuilder;
-import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.truequelibre.Entity.EOferta;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
@@ -61,7 +59,7 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
     @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(@NonNull AdapterRecibidos.ViewHolderRecibidos holder, int position) {
-        holder.tvArticulo.setText(ofertas.get(position).getOfertas().getTitulo());
+        holder.tvArticulo.setText(ofertas.get(position).getOfertas().getNombre());
         holder.tvdescripcionbreveo.setText(ofertas.get(position).getOfertas().getDescripcion());
         Picasso.get()
                 .load(ofertas.get(position).getOfertas().getUrlImg())

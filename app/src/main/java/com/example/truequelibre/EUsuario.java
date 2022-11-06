@@ -1,5 +1,7 @@
 package com.example.truequelibre;
 
+import com.example.truequelibre.Entity.EPersona;
+
 public class EUsuario {
     private Integer idusuario;
     private EPersona DNI;

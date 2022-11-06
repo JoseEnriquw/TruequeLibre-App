@@ -1,4 +1,4 @@
-package com.example.truequelibre;
+package com.example.truequelibre.Entity;
 
 public class ELocalidad extends EProvincia{
     private Integer idlocalidad;

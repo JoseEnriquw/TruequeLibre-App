@@ -11,6 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 
+import com.example.truequelibre.Entity.ECalificacionUsuario;
+import com.example.truequelibre.Entity.EPersona;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
