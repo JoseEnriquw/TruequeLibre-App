@@ -51,6 +51,16 @@
         app:layout_constraintTop_toBottomOf="@+id/cardviewcarrousel"
         tools:ignore="MissingConstraints">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+        </ScrollView>
+
         <ImageView
             android:id="@+id/detallefotoperil"
             android:layout_width="match_parent"

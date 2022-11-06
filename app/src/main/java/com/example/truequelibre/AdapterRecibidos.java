@@ -2,6 +2,7 @@ package com.example.truequelibre;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -71,6 +72,8 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
             @Override
             public void onClick(View view) {
             //ABRIR CHAT
+                Intent intent= new Intent(view.getContext().getApplicationContext(),Chat.class);
+                view.getContext().startActivity(intent);
             }
         });
 
