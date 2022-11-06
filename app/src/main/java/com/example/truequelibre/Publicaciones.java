@@ -14,8 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.truequelibre.Entity.EPublicaciones;
+import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
-import com.example.truequelibre.Utils.RetrofitClient;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +38,7 @@ public class Publicaciones extends Fragment {
     private RecyclerView _recyclerView;
     private AdapterPublicaciones _adapter;
     IPublicacionService service;
-    List<EPublicaciones> lista= new ArrayList<>();
+    List<EPublicaciones> lista = new ArrayList<>();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -82,19 +82,20 @@ public class Publicaciones extends Fragment {
 
         View view=inflater.inflate(R.layout.fragment_publicaciones, container, false);
 
-        //Call<List<EPublicaciones>> call =service.getPublicaciones();
+        service= Apis.getPublicacionService();
+        Call<List<EPublicaciones>> call =service.getPublicaciones();
 
-        RetrofitClient client = new RetrofitClient("http://localhost:8080");
-
-        client.getServies().getPublicaciones().enqueue(new Callback<List<EPublicaciones>>() {
+        call.enqueue(new Callback<List<EPublicaciones>>() {
             @Override
             public void onResponse(Call<List<EPublicaciones>> call, Response<List<EPublicaciones>> response) {
                   lista=response.body();
+                  System.out.println(lista);
             }
 
             @Override
             public void onFailure(Call<List<EPublicaciones>> call, Throwable t) {
-
+                System.out.println("la puta que lo pario funcionaaaqaaaaaaaaa");
+                System.out.println(lista);
             }
         });
 

@@ -4,7 +4,7 @@ import com.example.truequelibre.Publicaciones;
 
 public class Apis {
 
-    public static final String HOST="http://localhost:8080";
+    public static final String HOST="http://localhost:8080/api/v1/";
 
     public static IPublicacionService getPublicacionService()
     {

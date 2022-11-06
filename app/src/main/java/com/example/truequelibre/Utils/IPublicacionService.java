@@ -9,6 +9,6 @@ import retrofit2.http.GET;
 
 public interface IPublicacionService {
 
-    @GET("/api/v1/publicacion")
+    @GET("publicacion/")
     Call<List<EPublicaciones>> getPublicaciones();
 }
