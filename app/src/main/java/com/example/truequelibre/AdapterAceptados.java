@@ -54,9 +54,9 @@ public class AdapterAceptados extends RecyclerView.Adapter <AdapterAceptados.Vie
     public void onBindViewHolder(@NonNull AdapterAceptados.ViewHolderAceptados holder, int position) {
         holder.tvTitulo.setText(publicaciones.get(position).getNombre());
         holder.tvDescripcion.setText(publicaciones.get(position).getDescripcion());
-        Picasso.get()
+      /*  Picasso.get()
                 .load(publicaciones.get(position).getImagenes())
-                .into(holder.imageView);
+                .into(holder.imageView);*/
 
     }
 

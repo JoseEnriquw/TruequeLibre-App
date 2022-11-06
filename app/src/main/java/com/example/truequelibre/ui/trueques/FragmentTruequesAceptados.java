@@ -93,11 +93,11 @@ public class FragmentTruequesAceptados extends Fragment {
         Categoria cat = new Categoria();
         Condicion CONDI = new Condicion();
 
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
         _adapter= new AdapterAceptados(getContext(),lista);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),1,GridLayoutManager.VERTICAL,false);

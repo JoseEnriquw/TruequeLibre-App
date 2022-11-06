@@ -63,9 +63,9 @@ public class AdapterArticulos extends RecyclerView.Adapter <AdapterArticulos.Vie
         holder.tvDescripcion.setText(publicaciones.get(position).getDescripcion());
         holder.tvNombreyApellido.setText(publicaciones.get(position).getUsuario().getPersona().getNombre());
         holder.tvNombre.setText(publicaciones.get(position).getNombre());
-        Picasso.get()
+      /*  Picasso.get()
                 .load(publicaciones.get(position).getImagenes())
-                .into(holder.imfotoarticulo);
+                .into(holder.imfotoarticulo);*/
     /*    Picasso.get()
                 .load(publicaciones.get(position).getIdusuario().getUrlImg())
                 .into(holder.imfotoperfil);*/

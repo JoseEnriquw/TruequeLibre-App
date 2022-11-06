@@ -7,38 +7,38 @@ public class Publicacion {
     private String nombre;
     private String descripcion;
     private Categoria categoria;
-    private Categoria categoriapretendida;
-    private String imagenes;
+    private Categoria categoriaPretendida;
+    private Byte imagenes[];
     private Condicion condicion;
     private Localidad ubicacion;
-    private Localidad ubicacionpretendida;
+    private Localidad ubicacionPretendida;
     private Estado estado;
 
     public Publicacion() {
     }
 
-    public Publicacion(Integer id, Usuario usuario, String nombre, String descripcion, Categoria categoria, Categoria categoriapretendida, String imagenes, Condicion condicion) {
+    public Publicacion(Integer id, Usuario usuario, String nombre, String descripcion, Categoria categoria, Categoria categoriapretendida, Byte imagenes, Condicion condicion) {
         this.id = id;
         this.usuario = usuario;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.categoria = categoria;
-        this.categoriapretendida = categoriapretendida;
-        this.imagenes = imagenes;
+        this.categoriaPretendida = categoriapretendida;
+        this.imagenes[0] = Byte.valueOf("https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg");
         this.condicion = condicion;
     }
 
-    public Publicacion(Integer id, Usuario usuario, String nombre, String descripcion, Categoria categoria, Categoria categoriapretendida, String imagenes, Condicion condicion, Localidad ubicacion, Localidad ubicacionpretendida, Estado estado) {
+    public Publicacion(Integer id, Usuario usuario, String nombre, String descripcion, Categoria categoria, Categoria categoriapretendida, Byte imagenes, Condicion condicion, Localidad ubicacion, Localidad ubicacionpretendida, Estado estado) {
         this.id = id;
         this.usuario = usuario;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.categoria = categoria;
-        this.categoriapretendida = categoriapretendida;
-        this.imagenes = imagenes;
+        this.categoriaPretendida = categoriapretendida;
+        this.imagenes[0] = imagenes;
         this.condicion = condicion;
         this.ubicacion = ubicacion;
-        this.ubicacionpretendida = ubicacionpretendida;
+        this.ubicacionPretendida = ubicacionpretendida;
         this.estado = estado;
     }
 
@@ -83,19 +83,19 @@ public class Publicacion {
     }
 
     public Categoria getCategoriapretendida() {
-        return categoriapretendida;
+        return categoriaPretendida;
     }
 
     public void setCategoriapretendida(Categoria categoriapretendida) {
-        this.categoriapretendida = categoriapretendida;
+        this.categoriaPretendida = categoriapretendida;
     }
 
-    public String getImagenes() {
-        return imagenes;
+    public Byte getImagenes() {
+        return imagenes[0];
     }
 
-    public void setImagenes(String imagenes) {
-        this.imagenes = imagenes;
+    public void setImagenes(Byte imagenes) {
+        this.imagenes[0] = imagenes;
     }
 
     public Condicion getCondicion() {
@@ -115,11 +115,11 @@ public class Publicacion {
     }
 
     public Localidad getUbicacionpretendida() {
-        return ubicacionpretendida;
+        return ubicacionPretendida;
     }
 
     public void setUbicacionpretendida(Localidad ubicacionpretendida) {
-        this.ubicacionpretendida = ubicacionpretendida;
+        this.ubicacionPretendida = ubicacionpretendida;
     }
 
     public Estado getEstado() {

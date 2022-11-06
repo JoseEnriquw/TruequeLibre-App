@@ -97,8 +97,8 @@ public class FragmentTruequesEnviados extends Fragment {
         Condicion CONDI = new Condicion();
 
 
-        Publicacion publi = new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI);
-        Publicacion ofert = new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI);
+        Publicacion publi = new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI);
+        Publicacion ofert = new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI);
 
         com.example.truequelibre.Estado estado = new Estado();
 

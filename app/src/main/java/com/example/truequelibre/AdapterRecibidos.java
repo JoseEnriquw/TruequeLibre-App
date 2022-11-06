@@ -61,9 +61,9 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
     public void onBindViewHolder(@NonNull AdapterRecibidos.ViewHolderRecibidos holder, int position) {
         holder.tvArticulo.setText(ofertas.get(position).getOfertas().getNombre());
         holder.tvdescripcionbreveo.setText(ofertas.get(position).getOfertas().getDescripcion());
-        Picasso.get()
+       /* Picasso.get()
                 .load(ofertas.get(position).getOfertas().getImagenes())
-                .into(holder.imageViewarticulo);
+                .into(holder.imageViewarticulo);*/
 
         holder.btnaceptar.setOnClickListener(new View.OnClickListener() {
             @Override
