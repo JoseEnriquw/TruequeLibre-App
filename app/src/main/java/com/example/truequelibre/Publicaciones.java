@@ -1,6 +1,7 @@
 package com.example.truequelibre;
 
 import android.annotation.SuppressLint;
+import android.app.DownloadManager;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,8 +14,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import com.android.volley.toolbox.Volley;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JavaType;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonDeserializer;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParseException;
+import com.google.gson.reflect.TypeToken;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +48,7 @@ public class Publicaciones extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private RecyclerView _recyclerView;
     private AdapterPublicaciones _adapter;
+    private  List<Publicacion> lista = new ArrayList<>();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -74,9 +94,9 @@ public class Publicaciones extends Fragment {
 
         //Cargar el RecyclerView
         _recyclerView =(RecyclerView) view.findViewById(R.id.rvPublicaciones);
-        List<Publicacion> lista = new ArrayList<Publicacion>();
 
-        Persona per = new Persona("34695008d","regina","laurentino");
+
+        /*Persona per = new Persona("34695008d","regina","laurentino");
         Estado Estado = new Estado();
         Usuario usu = new Usuario(01,"mail","regina@laurentino", Estado, per);
         Categoria cat = new Categoria();
@@ -86,7 +106,36 @@ public class Publicaciones extends Fragment {
         lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
         lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
         lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));*/
+
+        String url = "http://10.0.2.2:8080/api/v1/publicacion";
+
+        new Thread(new Runnable() {
+            public void run() {
+                StringRequest postRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        Type publicacionListType = new TypeToken<ArrayList<Publicacion>>(){}.getType();
+                        ObjectMapper mapper = new ObjectMapper();
+                        try {
+                            lista = mapper.readValue(response, lista.getClass());
+                        } catch (JsonProcessingException e) {
+                            e.printStackTrace();
+                        }
+
+
+                        //lista = new Gson().fromJson(response,publicacionListType);
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+
+                    }
+                });
+                Volley.newRequestQueue(view.getContext()).add(postRequest);
+            }
+        }).start();
+
 
         _adapter= new AdapterPublicaciones(getContext(),lista);
 

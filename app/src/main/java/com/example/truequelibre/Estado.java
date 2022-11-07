@@ -1,6 +1,8 @@
 package com.example.truequelibre;
 
-public class Estado {
+import java.io.Serializable;
+
+public class Estado implements Serializable {
     private Integer id;
     private String Nombre;
 

@@ -1,6 +1,8 @@
 package com.example.truequelibre;
 
-public class Publicacion {
+import java.io.Serializable;
+
+public class Publicacion implements Serializable {
 
     private Integer id;
     private Usuario usuario;

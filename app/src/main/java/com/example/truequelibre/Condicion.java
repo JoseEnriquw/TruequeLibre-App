@@ -1,6 +1,8 @@
 package com.example.truequelibre;
 
-public class Condicion {
+import java.io.Serializable;
+
+public class Condicion implements Serializable {
     private Integer id;
     private String descripcion;
 

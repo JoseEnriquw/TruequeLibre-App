@@ -1,6 +1,8 @@
 package com.example.truequelibre;
 
-public class Localidad extends Provincia {
+import java.io.Serializable;
+
+public class Localidad extends Provincia implements Serializable {
     private Integer id;
     private String nombre;
     private Provincia provincia;
