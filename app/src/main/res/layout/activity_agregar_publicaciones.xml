@@ -58,7 +58,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
-                    android:contentDescription="@string/btn_agreger_imagenes_publicacion"
+                    android:contentDescription="@string/btn_agregar_imagenes_publicacion"
                     app:srcCompat="@android:drawable/ic_input_add" />
 
 
@@ -108,7 +108,7 @@
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_below="@id/tfTituloAgregarPublicacion"
-                    android:hint="Descripción"
+                    android:hint="@string/tv_descripcion_agregar_publicacion"
                     android:layout_marginTop="5dp">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -124,7 +124,7 @@
                     android:id="@+id/tfCondicionAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Condicion"
+                    android:hint="@string/tv_condicion_agregar_publicacion"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                     android:layout_below="@id/tfDescripcionAgregarPublicacion"
                     android:layout_marginTop="5dp">
@@ -145,7 +145,7 @@
                     android:id="@+id/tfUbicacionAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Ubicación"
+                    android:hint="@string/tv_ubicacion_agregar_publicacion"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                     android:layout_below="@id/tfCondicionAgregarPublicacion"
                     android:layout_marginTop="5dp">
@@ -165,7 +165,7 @@
                     android:id="@+id/tfCategoriaPretendidaAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Categoría Pretendida"
+                    android:hint="@string/tv_categoria_pretendida_agregar_publicacion"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                     android:layout_below="@id/tfUbicacionAgregarPublicacion"
                     android:layout_marginTop="5dp">
@@ -185,7 +185,7 @@
                     android:id="@+id/tfUbicacionPretendidaAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Ubicación Pretendida"
+                    android:hint="@string/tv_ubicacion_pretendida_agregar_publicacion"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                     android:layout_below="@id/tfCategoriaPretendidaAgregarPublicacion"
                     android:layout_marginTop="5dp">
