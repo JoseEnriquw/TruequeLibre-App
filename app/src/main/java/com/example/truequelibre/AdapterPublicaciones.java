@@ -1,5 +1,4 @@
 package com.example.truequelibre;
-
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -17,10 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
-
 import java.util.ArrayList;
 import java.util.List;
-
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
