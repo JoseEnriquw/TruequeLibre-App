@@ -52,11 +52,14 @@
                     android:id="@+id/btnAgregarImagenesPublicacion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/tvImagenesAgregarPublicacion"
                     android:layout_gravity="bottom|right"
-                    android:layout_margin="16dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
                     android:contentDescription="@string/btn_agreger_imagenes_publicacion"
-                    app:srcCompat="@android:drawable/ic_input_add"
-                    android:layout_below="@id/tvImagenesAgregarPublicacion"/>
+                    app:srcCompat="@android:drawable/ic_input_add" />
 
 
                 <com.google.android.material.textfield.TextInputLayout
@@ -84,30 +87,29 @@
                     android:layout_height="wrap_content"
                     android:hint="@string/tv_titulo_agregar_publicacion"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_below="@id/tfCategoriaAgregarPublicacion">
+                    android:layout_below="@id/tfCategoriaAgregarPublicacion"
+                    android:layout_marginTop="5dp">
+
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+
+
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
-                <TextView
-                    android:id="@+id/tvDescripcionAgregarPublicacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_descripcion_agregar_publicacion"
-                    android:layout_below="@id/tfTituloAgregarPublicacion"/>
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tfDescripcionAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_below="@id/tvDescripcionAgregarPublicacion">
+                    android:layout_below="@id/tfTituloAgregarPublicacion"
+                    android:hint="Descripción"
+                    android:layout_marginTop="5dp">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -117,106 +119,93 @@
                         />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tvCondicionAgregarPublicacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_condicion_agregar_publicacion"
-                    android:layout_below="@id/tfDescripcionAgregarPublicacion"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tfCondicionAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_below="@id/tvCondicionAgregarPublicacion">
+                    android:hint="Condicion"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_below="@id/tfDescripcionAgregarPublicacion"
+                    android:layout_marginTop="5dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
+                        android:id="@+id/ddCondicionAgregarPublicacion"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        />
+                        android:layout_height="match_parent"
+                        android:inputType="none"
+                        >
+
+                    </AutoCompleteTextView>
+
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tvUbicacionAgregarPublicacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_ubicacion_agregar_publicacion"
-                    android:layout_below="@id/tfCondicionAgregarPublicacion"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tfUbicacionAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_below="@id/tvUbicacionAgregarPublicacion">
+                    android:hint="Ubicación"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_below="@id/tfCondicionAgregarPublicacion"
+                    android:layout_marginTop="5dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
+                        android:id="@+id/ddUbicacionAgregarPublicacion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        />
+                        android:inputType="none">
+
+                    </AutoCompleteTextView>
+
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tvMotivoAgregarPublicacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_motivo_agregar_publicacion"
-                    android:layout_below="@id/tfUbicacionAgregarPublicacion"/>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tfMotivoAgregarPublicacion"
+                    android:id="@+id/tfCategoriaPretendidaAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_below="@id/tvMotivoAgregarPublicacion">
+                    android:hint="Categoría Pretendida"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_below="@id/tfUbicacionAgregarPublicacion"
+                    android:layout_marginTop="5dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
+                    <AutoCompleteTextView
+                        android:id="@+id/ddCategoriaPretendidaAgregarPublicacion"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        />
+                        android:inputType="none">
+
+                    </AutoCompleteTextView>
+
 
                 </com.google.android.material.textfield.TextInputLayout>
-
-                <TextView
-                    android:id="@+id/tvPreferenciasAgregarPublicacion"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:textSize="20sp"
-                    android:text="@string/tv_preferencias_agregar_publicacion"
-                    android:layout_below="@id/tfMotivoAgregarPublicacion"/>
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/tfPreferenciasAgregarPublicacion"
+                    android:id="@+id/tfUbicacionPretendidaAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_below="@id/tvPreferenciasAgregarPublicacion">
+                    android:hint="Ubicación Pretendida"
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                    android:layout_below="@id/tfCategoriaPretendidaAgregarPublicacion"
+                    android:layout_marginTop="5dp">
 
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:inputType="textMultiLine"
-                        android:maxLines="8"
-                        />
+                <AutoCompleteTextView
+                    android:id="@+id/ddUbicacionPretendidaAgregarPublicacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="none">
+
+                </AutoCompleteTextView>
 
                 </com.google.android.material.textfield.TextInputLayout>
+
 
                 <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                     android:id="@+id/btnPublicarAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tfPreferenciasAgregarPublicacion"
+                    android:layout_below="@id/tfUbicacionPretendidaAgregarPublicacion"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
                     android:text="@string/btn_publicar_agregar_publicacion"
