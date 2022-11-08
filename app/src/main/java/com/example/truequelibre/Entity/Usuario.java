@@ -1,4 +1,4 @@
-package com.example.truequelibre;
+package com.example.truequelibre.Entity;
 
 public class Usuario {
     private Integer id;
@@ -6,6 +6,9 @@ public class Usuario {
     private String contrasenia;
     private Estado estado;
     private Persona persona;
+
+    public Usuario() {
+    }
 
     public Usuario(Integer id, String mail, String contrasenia, Estado estado, Persona persona) {
         this.id = id;

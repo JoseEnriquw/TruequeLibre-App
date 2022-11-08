@@ -13,8 +13,15 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.example.truequelibre.Entity.Publicacion;
+import com.example.truequelibre.Utils.Apis;
+import com.example.truequelibre.Utils.IPublicacionService;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +36,8 @@ public class Publicaciones extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private RecyclerView _recyclerView;
     private AdapterPublicaciones _adapter;
+    IPublicacionService service;
+    private List<Publicacion> lista = new ArrayList<>();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -69,32 +78,46 @@ public class Publicaciones extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View view=inflater.inflate(R.layout.fragment_publicaciones, container, false);
+        service= Apis.getPublicacionService();
+        Call<List<Publicacion>> call =service.getPublicaciones();
+
+        call.enqueue(new Callback<List<Publicacion>>() {
+            @Override
+            public void onResponse(Call<List<Publicacion>> call, retrofit2.Response<List<Publicacion>> response) {
+               if(response.isSuccessful()) {
+                   lista = response.body();
+                   _adapter = new AdapterPublicaciones(getContext(), lista);
+
+                   GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 2, GridLayoutManager.VERTICAL, false);
+                   _recyclerView.setLayoutManager(gridLayoutManager);
+                   _recyclerView.setHasFixedSize(true);
+                   _recyclerView.setAdapter(_adapter);
+               }
+            }
+
+            @Override
+            public void onFailure(Call<List<Publicacion>> call, Throwable t) {
+                System.out.println(lista);
+            }
+        });
 
         //Cargar el RecyclerView
         _recyclerView =(RecyclerView) view.findViewById(R.id.rvPublicaciones);
-        List<Publicacion> lista = new ArrayList<Publicacion>();
+        /*List<Publicacion> lista = new ArrayList<>();
 
         Persona per = new Persona("34695008d","regina","laurentino");
-        Estado Estado = new Estado();
-        Usuario usu = new Usuario(01,"mail","regina@laurentino", Estado, per);
+        Estado estado = new Estado();
+        Usuario usu = new Usuario(01,"mail","regina@laurentino", estado, per);
         Categoria cat = new Categoria();
         Condicion CONDI = new Condicion();
 
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
-
-        _adapter= new AdapterPublicaciones(getContext(),lista);
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
-        _recyclerView.setLayoutManager(gridLayoutManager);
-        _recyclerView.setHasFixedSize(true);
-        _recyclerView.setAdapter(_adapter);
-
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+*/
         //Onclick btn Agregar Publicacion
         Button btnAgregarPublicacion= (Button) view.findViewById(R.id.btnAgregarPublicacion);
         btnAgregarPublicacion.setOnClickListener(

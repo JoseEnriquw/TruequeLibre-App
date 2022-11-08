@@ -11,13 +11,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.truequelibre.AdapterEnviados;
-import com.example.truequelibre.Categoria;
-import com.example.truequelibre.Condicion;
-import com.example.truequelibre.Estado;
-import com.example.truequelibre.Oferta;
-import com.example.truequelibre.Persona;
-import com.example.truequelibre.Publicacion;
-import com.example.truequelibre.Usuario;
+import com.example.truequelibre.Entity.Categoria;
+import com.example.truequelibre.Entity.Condicion;
+import com.example.truequelibre.Entity.Estado;
+import com.example.truequelibre.Entity.Oferta;
+import com.example.truequelibre.Entity.Persona;
+import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.R;
 
 import java.util.ArrayList;
@@ -89,18 +88,14 @@ public class FragmentTruequesEnviados extends Fragment {
 
         List<Oferta> lista = new ArrayList<Oferta>();
 
-
         Persona per = new Persona("34695008d","regina","laurentino");
-        Estado Estado = new Estado();
-        Usuario usu = new Usuario(01,"mail","regina@laurentino", Estado, per);
+        Estado estado = new Estado();
+        Usuario usu = new Usuario(01,"mail","regina@laurentino", estado, per);
         Categoria cat = new Categoria();
         Condicion CONDI = new Condicion();
 
-
-        Publicacion publi = new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI);
-        Publicacion ofert = new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI);
-
-        com.example.truequelibre.Estado estado = new Estado();
+       /* Publicacion publi = new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI);
+        Publicacion ofert = new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI);
 
         lista.add(new Oferta(estado,publi, ofert));
         lista.add(new Oferta(estado,publi, ofert));
@@ -110,7 +105,7 @@ public class FragmentTruequesEnviados extends Fragment {
         lista.add(new Oferta(estado,publi, ofert));
         lista.add(new Oferta(estado,publi, ofert));
         lista.add(new Oferta(estado,publi, ofert));
-
+*/
 
         _adapter= new AdapterEnviados(getContext(),lista);
 

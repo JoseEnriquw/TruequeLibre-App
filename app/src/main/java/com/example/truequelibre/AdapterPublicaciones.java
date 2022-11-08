@@ -10,18 +10,27 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.recyclerview.widget.RecyclerView;
+import com.example.truequelibre.Entity.Publicacion;
+import com.example.truequelibre.Utils.Apis;
+import com.example.truequelibre.Utils.IPublicacionService;
 
+import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicaciones.ViewHolderPublicaciones>{
 
     private Context context;
     private List<Publicacion> publicaciones;
+    IPublicacionService service;
 
     public AdapterPublicaciones(Context context, List<Publicacion> publicaciones) {
         this.context = context;
@@ -59,7 +68,9 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
 
     @SuppressLint("RestrictedApi")
     @Override
-    public void onBindViewHolder(@NonNull ViewHolderPublicaciones holder, int position) {
+    public void onBindViewHolder(@NonNull ViewHolderPublicaciones holder, @SuppressLint("RecyclerView") int position) {
+        service= Apis.getPublicacionService();
+
        holder.tvTitulo.setText(publicaciones.get(position).getNombre());
        holder.tvSubtitulo.setText(publicaciones.get(position).getDescripcion());
         /*Picasso.get()
@@ -82,9 +93,22 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
                         switch (item.getItemId())
                         {
                             case R.id.itemEditar:
+
                                 System.out.println("Editar------------------------");
                                 break;
                             case R.id.itemEliminar:
+                                Call<ResponseBody> deleteRequest = service.deletePublicacion(publicaciones.get(position).getId());
+                                deleteRequest.enqueue(new Callback<ResponseBody>() {
+                                    @Override
+                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+
+                                    }
+
+                                    @Override
+                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                        // handle failure
+                                    }
+                                });
                                 System.out.println("Eliminar------------------------");
                                 break;
                             default:

@@ -8,10 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
+import com.example.truequelibre.Entity.Oferta;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
@@ -61,10 +60,10 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
     public void onBindViewHolder(@NonNull AdapterRecibidos.ViewHolderRecibidos holder, int position) {
         holder.tvArticulo.setText(ofertas.get(position).getOfertas().getNombre());
         holder.tvdescripcionbreveo.setText(ofertas.get(position).getOfertas().getDescripcion());
-       /* Picasso.get()
+        /*Picasso.get()
                 .load(ofertas.get(position).getOfertas().getImagenes())
-                .into(holder.imageViewarticulo);*/
-
+                .into(holder.imageViewarticulo);
+*/
         holder.btnaceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

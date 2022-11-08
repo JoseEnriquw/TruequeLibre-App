@@ -6,6 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 
+import com.example.truequelibre.Entity.Categoria;
+import com.example.truequelibre.Entity.Condicion;
+import com.example.truequelibre.Entity.Estado;
+import com.example.truequelibre.Entity.Persona;
+import com.example.truequelibre.Entity.Publicacion;
+import com.example.truequelibre.Entity.Usuario;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,20 +27,14 @@ public class PublicacionesPorCategoria extends AppCompatActivity {
 
         _recyclerView =(RecyclerView) findViewById(R.id.rvarticulos);
 
-
         List<Publicacion> lista = new ArrayList<Publicacion>();
 
         Persona per = new Persona("34695008d","regina","laurentino");
-        Estado Estado = new Estado();
-        Usuario usu = new Usuario(01,"mail","regina@laurentino", Estado, per);
+        Estado estado = new Estado();
+        Usuario usu = new Usuario(01,"mail","regina@laurentino", estado, per);
         Categoria cat = new Categoria();
         Condicion CONDI = new Condicion();
 
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
         _adapter= new AdapterArticulos(this,lista);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this,1,GridLayoutManager.VERTICAL,false);

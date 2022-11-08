@@ -4,14 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AgregarPublicaciones">
+    tools:context=".EditarPublicaciones">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/tvPublicarArticulo"
+            android:id="@+id/tvEditarArticulo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="20dp"
@@ -24,7 +24,7 @@
             android:id="@+id/svAgregarPublicacion"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/tvPublicarArticulo"
+            android:layout_below="@id/tvEditarArticulo"
             android:layout_marginTop="30dp"
             android:contentDescription="@string/btn_agregar_publicacion"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -58,33 +58,44 @@
                     app:srcCompat="@android:drawable/ic_input_add"
                     android:layout_below="@id/tvImagenesAgregarPublicacion"/>
 
+                <TextView
+                    android:id="@+id/tvCategoriaAgregarPublicacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:text="@string/tv_categoria_agregar_publicacion"
+                    android:layout_below="@id/btnAgregarImagenesPublicacion"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tfCategoriaAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/tv_categoria_agregar_publicacion"
-                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
-                    android:layout_below="@id/btnAgregarImagenesPublicacion">
+                    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                    android:layout_below="@id/tvCategoriaAgregarPublicacion">
 
-                    <AutoCompleteTextView
-                        android:id="@+id/ddCategoriaAgregarPublicacion"
+                    <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="none">
-
-                    </AutoCompleteTextView>
-
+                        />
 
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <TextView
+                    android:id="@+id/tvTituloAgregarPublicacion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textSize="20sp"
+                    android:text="@string/tv_titulo_agregar_publicacion"
+                    android:layout_below="@id/tfCategoriaAgregarPublicacion"/>
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tfTituloAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/tv_titulo_agregar_publicacion"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                    android:layout_below="@id/tfCategoriaAgregarPublicacion">
+                    android:layout_below="@id/tvTituloAgregarPublicacion">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
@@ -225,4 +236,5 @@
             </RelativeLayout>
         </ScrollView>
     </RelativeLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

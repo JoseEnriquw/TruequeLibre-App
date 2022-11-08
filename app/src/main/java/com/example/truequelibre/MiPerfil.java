@@ -11,6 +11,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 
+import com.example.truequelibre.Entity.CalificacionUsuario;
+import com.example.truequelibre.Entity.Estado;
+import com.example.truequelibre.Entity.Persona;
+import com.example.truequelibre.Entity.Usuario;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -76,8 +81,8 @@ public class MiPerfil extends Fragment {
         Date date = new Date(2022/11/05);
 
         Persona per = new Persona("34695008d","regina","laurentino");
-        Estado Estado = new Estado();
-        Usuario usu = new Usuario(01,"mail","regina@laurentino", Estado, per);
+        Estado estado = new Estado();
+        Usuario usu = new Usuario(01,"mail","regina@laurentino", estado, per);
 
         lista.add(new CalificacionUsuario(1,usu,ratingBar,"Bueno!!",date));
         lista.add(new CalificacionUsuario(2,usu,ratingBar,"Muy Bueno!!",date));

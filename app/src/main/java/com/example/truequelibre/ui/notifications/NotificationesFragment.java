@@ -12,12 +12,12 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.truequelibre.AdapterNotificaciones;
-import com.example.truequelibre.Categoria;
-import com.example.truequelibre.Condicion;
-import com.example.truequelibre.Estado;
-import com.example.truequelibre.Persona;
-import com.example.truequelibre.Publicacion;
-import com.example.truequelibre.Usuario;
+import com.example.truequelibre.Entity.Categoria;
+import com.example.truequelibre.Entity.Condicion;
+import com.example.truequelibre.Entity.Estado;
+import com.example.truequelibre.Entity.Persona;
+import com.example.truequelibre.Entity.Publicacion;
+import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.R;
 import com.example.truequelibre.databinding.FragmentNotificationesBinding;
 
@@ -44,17 +44,17 @@ public class NotificationesFragment extends Fragment {
         List<Publicacion> lista = new ArrayList<Publicacion>();
 
         Persona per = new Persona("34695008d","regina","laurentino");
-        Estado Estado = new Estado();
-        Usuario usu = new Usuario(01,"mail","regina@laurentino", Estado, per);
+        Estado estado = new Estado();
+        Usuario usu = new Usuario(01,"mail","regina@laurentino", estado, per);
         Categoria cat = new Categoria();
         Condicion CONDI = new Condicion();
 
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,null,CONDI));
-
+        /*lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+*/
         _adapter= new AdapterNotificaciones(getContext(),lista);
 
         GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),1,GridLayoutManager.VERTICAL,false);

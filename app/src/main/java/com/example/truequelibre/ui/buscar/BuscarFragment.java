@@ -14,7 +14,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.truequelibre.AdapterCategorias;
-import com.example.truequelibre.Categoria;
+import com.example.truequelibre.Entity.Categoria;
 import com.example.truequelibre.databinding.FragmentBuscarBinding;
 
 import java.util.ArrayList;

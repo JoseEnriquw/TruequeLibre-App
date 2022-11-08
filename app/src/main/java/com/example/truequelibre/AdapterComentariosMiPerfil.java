@@ -1,6 +1,5 @@
 package com.example.truequelibre;
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,9 +8,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.truequelibre.Entity.CalificacionUsuario;
 import com.squareup.picasso.Picasso;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 
 public class AdapterComentariosMiPerfil extends RecyclerView.Adapter <AdapterComentariosMiPerfil.ViewHolderComentarios>{

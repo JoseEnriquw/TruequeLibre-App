@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.truequelibre.Entity.Oferta;
+
 import java.util.List;
 
 public class AdapterEnviados extends RecyclerView.Adapter <AdapterEnviados.ViewHolderEnviados>{

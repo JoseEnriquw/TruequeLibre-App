@@ -13,7 +13,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.squareup.picasso.Picasso;
+import com.example.truequelibre.Entity.Publicacion;
 
 import java.util.List;
 
@@ -61,9 +61,9 @@ public class AdapterArticulos extends RecyclerView.Adapter <AdapterArticulos.Vie
     @Override
     public void onBindViewHolder(@NonNull AdapterArticulos.ViewHolderArticulos holder, int position) {
         holder.tvDescripcion.setText(publicaciones.get(position).getDescripcion());
-        holder.tvNombreyApellido.setText(publicaciones.get(position).getUsuario().getPersona().getNombre());
+        holder.tvNombreyApellido.setText(publicaciones.get(position).getUsuario().getNombreApellido());
         holder.tvNombre.setText(publicaciones.get(position).getNombre());
-      /*  Picasso.get()
+       /* Picasso.get()
                 .load(publicaciones.get(position).getImagenes())
                 .into(holder.imfotoarticulo);*/
     /*    Picasso.get()

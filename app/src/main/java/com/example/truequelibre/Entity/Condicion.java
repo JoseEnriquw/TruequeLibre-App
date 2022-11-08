@@ -1,15 +1,13 @@
-package com.example.truequelibre;
+package com.example.truequelibre.Entity;
 
-public class Categoria {
+public class Condicion {
     private Integer id;
     private String descripcion;
-   // private String urlImg;
 
-
-    public Categoria() {
+    public Condicion() {
     }
 
-    public Categoria(Integer id, String descripcion) {
+    public Condicion(Integer id, String descripcion) {
         this.id = id;
         this.descripcion = descripcion;
     }
@@ -28,10 +26,5 @@ public class Categoria {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    public int getIds(){
-        String id = String.valueOf(getId());
-        return id.hashCode();
     }
 }
