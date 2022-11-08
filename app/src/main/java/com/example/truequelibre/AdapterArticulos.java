@@ -13,17 +13,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.truequelibre.Entity.EPublicaciones;
-import com.squareup.picasso.Picasso;
+import com.example.truequelibre.Entity.Publicacion;
 
 import java.util.List;
 
 public class AdapterArticulos extends RecyclerView.Adapter <AdapterArticulos.ViewHolderArticulos>{
 
     private Context context;
-    private List<EPublicaciones> publicaciones;
+    private List<Publicacion> publicaciones;
 
-    public AdapterArticulos(Context context, List<EPublicaciones> publicaciones) {
+    public AdapterArticulos(Context context, List<Publicacion> publicaciones) {
         this.context = context;
         this.publicaciones = publicaciones;
     }
@@ -62,14 +61,14 @@ public class AdapterArticulos extends RecyclerView.Adapter <AdapterArticulos.Vie
     @Override
     public void onBindViewHolder(@NonNull AdapterArticulos.ViewHolderArticulos holder, int position) {
         holder.tvDescripcion.setText(publicaciones.get(position).getDescripcion());
-        holder.tvNombreyApellido.setText(publicaciones.get(position).getIdusuario().getDNI().getNombre());
+        holder.tvNombreyApellido.setText(publicaciones.get(position).getUsuario().getNombreApellido());
         holder.tvNombre.setText(publicaciones.get(position).getNombre());
-        Picasso.get()
-                .load(publicaciones.get(position).getUrlImg())
-                .into(holder.imfotoarticulo);
-        Picasso.get()
+       /* Picasso.get()
+                .load(publicaciones.get(position).getImagenes())
+                .into(holder.imfotoarticulo);*/
+    /*    Picasso.get()
                 .load(publicaciones.get(position).getIdusuario().getUrlImg())
-                .into(holder.imfotoperfil);
+                .into(holder.imfotoperfil);*/
 
         holder.btnOpciones.setOnClickListener(new View.OnClickListener() {
             @Override

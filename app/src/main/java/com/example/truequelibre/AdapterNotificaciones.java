@@ -11,17 +11,16 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.truequelibre.Entity.EPublicaciones;
-import com.squareup.picasso.Picasso;
+import com.example.truequelibre.Entity.Publicacion;
 
 import java.util.List;
 
 public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotificaciones.ViewHolderNotificaciones>{
 
     private Context context;
-    private List<EPublicaciones> publicaciones;
+    private List<Publicacion> publicaciones;
 
-    public AdapterNotificaciones(Context context, List<EPublicaciones> publicaciones) {
+    public AdapterNotificaciones(Context context, List<Publicacion> publicaciones) {
         this.context = context;
         this.publicaciones = publicaciones;
     }
@@ -56,12 +55,12 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
     @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(@NonNull AdapterNotificaciones.ViewHolderNotificaciones holder, int position) {
-        holder.tvNombreyapellido.setText(publicaciones.get(position).getIdusuario().getDNI().getNombre());
+        holder.tvNombreyapellido.setText(publicaciones.get(position).getUsuario().getNombreApellido());
         holder.tvdescripcionulo.setText(publicaciones.get(position).getDescripcion());
         holder.tvfechanotificacion.setText("hace 1 dia");
-        Picasso.get()
+       /* Picasso.get()
                 .load(publicaciones.get(position).getIdusuario().getUrlImg())
-                .into(holder.imageView);
+                .into(holder.imageView);*/
     }
 
     @Override

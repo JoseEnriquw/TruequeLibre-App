@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RatingBar;
 
-import com.example.truequelibre.Entity.ECalificacionUsuario;
-import com.example.truequelibre.Entity.EPersona;
+import com.example.truequelibre.Entity.CalificacionUsuario;
+import com.example.truequelibre.Entity.Estado;
+import com.example.truequelibre.Entity.Persona;
+import com.example.truequelibre.Entity.Usuario;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -74,16 +76,17 @@ public class MiPerfil extends Fragment {
 
         View view= inflater.inflate(R.layout.fragment_mi_perfil, container, false);
         _recyclerView =(RecyclerView) view.findViewById(R.id.rvComentariosMiPerfil);
-        List<ECalificacionUsuario> lista = new ArrayList<ECalificacionUsuario>();
+        List<CalificacionUsuario> lista = new ArrayList<CalificacionUsuario>();
         RatingBar ratingBar=new RatingBar(getContext());
         Date date = new Date(2022/11/05);
 
-        EPersona per = new EPersona("34695008d","regina","laurentino");
-        EUsuario usu = new EUsuario(01,per,"regina@laurentino", "zarasa", true,"https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg");
+        Persona per = new Persona("34695008d","regina","laurentino");
+        Estado estado = new Estado();
+        Usuario usu = new Usuario(01,"mail","regina@laurentino", estado, per);
 
-        lista.add(new ECalificacionUsuario(1,usu,ratingBar,"Bueno!!",date));
-        lista.add(new ECalificacionUsuario(2,usu,ratingBar,"Muy Bueno!!",date));
-        lista.add(new ECalificacionUsuario(3,usu,ratingBar,"Excelente!!",date));
+        lista.add(new CalificacionUsuario(1,usu,ratingBar,"Bueno!!",date));
+        lista.add(new CalificacionUsuario(2,usu,ratingBar,"Muy Bueno!!",date));
+        lista.add(new CalificacionUsuario(3,usu,ratingBar,"Excelente!!",date));
 
         _adapter= new AdapterComentariosMiPerfil(getContext(),lista);
 

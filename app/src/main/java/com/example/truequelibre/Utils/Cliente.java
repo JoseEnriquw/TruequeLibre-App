@@ -7,7 +7,10 @@ public class Cliente {
 
     public static Retrofit getCliente(String url)
     {
-        Retrofit retrofit = new Retrofit.Builder().baseUrl(url).addConverterFactory(GsonConverterFactory.create()).build();
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(url)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
         return retrofit;
     }
 }

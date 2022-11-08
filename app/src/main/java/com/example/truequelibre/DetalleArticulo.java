@@ -1,7 +1,11 @@
 package com.example.truequelibre;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.denzcoskun.imageslider.ImageSlider;
@@ -19,6 +23,8 @@ public class DetalleArticulo extends AppCompatActivity {
     private TextView txtcondicion;
     private TextView txtdescripcion;
     private TextView txtintereses;
+    private Button btnofertar;
+    private Button btnoverperfil;
 
 
     @Override
@@ -33,6 +39,8 @@ public class DetalleArticulo extends AppCompatActivity {
         txtcondicion = findViewById(R.id.detallecondicion);
         txtdescripcion = findViewById(R.id.detalledescripcion);
         txtintereses = findViewById(R.id.detalleintereses);
+        btnofertar =  findViewById(R.id.btndetalleofertar);
+        btnoverperfil =  findViewById(R.id.btndetalleverperfil);
 
         ArrayList<SlideModel> slideModels = new ArrayList<>();
 
@@ -43,6 +51,24 @@ public class DetalleArticulo extends AppCompatActivity {
         slideModels.add(new SlideModel("https://c4.wallpaperflare.com/wallpaper/816/451/655/sphere-art-artwork-1980s-wallpaper-preview.jpg", ScaleTypes.FIT));
 
         imageSlider.setImageList(slideModels, ScaleTypes.FIT);
+
+        btnofertar.setOnClickListener( new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent= new Intent(view.getContext().getApplicationContext(),QueOfrecesACambio.class);
+                view.getContext().startActivity(intent);
+            }
+        }
+        );
+
+        btnoverperfil.setOnClickListener( new View.OnClickListener() {
+                                           @Override
+                                           public void onClick(View view) {
+                                               Intent intent= new Intent(view.getContext().getApplicationContext(),VerPerfilOtroUsuario.class);
+                                               view.getContext().startActivity(intent);
+                                           }
+                                       }
+        );
 
 
     }

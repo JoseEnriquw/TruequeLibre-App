@@ -3,12 +3,24 @@ package com.example.truequelibre.ui.trueques;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.truequelibre.AdapterAceptados;
+import com.example.truequelibre.Entity.Categoria;
+import com.example.truequelibre.Entity.Condicion;
+import com.example.truequelibre.Entity.Estado;
+import com.example.truequelibre.Entity.Persona;
+import com.example.truequelibre.Entity.Publicacion;
+import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -16,6 +28,9 @@ import com.example.truequelibre.R;
  * create an instance of this fragment.
  */
 public class FragmentTruequesAceptados extends Fragment {
+
+    private RecyclerView _recyclerView;
+    private AdapterAceptados _adapter;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -66,7 +81,31 @@ public class FragmentTruequesAceptados extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        View view= inflater.inflate(R.layout.fragment_trueques_aceptados, container, false);
+        _recyclerView =(RecyclerView) view.findViewById(R.id.rvAceptados);
+        List<Publicacion> lista = new ArrayList<Publicacion>();
+
+
+
+        Persona per = new Persona("34695008d","regina","laurentino");
+        Estado estado = new Estado();
+        Usuario usu = new Usuario(01,"mail","regina@laurentino", estado, per);
+        Categoria cat = new Categoria();
+        Condicion CONDI = new Condicion();
+
+        /*lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
+        */_adapter= new AdapterAceptados(getContext(),lista);
+
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),1,GridLayoutManager.VERTICAL,false);
+        _recyclerView.setLayoutManager(gridLayoutManager);
+        _recyclerView.setHasFixedSize(true);
+        _recyclerView.setAdapter(_adapter);
+
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_trueques_aceptados, container, false);
+        return view;
     }
 }

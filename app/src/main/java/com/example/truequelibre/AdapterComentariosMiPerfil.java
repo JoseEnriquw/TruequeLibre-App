@@ -9,7 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.truequelibre.Entity.ECalificacionUsuario;
+import com.example.truequelibre.Entity.CalificacionUsuario;
 import com.squareup.picasso.Picasso;
 
 import java.util.List;
@@ -17,9 +17,9 @@ import java.util.List;
 public class AdapterComentariosMiPerfil extends RecyclerView.Adapter <AdapterComentariosMiPerfil.ViewHolderComentarios>{
 
     private Context context;
-    private List<ECalificacionUsuario> calificacion;
+    private List<CalificacionUsuario> calificacion;
 
-    public AdapterComentariosMiPerfil(Context context, List<ECalificacionUsuario> calificacion) {
+    public AdapterComentariosMiPerfil(Context context, List<CalificacionUsuario> calificacion) {
         this.context = context;
         this.calificacion = calificacion;
     }
@@ -58,11 +58,11 @@ public class AdapterComentariosMiPerfil extends RecyclerView.Adapter <AdapterCom
     public void onBindViewHolder(@NonNull AdapterComentariosMiPerfil.ViewHolderComentarios holder, int position) {
         //holder.ratingBarComentarioMiPerfil.setText(calificacion.get(position).getRatingBar());
         holder.tvComentarioMiPerfil.setText(calificacion.get(position).getComentarioMiPerfil());
-        holder.tvNombreApellidoComentarioMiPerfil.setText(calificacion.get(position).geteUsuario().getDNI().getNombre());
+        holder.tvNombreApellidoComentarioMiPerfil.setText(calificacion.get(position).geteUsuario().getPersona().getNombre());
         //holder.fechaComentarioMiPerfil.setText((CharSequence) calificacion.get(position).getFechaComentario());
-        Picasso.get()
+      /*  Picasso.get()
                 .load(calificacion.get(position).geteUsuario().getUrlImg())
-                .into(holder.imageViewComentarioMiPerfil);
+                .into(holder.imageViewComentarioMiPerfil);*/
 
     }
 

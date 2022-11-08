@@ -3,35 +3,16 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginHorizontal="10dp"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    tools:context=".QueOfrecesACambio">
 
     <com.google.android.material.divider.MaterialDivider
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginVertical="15dp"
         tools:ignore="MissingConstraints" />
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/floatingActionButton"
-        android:layout_width="59dp"
-        android:layout_height="178dp"
-        android:layout_marginStart="168dp"
-        android:clickable="true"
-        app:backgroundTint="#00000000"
-        app:borderWidth="0dp"
-        app:elevation="0dp"
-        app:hoveredFocusedTranslationZ="0dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/materialCardView2"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/materialCardView"
-        app:layout_constraintTop_toTopOf="parent"
-        app:pressedTranslationZ="0dp"
-        app:srcCompat="@android:drawable/ic_popup_sync"
-        tools:ignore="SpeakableTextPresentCheck" />
 
 
     <com.google.android.material.card.MaterialCardView
@@ -71,17 +52,11 @@
                 android:layout_below="@id/imgvofertado"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="0dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:text="Nombre producto" />
 
-            <TextView
-                android:id="@+id/tvofreciste"
-                android:layout_width="152dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="0dp"
-                android:gravity="center"
-                android:text="Ofreciste" />
+
 
 
         </RelativeLayout>
@@ -129,17 +104,11 @@
                 android:layout_below="@id/imgvquerido"
                 android:layout_alignParentEnd="true"
                 android:layout_marginEnd="0dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center"
-                android:text="Nombre producto" />
+                android:text="Agregar Articulo" />
 
-            <TextView
-                android:id="@+id/tvofreciste2"
-                android:layout_width="152dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginEnd="0dp"
-                android:gravity="center"
-                android:text="Querias" />
+
 
 
         </RelativeLayout>

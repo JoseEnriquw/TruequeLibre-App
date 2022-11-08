@@ -4,15 +4,18 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.truequelibre.Entity.ECategorias;
+import com.example.truequelibre.Entity.Categoria;
+import com.example.truequelibre.Utils.Apis;
+import com.example.truequelibre.Utils.ICategoriaService;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class Buscar extends Fragment {
 
@@ -22,6 +25,8 @@ public class Buscar extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private RecyclerView _recyclerView;
     private AdapterCategorias _adapter;
+    List<Categoria> lista= new ArrayList<>();
+    ICategoriaService service;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -64,18 +69,30 @@ public class Buscar extends Fragment {
 
         View view=inflater.inflate(R.layout.fragment_buscar, container, false);
 
-        _recyclerView =(RecyclerView) view.findViewById(R.id.rvCategorias);
-        List<ECategorias> lista = new ArrayList<ECategorias>();
-        lista.add(new ECategorias("Bici", "https://st.depositphotos.com/1063437/2491/i/450/depositphotos_24912571-stock-photo-bicycle-road-sign-and-bike.jpg"));
-        lista.add(new ECategorias("Teclado",  "https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png"));
-        lista.add(new ECategorias("Mouse",  "https://www.venex.com.ar/products_images/1582916326_m7191.png"));
-        lista.add(new ECategorias("Auricular",  "https://www.fullh4rd.com.ar/img/productos/Pics_Prod/auriculares-logitech-g935-wireless-71-981000742-0.jpg"));
-        _adapter= new AdapterCategorias(getContext(),lista);
+        service= Apis.getCategoriaService();
+        Call<List<Categoria>> call =service.getCategorias();
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
-        _recyclerView.setLayoutManager(gridLayoutManager);
-        _recyclerView.setHasFixedSize(true);
-        _recyclerView.setAdapter(_adapter);
+        call.enqueue(new Callback<List<Categoria>>() {
+            @Override
+            public void onResponse(Call<List<Categoria>> call, retrofit2.Response<List<Categoria>> response) {
+                if(response.isSuccessful()) {
+                    lista = response.body();
+                    _adapter= new AdapterCategorias(getContext(),lista);
+
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),2,GridLayoutManager.VERTICAL,false);
+                    _recyclerView.setLayoutManager(gridLayoutManager);
+                    _recyclerView.setHasFixedSize(true);
+                    _recyclerView.setAdapter(_adapter);
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Categoria>> call, Throwable t) {
+                System.out.println(lista);
+            }
+        });
+
+        _recyclerView =(RecyclerView) view.findViewById(R.id.rvCategorias);
 
         return view;
     }
