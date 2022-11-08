@@ -58,6 +58,17 @@
                     app:srcCompat="@android:drawable/ic_input_add"
                     android:layout_below="@id/tvImagenesAgregarPublicacion"/>
 
+                <ImageView
+                    android:id="@+id/imgvagregarpublicaciones"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:padding="4pt"
+                    android:layout_marginTop="20dp"
+                    android:scaleType="centerCrop"
+                    android:layout_toRightOf="@+id/btnAgregarImagenesPublicacion"
+                    tools:srcCompat="@tools:sample/avatars" />
+
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:id="@+id/tfCategoriaAgregarPublicacion"
