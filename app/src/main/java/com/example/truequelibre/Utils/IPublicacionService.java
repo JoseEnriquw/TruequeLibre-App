@@ -1,5 +1,6 @@
 package com.example.truequelibre.Utils;
 
+import com.example.truequelibre.Entity.Dropdown.PublicacionDropdown;
 import com.example.truequelibre.Entity.Publicacion;
 
 import java.util.List;
@@ -17,4 +18,7 @@ public interface IPublicacionService {
 
     @DELETE("publicacion/{id}")
     Call<ResponseBody> deletePublicacion(@Path("id") Integer id);
+
+    @GET("publicacion/cargarDropdown")
+    Call<PublicacionDropdown> getPublicacionDropdown();
 }

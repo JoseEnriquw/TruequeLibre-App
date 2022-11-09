@@ -7,6 +7,11 @@ public class Condicion {
     public Condicion() {
     }
 
+    public Condicion(Integer id) {
+        this.id = id;
+
+    }
+
     public Condicion(Integer id, String descripcion) {
         this.id = id;
         this.descripcion = descripcion;

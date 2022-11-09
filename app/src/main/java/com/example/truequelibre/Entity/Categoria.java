@@ -9,6 +9,10 @@ public class Categoria {
     public Categoria() {
     }
 
+    public Categoria(Integer id) {
+        this.id = id;
+    }
+
     public Categoria(Integer id, String descripcion) {
         this.id = id;
         this.descripcion = descripcion;
