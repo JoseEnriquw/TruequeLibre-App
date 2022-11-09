@@ -1,38 +1,19 @@
 package com.example.truequelibre;
 
-import androidx.activity.result.ActivityResultCallback;
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContract;
-import androidx.activity.result.contract.ActivityResultContracts;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
-import android.Manifest;
-import android.app.Activity;
-import android.content.ContentValues;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.provider.MediaStore;
-import android.util.Log;
-import android.view.View;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
-import android.widget.Toast;
-import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.Toast;
+
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.truequelibre.Entity.Categoria;
 import com.example.truequelibre.Entity.Condicion;
@@ -41,20 +22,11 @@ import com.example.truequelibre.Entity.Dropdown.CondicionDropdown;
 import com.example.truequelibre.Entity.Dropdown.LocalidadDropdown;
 import com.example.truequelibre.Entity.Dropdown.PublicacionDropdown;
 import com.example.truequelibre.Entity.Localidad;
-import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Entity.PublicacionCreate;
 import com.example.truequelibre.Utils.Apis;
-import com.example.truequelibre.Utils.ICategoriaService;
-import com.example.truequelibre.Utils.PhotoUtils;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.example.truequelibre.Utils.IPublicacionService;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
-
-import java.io.FileNotFoundException;
-import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -99,16 +71,14 @@ public class AgregarPublicaciones extends AppCompatActivity {
         img4 = findViewById(R.id.imgvagregarpublicaciones4);
         img5 = findViewById(R.id.imgvagregarpublicaciones5);
 
-        service= Apis.getPublicacionService();
-        Call<PublicacionDropdown> call =service.getPublicacionDropdown();
         imageViewarray[0] = img1;
         imageViewarray[1] = img2;
         imageViewarray[2] = img3;
         imageViewarray[3] = img4;
         imageViewarray[4] = img5;
 
-        service= Apis.getCategoriaService();
-        Call<List<Categoria>> call =service.getCategorias();
+        service= Apis.getPublicacionService();
+        Call<PublicacionDropdown> call =service.getPublicacionDropdown();
 
         call.enqueue(new Callback<PublicacionDropdown>() {
             @Override
@@ -173,6 +143,8 @@ public class AgregarPublicaciones extends AppCompatActivity {
             }
         });
 
+        photobutton.setOnClickListener(view -> mGetContet.launch("image/*"));
+
     }
 
     public void Publicar(View v){
@@ -199,7 +171,6 @@ public class AgregarPublicaciones extends AppCompatActivity {
         publicacion.toString();
 
 
-        photobutton.setOnClickListener(view -> mGetContet.launch("image/*"));
 
     }
 
