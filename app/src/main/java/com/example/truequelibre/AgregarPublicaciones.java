@@ -1,15 +1,19 @@
 package com.example.truequelibre;
 
-import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.DialogInterface;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.EditText;
-import android.widget.ListAdapter;
-import android.widget.Toast;
+import android.widget.ImageView;
+
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.truequelibre.Entity.Categoria;
 import com.example.truequelibre.Entity.Condicion;
@@ -18,15 +22,11 @@ import com.example.truequelibre.Entity.Dropdown.CondicionDropdown;
 import com.example.truequelibre.Entity.Dropdown.LocalidadDropdown;
 import com.example.truequelibre.Entity.Dropdown.PublicacionDropdown;
 import com.example.truequelibre.Entity.Localidad;
-import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Entity.PublicacionCreate;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,11 +49,33 @@ public class AgregarPublicaciones extends AppCompatActivity {
     private LocalidadDropdown ubicacionPretendida;
     private CondicionDropdown condicion;
 
+    FloatingActionButton photobutton;
+    AlertDialog.Builder builder;
+    ImageView imageViewarray[]=new ImageView[5];
+    ImageView img1;
+    ImageView img2;
+    ImageView img3;
+    ImageView img4;
+    ImageView img5;
+    int banderin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_publicaciones);
+        photobutton = findViewById(R.id.btnAgregarImagenesPublicacion);
+        builder = new AlertDialog.Builder(this);
+        img1 = findViewById(R.id.imgvagregarpublicaciones1);
+        img2 = findViewById(R.id.imgvagregarpublicaciones2);
+        img3 = findViewById(R.id.imgvagregarpublicaciones3);
+        img4 = findViewById(R.id.imgvagregarpublicaciones4);
+        img5 = findViewById(R.id.imgvagregarpublicaciones5);
+
+        imageViewarray[0] = img1;
+        imageViewarray[1] = img2;
+        imageViewarray[2] = img3;
+        imageViewarray[3] = img4;
+        imageViewarray[4] = img5;
 
         service= Apis.getPublicacionService();
         Call<PublicacionDropdown> call =service.getPublicacionDropdown();
@@ -121,6 +143,8 @@ public class AgregarPublicaciones extends AppCompatActivity {
             }
         });
 
+        photobutton.setOnClickListener(view -> mGetContet.launch("image/*"));
+
     }
 
     public void Publicar(View v){
@@ -146,5 +170,44 @@ public class AgregarPublicaciones extends AppCompatActivity {
 
         publicacion.toString();
 
+
+
     }
+
+    public void alertdialog(){
+        builder.setMessage("Solo podes cargar 5 imagenes")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+
+                    }
+                });
+
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        //Setting the title manually
+       // alert.setTitle("AlertDialogExample");
+        alert.show();
+    }
+
+    ActivityResultLauncher<String> mGetContet = registerForActivityResult(
+            new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
+                @Override
+                public void onActivityResult(Uri result) {
+                    if(result !=null){
+                        for ( int i= 0; i<5; i++ ) {
+                            if(imageViewarray[i].getDrawable()== null) {
+                                imageViewarray[i].setImageURI(result);
+
+                                return;
+                            }
+                           i++;
+                        }
+
+                    }
+                }
+            }
+    );
 }
