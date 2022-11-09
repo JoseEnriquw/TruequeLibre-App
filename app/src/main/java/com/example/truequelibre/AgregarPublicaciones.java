@@ -50,30 +50,33 @@ public class AgregarPublicaciones extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     AutoCompleteTextView dropDawnCate;
     FloatingActionButton photobutton;
-    AlertDialog.Builder builder;
-    private PhotoUtils photoUtils;
-    private AlertDialog _photoDialog;
-    private Uri mImageUri;
-    private static final int ACTIVITY_SELECT_IMAGE = 1020,
-            ACTIVITY_SELECT_FROM_CAMERA = 1040, ACTIVITY_SHARE = 1030;
-
-    //prueba
-    private static final String TAG = "MainActivity";
-    private static final int PICTURE_RESULT = 122 ;
-    private ContentValues values;
-    private Uri imageUri;
-    private ImageView myImageView;
-    private Bitmap thumbnail;
-
-    String imageurl;
+    AlertDialog.Builder builder;    
+    ImageView imageViewarray[]=new ImageView[5];
+    ImageView img1;
+    ImageView img2;
+    ImageView img3;
+    ImageView img4;
+    ImageView img5;
+    int banderin;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_publicaciones);
         photobutton = findViewById(R.id.btnAgregarImagenesPublicacion);
-        myImageView = findViewById(R.id.imgvagregarpublicaciones);
         builder = new AlertDialog.Builder(this);
+        img1 = findViewById(R.id.imgvagregarpublicaciones1);
+        img2 = findViewById(R.id.imgvagregarpublicaciones2);
+        img3 = findViewById(R.id.imgvagregarpublicaciones3);
+        img4 = findViewById(R.id.imgvagregarpublicaciones4);
+        img5 = findViewById(R.id.imgvagregarpublicaciones5);
+
+        imageViewarray[0] = img1;
+        imageViewarray[1] = img2;
+        imageViewarray[2] = img3;
+        imageViewarray[3] = img4;
+        imageViewarray[4] = img5;
+       
         service= Apis.getCategoriaService();
         Call<List<Categoria>> call =service.getCategorias();
 
@@ -102,13 +105,39 @@ public class AgregarPublicaciones extends AppCompatActivity {
         photobutton.setOnClickListener(view -> mGetContet.launch("image/*"));
 
     }
+
+    public void alertdialog(){
+        builder.setMessage("Solo podes cargar 5 imagenes")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+
+                    }
+                });
+
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        //Setting the title manually
+       // alert.setTitle("AlertDialogExample");
+        alert.show();
+    }
+
     ActivityResultLauncher<String> mGetContet = registerForActivityResult(
             new ActivityResultContracts.GetContent(),
             new ActivityResultCallback<Uri>() {
                 @Override
                 public void onActivityResult(Uri result) {
                     if(result !=null){
-                        myImageView.setImageURI(result);
+                        for ( int i= 0; i<5; i++ ) {
+                            if(imageViewarray[i].getDrawable()== null) {
+                                imageViewarray[i].setImageURI(result);
+
+                                return;
+                            }
+                           i++;
+                        }
+
                     }
                 }
             }
