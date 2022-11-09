@@ -8,6 +8,10 @@ public class Localidad extends Provincia {
     public Localidad() {
     }
 
+    public Localidad(Integer id) {
+        this.id = id;
+    }
+
     public Localidad(Integer id, String nombre, Provincia provincia) {
         this.id = id;
         this.nombre = nombre;
