@@ -1,6 +1,8 @@
 package com.example.truequelibre;
 
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
@@ -8,6 +10,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.ActivityResultLauncher;
@@ -15,21 +18,23 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.example.truequelibre.Entity.Categoria;
-import com.example.truequelibre.Entity.Condicion;
 import com.example.truequelibre.Entity.Dropdown.CategoriaDropdown;
 import com.example.truequelibre.Entity.Dropdown.CondicionDropdown;
 import com.example.truequelibre.Entity.Dropdown.LocalidadDropdown;
 import com.example.truequelibre.Entity.Dropdown.PublicacionDropdown;
-import com.example.truequelibre.Entity.Localidad;
-import com.example.truequelibre.Entity.PublicacionCreate;
+import com.example.truequelibre.Entity.Publicacion;
+import com.example.truequelibre.Entity.PublicacionCreateRequest;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 
+import java.io.ByteArrayOutputStream;
+import java.net.HttpURLConnection;
+
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class AgregarPublicaciones extends AppCompatActivity {
     PublicacionDropdown lista= new PublicacionDropdown();
@@ -148,30 +153,47 @@ public class AgregarPublicaciones extends AppCompatActivity {
     }
 
     public void Publicar(View v){
-        PublicacionCreate publicacion = new PublicacionCreate();
-        // TITULO Y DESCRIPCION
-        publicacion.setNombre(((TextInputEditText)findViewById(R.id.txtTituloAgregar)).getText().toString());
-        publicacion.setDescripcion(((TextInputEditText)findViewById(R.id.txtDescripcionAgregar)).getText().toString());
-        //CONDICION
-        Condicion cond = new Condicion(condicion.getIdCondicion());
-        publicacion.setCondicion(cond);
+        String nombre = ((TextInputEditText)findViewById(R.id.txtTituloAgregar)).getText().toString();
+        String descripcion = ((TextInputEditText)findViewById(R.id.txtDescripcionAgregar)).getText().toString();
+        byte[] imageInByte = convertImgViewToArray();
+        PublicacionCreateRequest publicacion = new PublicacionCreateRequest(1,nombre,descripcion,
+                categoria.getIdCategoria(),categoriaPretendida.getIdCategoria(),
+                condicion.getIdCondicion(), ubicacion.getIdLocalidad(),ubicacionPretendida.getIdLocalidad(), imageInByte);
+        postPublicacionCreate(publicacion);
+    }
 
-        // UBICACION
-        Localidad loc = new Localidad(ubicacion.getIdLocalidad());
-        publicacion.setUbicacion(loc);
-        loc = new Localidad(ubicacionPretendida.getIdLocalidad());
-        publicacion.setUbicacionPretendida(loc);
+    public byte[] convertImgViewToArray(){
+        Bitmap bitmap = ((BitmapDrawable) img1.getDrawable()).getBitmap();
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+        return baos.toByteArray();
+    }
 
-        // CATEGORIA
-        Categoria cat = new Categoria(categoria.getIdCategoria());
-        publicacion.setCategoria(cat);
-        cat.setId(categoriaPretendida.getIdCategoria());
-        publicacion.setInteres(cat);
-
-        publicacion.toString();
-
-
-
+    public boolean postPublicacionCreate(PublicacionCreateRequest publicacion){
+        service= Apis.getPublicacionService();
+        Call<Void> call = service.create(publicacion);
+        call.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if(response.isSuccessful()){
+                    if(response.code() == HttpURLConnection.HTTP_CREATED){
+                        Toast.makeText(AgregarPublicaciones.this,"Publicación agregada con exito!", Toast.LENGTH_LONG).show();
+                    }
+                    else{
+                        Toast.makeText(AgregarPublicaciones.this,"Error al agregar publicación!", Toast.LENGTH_LONG).show();
+                    }
+                }
+                else{
+                    Toast.makeText(AgregarPublicaciones.this,"Error al agregar publicación!", Toast.LENGTH_LONG).show();
+                }
+            }
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                t.printStackTrace();
+                Toast.makeText(AgregarPublicaciones.this,"Error al agregar publicación!", Toast.LENGTH_LONG).show();
+            }
+        });
+        return true;
     }
 
     public void alertdialog(){
