@@ -31,7 +31,6 @@ public class PublicacionesPorCategoria extends AppCompatActivity {
 
         Persona per = new Persona("34695008d","regina","laurentino");
         Estado estado = new Estado();
-        Usuario usu = new Usuario(01,"mail","regina@laurentino", estado, per);
         Categoria cat = new Categoria();
         Condicion CONDI = new Condicion();
 
