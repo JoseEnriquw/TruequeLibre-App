@@ -2,6 +2,7 @@ package com.example.truequelibre;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,8 +12,23 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.truequelibre.Entity.AuthenticationRequest;
+import com.example.truequelibre.Entity.Usuario;
+import com.example.truequelibre.Utils.Apis;
+import com.example.truequelibre.Utils.Error;
+import com.example.truequelibre.Utils.IUsuarioService;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 public class Login extends AppCompatActivity {
 
@@ -20,10 +36,17 @@ public class Login extends AppCompatActivity {
     private TextView tvTruequeLibre;
     private EditText txtUsuario;
     private EditText txtContrasenia;
+    IUsuarioService service;
+    Usuario _usuario;
+    Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        context=this;
+        service= Apis.getUsuarioService();
 
         txtUsuario = (EditText) findViewById(R.id.txtUsuario);
         txtContrasenia = (EditText) findViewById(R.id.txtContrasenia);
@@ -46,10 +69,40 @@ public class Login extends AppCompatActivity {
         if (validarCampos()){
             String usuario = String.valueOf(txtUsuario.getText());
             String contrasenia = String.valueOf(txtContrasenia.getText());
-            if (usuario.equals("admin") && contrasenia.equals("admin")){
-                Intent i = new Intent(this,MainActivity.class);
-                startActivity(i);
-            }
+            Toast toast = new Toast(getApplicationContext());
+            toast.setDuration(Toast.LENGTH_LONG);
+
+            Call<Usuario> call =service.authentication(new AuthenticationRequest(usuario,contrasenia));
+
+            call.enqueue(new Callback<Usuario>() {
+                @Override
+                public void onResponse(Call<Usuario> call, retrofit2.Response<Usuario> response) {
+                    if(response.isSuccessful()) {
+                        _usuario = response.body();
+
+                        Intent i = new Intent(getApplicationContext(),MainActivity.class);
+                        i.putExtra("Usuario",_usuario);
+                        startActivity(i);
+                    }
+                    else
+                    {
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<List<Error>>() {}.getType();
+                        List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+
+                        for (Error item: message) {
+                        toast.setText(item.getMessage());
+                        toast.show();
+                        }
+
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<Usuario> call, Throwable t) {
+                    System.out.println(t.getCause()+"\n"+t.getMessage());
+                }
+            });
         }
     }
 

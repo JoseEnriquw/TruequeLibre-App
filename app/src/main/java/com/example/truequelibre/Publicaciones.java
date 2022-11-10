@@ -104,20 +104,7 @@ public class Publicaciones extends Fragment {
 
         //Cargar el RecyclerView
         _recyclerView =(RecyclerView) view.findViewById(R.id.rvPublicaciones);
-        /*List<Publicacion> lista = new ArrayList<>();
 
-        Persona per = new Persona("34695008d","regina","laurentino");
-        Estado estado = new Estado();
-        Usuario usu = new Usuario(01,"mail","regina@laurentino", estado, per);
-        Categoria cat = new Categoria();
-        Condicion CONDI = new Condicion();
-
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
-        lista.add(new Publicacion(1,usu,"teclado","para escribir",cat,cat,"https://ar-media.hptiendaenlinea.com/magefan_blog/C_mo_encender-apagar_la_iluminacion_del_teclado_1.png",CONDI));
-*/
         //Onclick btn Agregar Publicacion
         Button btnAgregarPublicacion= (Button) view.findViewById(R.id.btnAgregarPublicacion);
         btnAgregarPublicacion.setOnClickListener(

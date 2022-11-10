@@ -41,11 +41,6 @@ public class VerPerfilOtroUsuario extends AppCompatActivity {
 
         Persona per = new Persona("34695008d","regina","laurentino");
         Estado estado = new Estado();
-        Usuario usu = new Usuario(01,"mail","regina@laurentino", estado, per);
-
-        lista.add(new CalificacionUsuario(1,usu,ratingBar,"Bueno!!",date));
-        lista.add(new CalificacionUsuario(2,usu,ratingBar,"Muy Bueno!!",date));
-        lista.add(new CalificacionUsuario(3,usu,ratingBar,"Excelente!!",date));
 
         _adapter= new AdapterComentariosMiPerfil(this,lista);
 
