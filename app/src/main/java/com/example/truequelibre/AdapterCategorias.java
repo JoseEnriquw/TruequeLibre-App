@@ -1,6 +1,10 @@
 package com.example.truequelibre;
 
 import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.truequelibre.Entity.Categoria;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 public class AdapterCategorias extends RecyclerView.Adapter <AdapterCategorias.ViewHolderCategorias>{
@@ -47,9 +52,10 @@ public class AdapterCategorias extends RecyclerView.Adapter <AdapterCategorias.V
     @Override
     public void onBindViewHolder(@NonNull AdapterCategorias.ViewHolderCategorias holder, int position) {
         holder.tvTitulo.setText(publicaciones.get(position).getDescripcion());
-      /* Picasso.get()
-                .load(publicaciones.get(position).getUrlImg())
-                .into(holder.imageView);
+        byte[] byteArray =  Base64.decode(publicaciones.get(position).getImagenes(), Base64.DEFAULT);
+        ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
+        Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+        holder.imageView.setImageBitmap(theImage);
 
         holder.imageView.setOnClickListener( new View.OnClickListener() {
                                                  @Override
@@ -59,7 +65,7 @@ public class AdapterCategorias extends RecyclerView.Adapter <AdapterCategorias.V
 
                                                  }
                                              }
-        );*/
+        );
     }
 
     @Override

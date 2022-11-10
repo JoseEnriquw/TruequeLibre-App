@@ -18,7 +18,7 @@
 
             tools:ignore="MissingConstraints">
 
-            ...
+
 
 
         </com.google.android.material.tabs.TabLayout>

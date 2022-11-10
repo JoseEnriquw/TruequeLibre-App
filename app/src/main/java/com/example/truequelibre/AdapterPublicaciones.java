@@ -1,6 +1,8 @@
 package com.example.truequelibre;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,6 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
+
+import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
 import java.util.List;
 import okhttp3.ResponseBody;
@@ -70,6 +74,9 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
 
        holder.tvTitulo.setText(publicaciones.get(position).getNombre());
        holder.tvSubtitulo.setText(publicaciones.get(position).getDescripcion());
+       // ByteArrayInputStream imageStream = new ByteArrayInputStream(publicaciones.get(position).getImagenes());
+        //Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+       // holder.imageView.setImageBitmap(theImage);
         /*Picasso.get()
                 .load(publicaciones.get(position).getUrlImg())
                 .into(holder.imageView);*/
