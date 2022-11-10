@@ -1,21 +1,14 @@
 package com.example.truequelibre.Entity;
 
-public class Usuario {
+import java.io.Serializable;
+
+public class Usuario implements Serializable {
     private Integer id;
-    private String mail;
-    private String contrasenia;
-    private Estado estado;
-    private Persona persona;
+    private String nombreApellido;
+    private String email;
+    private String imagen;
 
     public Usuario() {
-    }
-
-    public Usuario(Integer id, String mail, String contrasenia, Estado estado, Persona persona) {
-        this.id = id;
-        this.mail = mail;
-        this.contrasenia = contrasenia;
-        this.estado = estado;
-        this.persona = persona;
     }
 
     public Integer getId() {
@@ -26,35 +19,27 @@ public class Usuario {
         this.id = id;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEMail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEMail(String email) {
+        this.email = email;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getImagen() {
+        return imagen;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setImagen(String imagen) {
+        this.imagen = imagen;
     }
 
-    public Estado getEstado() {
-        return estado;
+    public String getNombreApellido() {
+        return nombreApellido;
     }
 
-    public void setEstado(Estado estado) {
-        this.estado = estado;
-    }
-
-    public Persona getPersona() {
-        return persona;
-    }
-
-    public void setPersona(Persona persona) {
-        this.persona = persona;
+    public void setNombreApellido(String nombreApellido) {
+        this.nombreApellido = nombreApellido;
     }
 }

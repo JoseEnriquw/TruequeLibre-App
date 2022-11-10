@@ -2,6 +2,7 @@ package com.example.truequelibre;
 
 import android.os.Bundle;
 
+import com.example.truequelibre.Entity.Usuario;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,10 @@ import com.example.truequelibre.databinding.ActivityMainBinding;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private Usuario usuario;
+    public Usuario getUsuario() {
+        return usuario;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        usuario=(Usuario)getIntent().getSerializableExtra("Usuario");
     }
 
 }

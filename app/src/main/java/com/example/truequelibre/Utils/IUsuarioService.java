@@ -6,9 +6,12 @@ import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Entity.PublicacionCreateRequest;
 import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.Entity.UsuarioCreateRequest;
-
+import retrofit2.Call;
+import retrofit2.http.Body;
+import retrofit2.http.POST;
 import java.util.List;
-
+import com.example.truequelibre.Entity.AuthenticationRequest;
+import com.example.truequelibre.Entity.Usuario;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -26,4 +29,7 @@ public interface IUsuarioService {
 
     @POST("usuario/")
     Call<Void>create(@Body UsuarioCreateRequest request);
+
+    @POST("usuario/login/")
+    Call<Usuario> authentication(@Body AuthenticationRequest request);
 }

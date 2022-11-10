@@ -4,7 +4,6 @@ public class Estado {
     private Integer id;
     private String Nombre;
 
-
     public Estado() {
     }
 

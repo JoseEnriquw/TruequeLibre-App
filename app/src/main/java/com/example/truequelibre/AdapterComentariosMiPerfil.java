@@ -58,11 +58,7 @@ public class AdapterComentariosMiPerfil extends RecyclerView.Adapter <AdapterCom
     public void onBindViewHolder(@NonNull AdapterComentariosMiPerfil.ViewHolderComentarios holder, int position) {
         //holder.ratingBarComentarioMiPerfil.setText(calificacion.get(position).getRatingBar());
         holder.tvComentarioMiPerfil.setText(calificacion.get(position).getComentarioMiPerfil());
-        holder.tvNombreApellidoComentarioMiPerfil.setText(calificacion.get(position).geteUsuario().getPersona().getNombre());
-        //holder.fechaComentarioMiPerfil.setText((CharSequence) calificacion.get(position).getFechaComentario());
-      /*  Picasso.get()
-                .load(calificacion.get(position).geteUsuario().getUrlImg())
-                .into(holder.imageViewComentarioMiPerfil);*/
+
 
     }
 

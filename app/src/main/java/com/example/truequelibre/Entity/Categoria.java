@@ -3,8 +3,7 @@ package com.example.truequelibre.Entity;
 public class Categoria {
     private Integer id;
     private String descripcion;
-    private byte[] imagenes;
-
+    private String imagenes;
 
     public Categoria() {
     }
@@ -34,11 +33,11 @@ public class Categoria {
         this.descripcion = descripcion;
     }
 
-    public byte[] getImagenes() {
+    public String getImagenes() {
         return imagenes;
     }
 
-    public void setImagenes(byte[] imagenes) {
+    public void setImagenes(String imagenes) {
         this.imagenes = imagenes;
     }
 
