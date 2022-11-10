@@ -47,8 +47,8 @@ public class Registrarse extends AppCompatActivity {
     private EditText txtCorreo;
     private EditText txtTelefono;
     private EditText txtDireccion;
-    private String txtContrasenia;
-    private String txtConfirmarContrasenia;
+    private EditText txtContrasenia;
+    private EditText txtConfirmarContrasenia;
     ArrayAdapter<LocalidadDropdown> adapterLocalidad;
     AutoCompleteTextView dropDownLocalidades;
     LocalidadDropdown ubicacion;
@@ -69,8 +69,8 @@ public class Registrarse extends AppCompatActivity {
         txtCorreo = (EditText) findViewById(R.id.txtCorreo);
         txtTelefono = (EditText) findViewById(R.id.txtTelefono);
         txtDireccion = (EditText) findViewById(R.id.txtDireccion);
-        txtContrasenia = ((EditText) findViewById(R.id.txtContrasenia)).getText().toString();
-        txtConfirmarContrasenia = ((EditText) findViewById(R.id.txtConfirmarContrasenia)).getText().toString();
+        txtContrasenia = (EditText) findViewById(R.id.txtContrasenia);
+        txtConfirmarContrasenia = (EditText) findViewById(R.id.txtConfirmarContrasenia);
 
         tv_IniciarSesion = (TextView)findViewById(R.id.tvIniciarSesion);
 
@@ -117,7 +117,7 @@ public class Registrarse extends AppCompatActivity {
 
     public void btnRegistrarse(View view){
         if (validarCampos()){
-            if(txtConfirmarContrasenia.equals(txtContrasenia)){
+            if(txtConfirmarContrasenia.getText().toString().equals(txtContrasenia.getText().toString())){
                 try {
                     RellenarCampos(view);
                 } catch (ParseException e) {
@@ -151,16 +151,23 @@ public class Registrarse extends AppCompatActivity {
     public void RellenarCampos(View v) throws ParseException {
         usuarionuevo.setNombre(String.valueOf(txtNombre.getText()));
         usuarionuevo.setApellido(String.valueOf(txtApellido.getText()));
-        SimpleDateFormat formato = new SimpleDateFormat("dd/MM/yyyy");
-         DateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
-        Date fecha = formato.parse(String.valueOf(txtFechaNacimiento.getText()));
-        Date aux = formatter.parse(String.valueOf(fecha));
-        usuarionuevo.setFechaNacimiento(aux);
+     //   SimpleDateFormat formato = new SimpleDateFormat("yyyy-MM-dd");
+      //   DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+         // 03/02/1989
+      //  Date fecha = formatter.parse(String.valueOf(txtFechaNacimiento.getText()));
+
+        String startDateString = String.valueOf(txtFechaNacimiento.getText());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat sdf2 = new SimpleDateFormat("yyyy-MM-dd");
+
+        String fecha = sdf2.format(sdf.parse(startDateString));
+        usuarionuevo.setFechaNacimiento(fecha);
         usuarionuevo.setApellido(String.valueOf(txtDNI.getText()));
         usuarionuevo.setMail(String.valueOf(txtCorreo.getText()));
+        usuarionuevo.setDni(String.valueOf(txtDNI.getText()));
         usuarionuevo.setTelefono(String.valueOf(txtTelefono.getText()));
         usuarionuevo.setDireccion(String.valueOf(txtDireccion.getText()));
-        usuarionuevo.setContrasenia(String.valueOf(txtConfirmarContrasenia));
+        usuarionuevo.setContrasenia(String.valueOf(txtConfirmarContrasenia.getText()));
         usuarionuevo.setLocalidad(ubicacion.getIdLocalidad());
 
     }

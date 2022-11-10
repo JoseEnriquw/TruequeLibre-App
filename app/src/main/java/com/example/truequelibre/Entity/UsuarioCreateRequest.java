@@ -31,7 +31,7 @@ public class UsuarioCreateRequest implements Serializable {
     private Integer localidad;
     @SerializedName("fechaNacimiento")
     @Expose
-    private Date fechaNacimiento;
+    private String fechaNacimiento;
     @SerializedName("contrasenia")
     @Expose
     private String contrasenia;
@@ -47,7 +47,7 @@ public class UsuarioCreateRequest implements Serializable {
         this.apellido = apellido;
     }
 
-    public UsuarioCreateRequest(String mail, String dni, String nombre, String direccion, String telefono, Integer localidad, Date fechaNacimiento, String contrasenia) {
+    public UsuarioCreateRequest(String mail, String dni, String nombre, String direccion, String telefono, Integer localidad, String fechaNacimiento, String contrasenia) {
         this.mail = mail;
         this.dni = dni;
         this.nombre = nombre;
@@ -106,11 +106,11 @@ public class UsuarioCreateRequest implements Serializable {
         this.localidad = localidad;
     }
 
-    public Date getFechaNacimiento() {
+    public String getFechaNacimiento() {
         return fechaNacimiento;
     }
 
-    public void setFechaNacimiento(Date fechaNacimiento) {
+    public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
 
