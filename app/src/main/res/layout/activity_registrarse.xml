@@ -116,15 +116,16 @@
                 android:id="@+id/email_text_input_layout"
                 android:hint="@string/txtCorreo"
                 >
+
                 <com.google.android.material.textfield.TextInputEditText
 
                     android:id="@+id/txtCorreo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="text"
+                    android:inputType="text|textEmailAddress"
                     android:maxLines="1"
-                    android:textSize="16sp"  />
+                    android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -132,15 +133,16 @@
                 android:id="@+id/cellphone_text_input_layout"
                 android:hint="@string/txtTelefono"
                 >
+
                 <com.google.android.material.textfield.TextInputEditText
 
                     android:id="@+id/txtTelefono"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:ems="10"
-                    android:inputType="text"
+                    android:inputType="text|phone"
                     android:maxLines="1"
-                    android:textSize="16sp"  />
+                    android:textSize="16sp" />
 
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
@@ -159,20 +161,24 @@
                     android:textSize="16sp"  />
 
             </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/txtLogin"
-                android:id="@+id/locale_text_input_layout"
-                android:hint="@string/txtLocalidad"
-                >
-                <com.google.android.material.textfield.TextInputEditText
 
-                    android:id="@+id/txtLocalidad"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/tfUbicacionregistrarse"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/tv_ubicacion_agregar_publicacion"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
+                android:layout_below="@id/address_text_input_layout"
+                android:layout_marginTop="5dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/txtlocalidad"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:ems="10"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    android:textSize="16sp"  />
+                    android:inputType="none">
+
+                </AutoCompleteTextView>
+
 
             </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout

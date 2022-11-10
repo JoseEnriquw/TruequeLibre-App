@@ -93,7 +93,6 @@ public class Buscar extends Fragment {
         });
 
         _recyclerView =(RecyclerView) view.findViewById(R.id.rvCategorias);
-
         return view;
     }
 }
