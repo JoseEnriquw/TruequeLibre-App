@@ -88,7 +88,8 @@ public class Buscar extends Fragment {
 
             @Override
             public void onFailure(Call<List<Categoria>> call, Throwable t) {
-                System.out.println(lista);
+                System.out.println(t.getCause()+ " \n"+t.getMessage());
+
             }
         });
 
