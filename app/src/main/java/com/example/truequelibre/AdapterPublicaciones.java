@@ -11,6 +11,8 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
@@ -18,8 +20,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.ByteArrayInputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 import okhttp3.ResponseBody;
@@ -105,12 +110,27 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
                                 deleteRequest.enqueue(new Callback<ResponseBody>() {
                                     @Override
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                               if(response.isSuccessful())
+                                               {
+
+                                               }
+                                               else
+                                               {
+                                                   Gson gson = new Gson();
+                                                   Type type = new TypeToken<List<Error>>() {}.getType();
+                                                   List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+
+                                                   for (Error item: message) {
+                                                       Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG);
+                                                   }
+                                               }
 
                                     }
 
                                     @Override
                                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                        // handle failure
+                                        System.out.println(t.getCause()+ " \n"+t.getMessage());
+                                        Toast.makeText(context,"Hubo un error al traer los datos de la base de datos :(", Toast.LENGTH_LONG).show();
                                     }
                                 });
                                 System.out.println("Eliminar------------------------");

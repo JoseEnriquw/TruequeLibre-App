@@ -1,5 +1,6 @@
 package com.example.truequelibre;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -28,9 +29,13 @@ import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.ByteArrayOutputStream;
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -63,11 +68,14 @@ public class AgregarPublicaciones extends AppCompatActivity {
     ImageView img4;
     ImageView img5;
     int banderin;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_publicaciones);
+
+        context=this;
         photobutton = findViewById(R.id.btnAgregarImagenesPublicacion);
         builder = new AlertDialog.Builder(this);
         img1 = findViewById(R.id.imgvagregarpublicaciones1);
@@ -139,12 +147,24 @@ public class AgregarPublicaciones extends AppCompatActivity {
                             ubicacionPretendida = adapterLocalidad.getItem(position);
                         }
                     });
+                }else
+                {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<Error>>() {}.getType();
+                    List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+
+                    for (Error item: message) {
+                        Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG).show();
+                    }
                 }
+
+
             }
 
             @Override
             public void onFailure(Call<PublicacionDropdown> call, Throwable t) {
-                System.out.println(lista);
+                System.out.println(t.getCause()+ " \n"+t.getMessage());
+                Toast.makeText(context,"Hubo un error al traer los datos de la base de datos :(",Toast.LENGTH_LONG).show();
             }
         });
 
@@ -184,7 +204,13 @@ public class AgregarPublicaciones extends AppCompatActivity {
                     }
                 }
                 else{
-                    Toast.makeText(AgregarPublicaciones.this,"Error al agregar publicación!", Toast.LENGTH_LONG).show();
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<Error>>() {}.getType();
+                    List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+
+                    for (Error item: message) {
+                        Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG).show();
+                    }
                 }
             }
             @Override

@@ -4,13 +4,20 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
+
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.truequelibre.Entity.Categoria;
+import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.Utils.Apis;
+import com.example.truequelibre.Utils.Error;
 import com.example.truequelibre.Utils.ICategoriaService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -72,6 +79,7 @@ public class Buscar extends Fragment {
         service= Apis.getCategoriaService();
         Call<List<Categoria>> call =service.getCategorias();
 
+
         call.enqueue(new Callback<List<Categoria>>() {
             @Override
             public void onResponse(Call<List<Categoria>> call, retrofit2.Response<List<Categoria>> response) {
@@ -84,11 +92,22 @@ public class Buscar extends Fragment {
                     _recyclerView.setHasFixedSize(true);
                     _recyclerView.setAdapter(_adapter);
                 }
+                else {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<Error>>() {
+                    }.getType();
+                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+
+                    for (Error item : message) {
+                        Toast.makeText(getContext(), item.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
             }
 
             @Override
             public void onFailure(Call<List<Categoria>> call, Throwable t) {
                 System.out.println(t.getCause()+ " \n"+t.getMessage());
+                Toast.makeText(getContext(),"Hubo un error al traer los datos de la base de datos :(",Toast.LENGTH_LONG).show();
 
             }
         });

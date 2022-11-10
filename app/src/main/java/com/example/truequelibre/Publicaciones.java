@@ -12,11 +12,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.truequelibre.Entity.Publicacion;
+import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -38,6 +43,7 @@ public class Publicaciones extends Fragment {
     private AdapterPublicaciones _adapter;
     IPublicacionService service;
     private List<Publicacion> lista = new ArrayList<>();
+    Usuario usuario;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -79,8 +85,12 @@ public class Publicaciones extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view=inflater.inflate(R.layout.fragment_publicaciones, container, false);
+
+        MainActivity activity =(MainActivity) getActivity();
+        usuario= activity.getUsuario();
+
         service= Apis.getPublicacionService();
-        Call<List<Publicacion>> call =service.getPublicaciones();
+        Call<List<Publicacion>> call =service.getPublicaciones(usuario.getId());
 
         call.enqueue(new Callback<List<Publicacion>>() {
             @Override
@@ -94,11 +104,22 @@ public class Publicaciones extends Fragment {
                    _recyclerView.setHasFixedSize(true);
                    _recyclerView.setAdapter(_adapter);
                }
+               else {
+                   Gson gson = new Gson();
+                   Type type = new TypeToken<List<Error>>() { }.getType();
+
+                   List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+
+                   for (Error item : message) {
+                       Toast.makeText(getContext(), item.getMessage(), Toast.LENGTH_LONG).show();
+                   }
+               }
             }
 
             @Override
             public void onFailure(Call<List<Publicacion>> call, Throwable t) {
-                System.out.println(lista);
+                System.out.println(t.getCause()+ " \n"+t.getMessage());
+                Toast.makeText(getContext(),"Hubo un error al traer los datos de la base de datos :(",Toast.LENGTH_LONG).show();
             }
         });
 

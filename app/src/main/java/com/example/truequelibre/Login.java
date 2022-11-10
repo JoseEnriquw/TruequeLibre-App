@@ -101,6 +101,8 @@ public class Login extends AppCompatActivity {
                 @Override
                 public void onFailure(Call<Usuario> call, Throwable t) {
                     System.out.println(t.getCause()+"\n"+t.getMessage());
+                    toast.setText(t.getCause()+"\n"+t.getMessage());
+                    toast.show();
                 }
             });
         }

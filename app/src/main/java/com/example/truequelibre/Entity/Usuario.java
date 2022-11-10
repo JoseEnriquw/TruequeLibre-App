@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 public class Usuario implements Serializable {
     private Integer id;
-    private String mail;
+    private String nombreApellido;
+    private String email;
     private String imagen;
 
     public Usuario() {
@@ -18,12 +19,12 @@ public class Usuario implements Serializable {
         this.id = id;
     }
 
-    public String getMail() {
-        return mail;
+    public String getEMail() {
+        return email;
     }
 
-    public void setMail(String mail) {
-        this.mail = mail;
+    public void setEMail(String email) {
+        this.email = email;
     }
 
     public String getImagen() {
@@ -32,5 +33,13 @@ public class Usuario implements Serializable {
 
     public void setImagen(String imagen) {
         this.imagen = imagen;
+    }
+
+    public String getNombreApellido() {
+        return nombreApellido;
+    }
+
+    public void setNombreApellido(String nombreApellido) {
+        this.nombreApellido = nombreApellido;
     }
 }
