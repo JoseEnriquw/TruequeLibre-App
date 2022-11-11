@@ -1,6 +1,6 @@
 package com.example.truequelibre.Entity;
 
-public class PublicacionEditar {
+public class PublicacionResponse {
     private Integer id;
     private String nombre;
     private String descripcion;
@@ -12,7 +12,7 @@ public class PublicacionEditar {
     private String ubicacionPretendida;
     private String interes;
 
-    public PublicacionEditar() {
+    public PublicacionResponse() {
     }
 
     public Integer getId() {

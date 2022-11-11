@@ -101,6 +101,7 @@ public class AdapterArticulos extends RecyclerView.Adapter <AdapterArticulos.Vie
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(view.getContext().getApplicationContext(),DetalleArticulo.class);
+                intent.putExtra("idPublicacion",publicaciones.get(position).getId());
                 view.getContext().startActivity(intent);
 
             }

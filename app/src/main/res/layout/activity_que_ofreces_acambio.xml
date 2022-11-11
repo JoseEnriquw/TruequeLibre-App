@@ -95,7 +95,7 @@
                 android:layout_centerHorizontal="true"
                 android:scaleType="centerCrop"
                 tools:ignore="NotSibling"
-                tools:srcCompat="@tools:sample/avatars" />
+                app:srcCompat="@android:drawable/ic_input_add" />
 
             <TextView
                 android:id="@+id/tvTituloquerido"
