@@ -119,6 +119,7 @@
                     android:id="@+id/tfCategoriaEditarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
                     android:hint="@string/tv_categoria_editar_publicacion"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense.ExposedDropdownMenu"
                     android:layout_below="@id/btnEditarImagenesPublicacion">

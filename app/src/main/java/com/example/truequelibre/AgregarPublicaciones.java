@@ -74,7 +74,6 @@ public class AgregarPublicaciones extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_publicaciones);
-
         context=this;
         photobutton = findViewById(R.id.btnAgregarImagenesPublicacion);
         builder = new AlertDialog.Builder(this);
@@ -83,13 +82,11 @@ public class AgregarPublicaciones extends AppCompatActivity {
         img3 = findViewById(R.id.imgvagregarpublicaciones3);
         img4 = findViewById(R.id.imgvagregarpublicaciones4);
         img5 = findViewById(R.id.imgvagregarpublicaciones5);
-
         imageViewarray[0] = img1;
         imageViewarray[1] = img2;
         imageViewarray[2] = img3;
         imageViewarray[3] = img4;
         imageViewarray[4] = img5;
-
         service= Apis.getPublicacionService();
         Call<PublicacionDropdown> call =service.getPublicacionDropdown();
 
@@ -157,10 +154,7 @@ public class AgregarPublicaciones extends AppCompatActivity {
                         Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 }
-
-
             }
-
             @Override
             public void onFailure(Call<PublicacionDropdown> call, Throwable t) {
                 System.out.println(t.getCause()+ " \n"+t.getMessage());
@@ -173,20 +167,48 @@ public class AgregarPublicaciones extends AppCompatActivity {
     }
 
     public void Publicar(View v){
-        String nombre = ((TextInputEditText)findViewById(R.id.txtTituloAgregar)).getText().toString();
-        String descripcion = ((TextInputEditText)findViewById(R.id.txtDescripcionAgregar)).getText().toString();
-        byte[] imageInByte = convertImgViewToArray();
-        PublicacionCreateRequest publicacion = new PublicacionCreateRequest(1,nombre,descripcion,
-                categoria.getIdCategoria(),categoriaPretendida.getIdCategoria(),
-                condicion.getIdCondicion(), ubicacion.getIdLocalidad(),ubicacionPretendida.getIdLocalidad(), imageInByte);
-        postPublicacionCreate(publicacion);
+        if (validarCampos()){
+            String nombre = ((TextInputEditText)findViewById(R.id.txtTituloAgregar)).getText().toString();
+            String descripcion = ((TextInputEditText)findViewById(R.id.txtDescripcionAgregar)).getText().toString();
+            byte[] imageInByte = convertImgViewToArray();
+            PublicacionCreateRequest publicacion = new PublicacionCreateRequest(1,nombre,descripcion,
+                    categoria.getIdCategoria(),categoriaPretendida.getIdCategoria(),
+                    condicion.getIdCondicion(), ubicacion.getIdLocalidad(),ubicacionPretendida.getIdLocalidad(), imageInByte);
+            postPublicacionCreate(publicacion);
+        }
+        else{
+            Toast.makeText(getApplicationContext(),"Error: complete todos los campos!", Toast.LENGTH_LONG).show();
+        }
     }
 
     public byte[] convertImgViewToArray(){
-        Bitmap bitmap = ((BitmapDrawable) img1.getDrawable()).getBitmap();
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
-        return baos.toByteArray();
+        try{
+            if (img1.getDrawable() != null){
+            Bitmap bitmap = ((BitmapDrawable) img1.getDrawable()).getBitmap();
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos);
+            return baos.toByteArray();
+            }
+            else{
+                return new byte[0];
+            }
+        }
+        catch (Exception ex){
+            return new byte[0];
+        }
+    }
+
+    public boolean validarCampos(){
+        String nombre = ((TextInputEditText)findViewById(R.id.txtTituloAgregar)).getText().toString();
+        String descripcion = ((TextInputEditText)findViewById(R.id.txtDescripcionAgregar)).getText().toString();
+        if (img1.getDrawable() == null || nombre.equals("") || descripcion.equals("") || categoria == null ||
+                categoriaPretendida == null || condicion == null || ubicacion == null || ubicacionPretendida==null)
+        {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     public boolean postPublicacionCreate(PublicacionCreateRequest publicacion){
@@ -228,14 +250,9 @@ public class AgregarPublicaciones extends AppCompatActivity {
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         finish();
-
                     }
                 });
-
-        //Creating dialog box
         AlertDialog alert = builder.create();
-        //Setting the title manually
-       // alert.setTitle("AlertDialogExample");
         alert.show();
     }
 

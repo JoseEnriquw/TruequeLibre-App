@@ -1,7 +1,10 @@
 package com.example.truequelibre;
 
+import android.content.Context;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Base64;
 import android.view.View;
@@ -12,6 +15,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.ActivityResultLauncher;
+import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 
@@ -25,6 +32,7 @@ import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
 import com.example.truequelibre.Utils.ImagenConverter;
 import com.example.truequelibre.ui.publicaciones.PublicacionesFragment;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -52,7 +60,18 @@ public class EditarPublicaciones extends AppCompatActivity {
     ArrayAdapter<LocalidadDropdown> adapterLocalidad;
     AutoCompleteTextView dropDownLocalidades;
     AutoCompleteTextView dropDownLocalidadesPretendida;
+    FloatingActionButton photobutton;
+    AlertDialog.Builder builder;
+    ImageView imageViewarray[]=new ImageView[5];
     ImageView img1;
+    ImageView img2;
+    ImageView img3;
+    ImageView img4;
+    ImageView img5;
+    int banderin;
+    Context context;
+
+
     private Integer idPublicacion;
 
     private CategoriaDropdown categoria;
@@ -69,7 +88,10 @@ public class EditarPublicaciones extends AppCompatActivity {
 
         txtTitulo = (EditText) findViewById(R.id.txtTituloEditar);
         txtDescripcion = (EditText) findViewById(R.id.txtDescripcionEditar);
-        img1 = findViewById(R.id.imgvEditarpublicaciones1);
+
+        context=this;
+        bindImageView();
+
 
         idPublicacion = getIntent().getIntExtra("idPublicacion",0);
 
@@ -186,11 +208,12 @@ public class EditarPublicaciones extends AppCompatActivity {
         try{
 
             byte[] imageInByte = ImagenConverter.convertImgViewToArray(img1);
-            findItemAdapter(publicacion.getCategoria(),"categoria",false);
-            findItemAdapter(publicacion.getInteres(),"categoria",true);
-            findItemAdapter(publicacion.getCondicion(),"condicion",false);
-            findItemAdapter(publicacion.getUbicacion(),"ubicacion",false);
-            findItemAdapter(publicacion.getUbicacionPretendida(),"ubicacion",true);
+            if (categoria == null){ findItemAdapter(publicacion.getCategoria(),"categoria",false);}
+            if (categoriaPretendida == null){findItemAdapter(publicacion.getInteres(),"categoria",true);}
+            if(condicion == null){findItemAdapter(publicacion.getCondicion(),"condicion",false);}
+            if(ubicacion == null){findItemAdapter(publicacion.getUbicacion(),"ubicacion",false);}
+            if(ubicacionPretendida == null){findItemAdapter(publicacion.getUbicacionPretendida(),"ubicacion",true);}
+
             PublicacionEditarRequest request = new PublicacionEditarRequest(
                     String.valueOf(txtTitulo.getText()),
                     String.valueOf(txtDescripcion.getText()),
@@ -236,10 +259,10 @@ public class EditarPublicaciones extends AppCompatActivity {
                 for (int i = 0; i<adapterLocalidad.getCount(); i++){
                     if (adapterLocalidad.getItem(i).getDescripcionLocalidad().equals(filtro)){
                         if (pretendida){
-                            ubicacion =adapterLocalidad.getItem(i);
+                            ubicacionPretendida =adapterLocalidad.getItem(i);
                         }
                         else{
-                            ubicacionPretendida =adapterLocalidad.getItem(i);
+                            ubicacion =adapterLocalidad.getItem(i);
                         }
                     }
                 }
@@ -277,5 +300,56 @@ public class EditarPublicaciones extends AppCompatActivity {
         });
     }
 
+
+    private void bindImageView() {
+        photobutton = findViewById(R.id.btnEditarImagenesPublicacion);
+        builder = new AlertDialog.Builder(this);
+        img1 = findViewById(R.id.imgvEditarpublicaciones1);
+        img2 = findViewById(R.id.imgvEditarpublicaciones2);
+        img3 = findViewById(R.id.imgvEditarpublicaciones3);
+        img4 = findViewById(R.id.imgvEditarpublicaciones4);
+        img5 = findViewById(R.id.imgvEditarpublicaciones5);
+
+        imageViewarray[0] = img1;
+        imageViewarray[1] = img2;
+        imageViewarray[2] = img3;
+        imageViewarray[3] = img4;
+        imageViewarray[4] = img5;
+
+        photobutton.setOnClickListener(view -> mGetContet.launch("image/*"));
+    }
+
+    public void alertdialog(){
+        builder.setMessage("Solo podes cargar 5 imagenes")
+                .setCancelable(false)
+                .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        finish();
+
+                    }
+                });
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
+    ActivityResultLauncher<String> mGetContet = registerForActivityResult(
+            new ActivityResultContracts.GetContent(),
+            new ActivityResultCallback<Uri>() {
+                @Override
+                public void onActivityResult(Uri result) {
+                    if(result !=null){
+                        for ( int i= 0; i<5; i++ ) {
+                            if(imageViewarray[i].getDrawable()== null) {
+                                imageViewarray[i].setImageURI(result);
+
+                                return;
+                            }
+                            i++;
+                        }
+
+                    }
+                }
+            }
+    );
 
 }
