@@ -3,7 +3,7 @@ package com.example.truequelibre.Entity;
 public class UsuarioPublicacion {
     private Integer idUsuario;
     private String nombreApellido;
-    private byte[] fotoPerfil;
+    private String fotoPerfil;
 
     public UsuarioPublicacion() {
     }
@@ -24,11 +24,11 @@ public class UsuarioPublicacion {
         this.nombreApellido = nombreApellido;
     }
 
-    public byte[] getFotoPerfil() {
+    public String getFotoPerfil() {
         return fotoPerfil;
     }
 
-    public void setFotoPerfil(byte[] fotoPerfil) {
+    public void setFotoPerfil(String fotoPerfil) {
         this.fotoPerfil = fotoPerfil;
     }
 }

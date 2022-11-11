@@ -4,7 +4,7 @@ public class Publicacion {
     private Integer id;
     private String nombre;
     private String descripcion;
-    private byte[] imagenes;
+    private String imagenes;
     private UsuarioPublicacion usuario;
     private String condicion;
     private String ubicacion;
@@ -38,11 +38,11 @@ public class Publicacion {
         this.descripcion = descripcion;
     }
 
-    public byte[] getImagenes() {
+    public String getImagenes() {
         return imagenes;
     }
 
-    public void setImagenes(byte[] imagenes) {
+    public void setImagenes(String imagenes) {
         this.imagenes = imagenes;
     }
 

@@ -76,7 +76,7 @@ public class AdapterCategorias extends RecyclerView.Adapter <AdapterCategorias.V
                                                      usuario= activity.getUsuario();
 
                                                      Intent intent= new Intent(view.getContext().getApplicationContext(),PublicacionesPorCategoria.class);
-                                                     intent.putExtra("Usuario",usuario);
+                                                     intent.putExtra("idUsuario",usuario.getId());
                                                      intent.putExtra("IdCategoria",publicaciones.get(position).getId());
                                                      view.getContext().startActivity(intent);
 

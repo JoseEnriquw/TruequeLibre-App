@@ -27,7 +27,7 @@ import retrofit2.Callback;
 public class PublicacionesPorCategoria extends AppCompatActivity {
     private RecyclerView _recyclerView;
     private AdapterArticulos _adapter;
-    private Usuario usuario;
+    private Integer idUsuario;
     private Integer idCategoria;
     IPublicacionService service;
     List<Publicacion> lista=new ArrayList<>();
@@ -39,11 +39,11 @@ public class PublicacionesPorCategoria extends AppCompatActivity {
         setContentView(R.layout.activity_publicaciones_por_categoria);
 
         context=this;
-        usuario=(Usuario)getIntent().getSerializableExtra("Usuario");
+        idUsuario=(Integer)getIntent().getSerializableExtra("idUsuario");
         idCategoria=(Integer)getIntent().getSerializableExtra("IdCategoria");
         service= Apis.getPublicacionService();
 
-        GetAllByCategoriaRequest request= new GetAllByCategoriaRequest(idCategoria,usuario.getId());
+        GetAllByCategoriaRequest request= new GetAllByCategoriaRequest(idCategoria,idUsuario);
         Call<List<Publicacion>> call =service.getPublicacionesByCategoria(request);
 
         call.enqueue(new Callback<List<Publicacion>>() {
@@ -80,8 +80,6 @@ public class PublicacionesPorCategoria extends AppCompatActivity {
         });
 
         _recyclerView =(RecyclerView) findViewById(R.id.rvarticulos);
-
-
 
     }
 }

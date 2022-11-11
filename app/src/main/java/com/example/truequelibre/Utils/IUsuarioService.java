@@ -10,6 +10,7 @@ import retrofit2.http.POST;
 import java.util.List;
 import com.example.truequelibre.Entity.AuthenticationRequest;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 
 public interface IUsuarioService {
@@ -23,5 +24,8 @@ public interface IUsuarioService {
     Call<Void>create(@Body UsuarioCreateRequest request);
 
     @POST("usuario/login/")
-    Call<Usuario> authentication(@Body AuthenticationRequest request);
+    Call<Integer> authentication(@Body AuthenticationRequest request);
+
+    @GET("usuario/getOne/{id}")
+    Call<Usuario> getById(@Path("id") Integer id);
 }
