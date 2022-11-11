@@ -41,7 +41,6 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
     private List<Publicacion> publicaciones;
     IPublicacionService service;
 
-    private OnUpdateListener listener;
 
     public AdapterPublicaciones(Context context, List<Publicacion> publicaciones) {
         this.context = context;
@@ -156,7 +155,7 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
 
                     @Override
                     public void onMenuModeChange(@NonNull MenuBuilder menu) {
-                            System.out.println("AAAA--------");
+
                     }
                 });
                 optionMenu.show();
@@ -169,14 +168,6 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
         return publicaciones.size();
     }
 
-
-    public interface OnUpdateListener {
-        void onUpdate(String text);
-    }
-
-    public void setOnUpdateListner(OnUpdateListener listener) {
-        this.listener = listener;
-    }
 
 
 }
