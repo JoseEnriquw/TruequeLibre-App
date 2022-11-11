@@ -25,7 +25,7 @@
         tools:ignore="MissingConstraints">
 
         <SearchView
-            android:id="@+id/simpleSearchView"
+            android:id="@+id/svFlitrarArticulos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:iconifiedByDefault="false"
