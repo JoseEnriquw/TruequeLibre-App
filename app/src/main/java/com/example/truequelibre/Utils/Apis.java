@@ -21,4 +21,8 @@ public class Apis {
         return Cliente.getCliente(HOST).create(IUsuarioService.class);
     }
 
+    public static IOfertaService getOfertaService()
+    {
+        return Cliente.getCliente(HOST).create(IOfertaService.class);
+    }
 }

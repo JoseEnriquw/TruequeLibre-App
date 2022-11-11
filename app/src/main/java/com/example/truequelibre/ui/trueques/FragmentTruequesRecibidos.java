@@ -9,18 +9,27 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.truequelibre.AdapterPublicaciones;
 import com.example.truequelibre.AdapterRecibidos;
-import com.example.truequelibre.Entity.Categoria;
-import com.example.truequelibre.Entity.Condicion;
-import com.example.truequelibre.Entity.Estado;
-import com.example.truequelibre.Entity.Oferta;
-import com.example.truequelibre.Entity.Persona;
+import com.example.truequelibre.Entity.FiltrarOfertaRequest;
+import com.example.truequelibre.Entity.OfertasResponse;
+import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Entity.Usuario;
+import com.example.truequelibre.MainActivity;
 import com.example.truequelibre.R;
+import com.example.truequelibre.Utils.Apis;
+import com.example.truequelibre.Utils.IOfertaService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +50,10 @@ public class FragmentTruequesRecibidos extends Fragment {
 
     private RecyclerView _recyclerView;
     private AdapterRecibidos _adapter;
+    Usuario usuario;
+    IOfertaService service;
+    private List<OfertasResponse> lista = new ArrayList<>();
+    FiltrarOfertaRequest ofertas;
 
 
     /**
@@ -58,6 +71,7 @@ public class FragmentTruequesRecibidos extends Fragment {
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         fragment.setArguments(args);
+
         return fragment;
     }
 
@@ -87,12 +101,51 @@ public class FragmentTruequesRecibidos extends Fragment {
 
         _recyclerView =(RecyclerView) view.findViewById(R.id.rvrecibidos);
 
-        List<Oferta> lista = new ArrayList<Oferta>();
+       /* List<Oferta> lista = new ArrayList<Oferta>();
 
         Persona per = new Persona("34695008d","regina","laurentino");
         Estado estado = new Estado();
         Categoria cat = new Categoria();
-        Condicion CONDI = new Condicion();
+        Condicion CONDI = new Condicion();*/
+
+        MainActivity activity =(MainActivity) getActivity();
+        usuario= activity.getUsuario();
+        FiltrarOfertaRequest requestofertas = new FiltrarOfertaRequest(usuario.getId(),  "Recibidos");
+
+
+        service= Apis.getOfertaService();
+        Call<List<OfertasResponse>> call =service.getAllOfertasRecibidas(requestofertas);
+
+        call.enqueue(new Callback<List<OfertasResponse>>() {
+            @Override
+            public void onResponse(Call<List<OfertasResponse>> call, retrofit2.Response<List<OfertasResponse>> response) {
+                if(response.isSuccessful()) {
+                    lista = response.body();
+                    _adapter = new AdapterRecibidos(getContext(), lista);
+
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false);
+                    _recyclerView.setLayoutManager(gridLayoutManager);
+                    _recyclerView.setHasFixedSize(true);
+                    _recyclerView.setAdapter(_adapter);
+                }
+                else {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<Error>>() { }.getType();
+
+                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+
+                    for (Error item : message) {
+                        Toast.makeText(getContext(), item.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<OfertasResponse>> call, Throwable t) {
+                System.out.println(t.getCause()+ " \n"+t.getMessage());
+                Toast.makeText(getContext(),"Hubo un error al traer los datos de la base de datos :(",Toast.LENGTH_LONG).show();
+            }
+        });
 
         _adapter= new AdapterRecibidos(getContext(),lista);
 
