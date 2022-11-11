@@ -62,10 +62,12 @@ public class AdapterCategorias extends RecyclerView.Adapter <AdapterCategorias.V
     @Override
     public void onBindViewHolder(@NonNull AdapterCategorias.ViewHolderCategorias holder, @SuppressLint("RecyclerView") int position) {
         holder.tvTitulo.setText(publicaciones.get(position).getDescripcion());
-        byte[] byteArray =  Base64.decode(publicaciones.get(position).getImagenes(), Base64.DEFAULT);
-        ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
-        Bitmap theImage = BitmapFactory.decodeStream(imageStream);
-        holder.imageView.setImageBitmap(theImage);
+        if (publicaciones.get(position).getImagenes() != null){
+            byte[] byteArray =  Base64.decode(publicaciones.get(position).getImagenes(), Base64.DEFAULT);
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
+            Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+            holder.imageView.setImageBitmap(theImage);
+        }
 
         holder.imageView.setOnClickListener( new View.OnClickListener() {
                                                  @Override
