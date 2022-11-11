@@ -4,8 +4,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.example.truequelibre.Entity.GetAllByCategoriaRequest;
@@ -24,20 +26,23 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class PublicacionesPorCategoria extends AppCompatActivity {
+public class PublicacionesPorCategoria extends AppCompatActivity implements SearchView.OnQueryTextListener{
     private RecyclerView _recyclerView;
     private AdapterArticulos _adapter;
     private Integer idUsuario;
     private Integer idCategoria;
+    private SearchView search;
     IPublicacionService service;
     List<Publicacion> lista=new ArrayList<>();
     Context context;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_publicaciones_por_categoria);
 
+        search=(SearchView)findViewById(R.id.svFlitrarArticulos);
         context=this;
         idUsuario=(Integer)getIntent().getSerializableExtra("idUsuario");
         idCategoria=(Integer)getIntent().getSerializableExtra("IdCategoria");
@@ -80,6 +85,21 @@ public class PublicacionesPorCategoria extends AppCompatActivity {
         });
 
         _recyclerView =(RecyclerView) findViewById(R.id.rvarticulos);
+        search.setOnQueryTextListener(this);
+    }
 
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        _adapter.filtrar(query,idUsuario,idCategoria);
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if(newText.isEmpty())
+        {
+            _adapter.filtrar(newText,idUsuario,idCategoria);
+        }
+        return false;
     }
 }

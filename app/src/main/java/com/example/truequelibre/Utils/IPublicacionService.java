@@ -1,6 +1,7 @@
 package com.example.truequelibre.Utils;
 
 import com.example.truequelibre.Entity.Dropdown.PublicacionDropdown;
+import com.example.truequelibre.Entity.GetAllByCategoriaFilterRequest;
 import com.example.truequelibre.Entity.GetAllByCategoriaRequest;
 import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Entity.PublicacionCreateRequest;
@@ -42,4 +43,7 @@ public interface IPublicacionService {
 
     @PUT("publicacion/{id}/")
     Call<ResponseBody> update(@Path("id") Integer id,@Body PublicacionEditarRequest request);
+
+    @POST("publicacion/filtrar/")
+    Call<List<Publicacion>> getAllByCategoriaFilter(@Body GetAllByCategoriaFilterRequest request);
 }
