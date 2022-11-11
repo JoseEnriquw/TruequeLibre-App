@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -21,15 +22,20 @@ import com.example.truequelibre.Entity.Dropdown.UsuarioDropdown;
 import com.example.truequelibre.Entity.PublicacionCreateRequest;
 import com.example.truequelibre.Entity.UsuarioCreateRequest;
 import com.example.truequelibre.Utils.Apis;
+import com.example.truequelibre.Utils.Error;
 import com.example.truequelibre.Utils.IPublicacionService;
 import com.example.truequelibre.Utils.IUsuarioService;
 import com.google.android.material.textfield.TextInputLayout;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import okhttp3.ResponseBody;
@@ -76,6 +82,7 @@ public class Registrarse extends AppCompatActivity {
 
         botonLogin = findViewById(R.id.btnLogin);
 
+
         tv_IniciarSesion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -104,6 +111,15 @@ public class Registrarse extends AppCompatActivity {
                     });
 
 
+                } else {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<Error>>() {
+                    }.getType();
+                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+
+                    for (Error item : message) {
+                        Toast.makeText(getApplicationContext(), item.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 }
             }
             @Override
@@ -124,6 +140,7 @@ public class Registrarse extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 postUsuarioCreate(usuarionuevo);
+
             }
         };
     }
@@ -179,15 +196,21 @@ public class Registrarse extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()){
-                    if(response.code() == HttpURLConnection.HTTP_CREATED){
+
                         Toast.makeText(Registrarse.this,"Usuario creado con exito!", Toast.LENGTH_LONG).show();
-                    }
-                    else{
-                        Toast.makeText(Registrarse.this,"Error al crear usuario!", Toast.LENGTH_LONG).show();
-                    }
+                   //
+                    Intent intent= new Intent(getApplicationContext(),Login.class);
+                    getApplicationContext().startActivity(intent);
                 }
-                else{
-                    Toast.makeText(Registrarse.this,"Error al crear usuario!", Toast.LENGTH_LONG).show();
+                else {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<Error>>() {
+                    }.getType();
+                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+
+                    for (Error item : message) {
+                        Toast.makeText(getApplicationContext(), item.getMessage(), Toast.LENGTH_LONG).show();
+                    }
                 }
             }
             @Override

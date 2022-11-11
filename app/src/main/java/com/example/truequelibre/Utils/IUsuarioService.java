@@ -1,9 +1,7 @@
 package com.example.truequelibre.Utils;
 
-import com.example.truequelibre.Entity.Dropdown.PublicacionDropdown;
 import com.example.truequelibre.Entity.Dropdown.UsuarioDropdown;
-import com.example.truequelibre.Entity.Publicacion;
-import com.example.truequelibre.Entity.PublicacionCreateRequest;
+
 import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.Entity.UsuarioCreateRequest;
 import retrofit2.Call;
@@ -11,14 +9,8 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 import java.util.List;
 import com.example.truequelibre.Entity.AuthenticationRequest;
-import com.example.truequelibre.Entity.Usuario;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.http.Body;
-import retrofit2.http.DELETE;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
-import retrofit2.http.Path;
+
 
 public interface IUsuarioService {
     @GET("usuario/")
