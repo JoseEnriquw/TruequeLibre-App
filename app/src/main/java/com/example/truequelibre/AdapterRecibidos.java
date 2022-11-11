@@ -3,6 +3,9 @@ package com.example.truequelibre;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,17 +14,19 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.truequelibre.Entity.Oferta;
+import com.example.truequelibre.Entity.OfertasResponse;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.ViewHolderRecibidos>{
 
     private Context context;
-    private List<Oferta> ofertas;
+    private List<OfertasResponse> ofertas;
 
-    public AdapterRecibidos(Context context, List<Oferta> ofertas) {
+    public AdapterRecibidos(Context context, List<OfertasResponse> ofertas) {
         this.context = context;
         this.ofertas = ofertas;
     }
@@ -58,12 +63,15 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
     @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(@NonNull AdapterRecibidos.ViewHolderRecibidos holder, int position) {
-        holder.tvArticulo.setText(ofertas.get(position).getOfertas().getNombre());
-        holder.tvdescripcionbreveo.setText(ofertas.get(position).getOfertas().getDescripcion());
-        /*Picasso.get()
-                .load(ofertas.get(position).getOfertas().getImagenes())
-                .into(holder.imageViewarticulo);
-*/
+        holder.tvArticulo.setText(ofertas.get(position).getNombre());
+        holder.tvdescripcionbreveo.setText(ofertas.get(position).getDescripcion());
+        if (ofertas.get(position).getImagen() != null){
+            byte[] byteArray =  Base64.decode(ofertas.get(position).getImagen(), Base64.DEFAULT);
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
+            Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+            holder.imageViewarticulo.setImageBitmap(theImage);
+        }
+
         holder.btnaceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
