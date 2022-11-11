@@ -1,10 +1,9 @@
 package com.example.truequelibre;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Base64;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -13,7 +12,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.truequelibre.Entity.AuthenticationRequest;
 import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.Utils.Apis;
@@ -22,9 +20,7 @@ import com.example.truequelibre.Utils.IUsuarioService;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -37,15 +33,13 @@ public class Login extends AppCompatActivity {
     private EditText txtUsuario;
     private EditText txtContrasenia;
     IUsuarioService service;
-    Usuario _usuario;
-    Context context;
+    Integer idUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        context=this;
         service= Apis.getUsuarioService();
 
         txtUsuario = (EditText) findViewById(R.id.txtUsuario);
@@ -72,17 +66,18 @@ public class Login extends AppCompatActivity {
             Toast toast = new Toast(getApplicationContext());
             toast.setDuration(Toast.LENGTH_LONG);
 
-            Call<Usuario> call =service.authentication(new AuthenticationRequest(usuario,contrasenia));
+            Call<Integer> call =service.authentication(new AuthenticationRequest(usuario,contrasenia));
 
-            call.enqueue(new Callback<Usuario>() {
+            call.enqueue(new Callback<Integer>() {
                 @Override
-                public void onResponse(Call<Usuario> call, retrofit2.Response<Usuario> response) {
+                public void onResponse(Call<Integer> call, retrofit2.Response<Integer> response) {
                     if(response.isSuccessful()) {
-                        _usuario = response.body();
+                        idUsuario = response.body();
 
-                        Intent i = new Intent(getApplicationContext(),MainActivity.class);
-                        i.putExtra("Usuario",_usuario);
+                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                        i.putExtra("idUsuario", idUsuario);
                         startActivity(i);
+
                     }
                     else
                     {
@@ -99,7 +94,7 @@ public class Login extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(Call<Usuario> call, Throwable t) {
+                public void onFailure(Call<Integer> call, Throwable t) {
                     System.out.println(t.getCause()+"\n"+t.getMessage());
                     toast.setText(t.getCause()+"\n"+t.getMessage());
                     toast.show();
