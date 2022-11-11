@@ -1,8 +1,10 @@
 package com.example.truequelibre;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,6 +18,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
+import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Utils.Apis;
@@ -37,6 +40,7 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
     private Context context;
     private List<Publicacion> publicaciones;
     IPublicacionService service;
+
 
     public AdapterPublicaciones(Context context, List<Publicacion> publicaciones) {
         this.context = context;
@@ -86,6 +90,12 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
                 .load(publicaciones.get(position).getUrlImg())
                 .into(holder.imageView);*/
 
+        if (publicaciones.get(position).getImagenes() != null){
+            byte[] byteArray =  Base64.decode(publicaciones.get(position).getImagenes(), Base64.DEFAULT);
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
+            Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+            holder.imageView.setImageBitmap(theImage);
+        }
 
         holder.menuInflater.inflate(R.menu.popup_menu_publicaciones,holder.menuBuilder);
 
@@ -102,8 +112,9 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
                         switch (item.getItemId())
                         {
                             case R.id.itemEditar:
-
-                                System.out.println("Editar------------------------");
+                                Intent i = new Intent(view.getContext().getApplicationContext(),EditarPublicaciones.class);
+                                i.putExtra("idPublicacion", publicaciones.get(position).getId());
+                                view.getContext().startActivity(i);
                                 break;
                             case R.id.itemEliminar:
                                 Call<ResponseBody> deleteRequest = service.deletePublicacion(publicaciones.get(position).getId());
@@ -112,7 +123,8 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
                                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                                                if(response.isSuccessful())
                                                {
-
+                                                    publicaciones.remove(position);
+                                                    notifyItemChanged(position);
                                                }
                                                else
                                                {
