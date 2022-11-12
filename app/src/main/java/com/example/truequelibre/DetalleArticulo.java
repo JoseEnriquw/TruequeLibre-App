@@ -56,10 +56,10 @@ public class DetalleArticulo extends AppCompatActivity {
         //imageSlider = findViewById(R.id.imageSlider);
         imgperfil = findViewById(R.id.detallefotoperil);
         txtnombreyapellido = findViewById(R.id.detallenombreapellido);
-        txttitulo = findViewById(R.id.detalletitulo);
-        txtcondicion = findViewById(R.id.detallecondicion);
-        txtdescripcion = findViewById(R.id.detalledescripcion);
-        txtintereses = findViewById(R.id.detalleintereses);
+        txttitulo = findViewById(R.id.tvDetalletitulo);
+        txtcondicion = findViewById(R.id.tvDetallecondicion);
+        txtdescripcion = findViewById(R.id.tvDetalledescripcion);
+        txtintereses = findViewById(R.id.tvLeinteresaarticulo);
         btnofertar =  findViewById(R.id.btnaceptar);
         btnoverperfil =  findViewById(R.id.btndetalleverperfil);
 
