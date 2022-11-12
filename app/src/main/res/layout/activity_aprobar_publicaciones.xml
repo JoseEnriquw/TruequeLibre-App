@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AprobarPublicaciones">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardviewcarrouseladmin"
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ViewFlipper
+                    android:id="@+id/image_flipperadmin"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></ViewFlipper>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/detallematerialCardViewadmin"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/cardviewcarrouseladmin"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:innerRadius="0dp"
+            android:shape="ring"
+            android:thicknessRatio="1.9"
+            app:cardCornerRadius="40dp">
+
+            <ImageView
+                android:id="@+id/detallefotoperiladmin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                tools:srcCompat="@tools:sample/avatars"></ImageView>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/detallenombreapellidoadmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="35dp"
+            android:hint="@string/tv_nombre_apellido_detalle"
+            android:layout_toRightOf="@+id/detallematerialCardViewadmin"
+            android:layout_below="@id/cardviewcarrouseladmin"
+
+            />
+        <Button
+            android:id="@+id/btndetalleverperfiladmin"
+            android:layout_width="85dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="25dp"
+            android:text="@string/btn_perfil"
+            android:layout_below="@id/cardviewcarrouseladmin"
+            />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/detallematerialCardViewadmin"
+            android:layout_marginTop="20dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"  >
+
+                <TextView
+                    android:id="@+id/detalletituloadmin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/tv_nombre" />
+
+                <TextView
+                    android:id="@+id/tvDetalletituloadmin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:hint="@string/tv_nombre"
+                    android:layout_below="@id/detalletituloadmin"/>
+
+                <TextView
+                    android:id="@+id/detallecondicionadmin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tv_condicion"
+                    android:layout_below="@id/tvDetalletituloadmin"/>
+                <TextView
+                    android:id="@+id/tvDetallecondicionadmin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:hint="@string/tv_condicion"
+                    android:layout_below="@id/detallecondicionadmin"/>
+
+                <TextView
+                    android:id="@+id/detalledescripcionadmin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tv_descripcion"
+                    android:layout_below="@id/tvDetallecondicionadmin"/>
+
+                <TextView
+                    android:id="@+id/tvDetalledescripcionadmin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:hint="@string/tv_descripcion"
+                    android:layout_below="@id/detalledescripcionadmin"/>
+
+                <TextView
+                    android:id="@+id/leinteresaarticuloadmin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tv_le_interesa"
+                    android:layout_below="@+id/tvDetalledescripcionadmin"/>
+
+                <TextView
+                    android:id="@+id/tvLeinteresaarticuloadmin"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:hint="@string/tv_le_interesa"
+                    android:layout_below="@id/leinteresaarticuloadmin"/>
+
+                <Button
+                    android:id="@+id/btnaceptaradmin"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="80dp"
+                    android:layout_below="@+id/tvLeinteresaarticuloadmin"
+                    android:layout_marginTop="19dp"
+                    android:text="Aceptar" />
+                <Button
+                    android:id="@+id/btnrechazaradmin"
+                    android:layout_width="100dp"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_below="@+id/tvLeinteresaarticuloadmin"
+                    android:layout_toRightOf="@+id/btnaceptaradmin"
+                    android:layout_marginTop="19dp"
+                    android:text="Rechazar" />
+            </RelativeLayout>
+        </ScrollView>
+
+    </RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

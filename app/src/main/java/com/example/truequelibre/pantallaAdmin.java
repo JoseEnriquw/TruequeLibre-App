@@ -34,7 +34,7 @@ public class pantallaAdmin extends AppCompatActivity {
         setContentView(R.layout.activity_pantalla_admin);
 
         _recyclerView =(RecyclerView) findViewById(R.id.rvarticulosadmin);
-        contex = getApplicationContext();
+        contex = this;
         service= Apis.getPublicacionService();
         Call<List<Publicacion>> call =service.GetAllAdmin();
 

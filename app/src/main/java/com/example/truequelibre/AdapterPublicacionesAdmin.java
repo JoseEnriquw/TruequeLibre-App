@@ -43,7 +43,6 @@ public class AdapterPublicacionesAdmin extends RecyclerView.Adapter <AdapterPubl
     private List<Publicacion> publicaciones;
     IPublicacionService service;
 
-
     public AdapterPublicacionesAdmin(Context context, List<Publicacion> publicaciones) {
         this.context = context;
         this.publicaciones = publicaciones;
@@ -52,27 +51,23 @@ public class AdapterPublicacionesAdmin extends RecyclerView.Adapter <AdapterPubl
     @SuppressLint("RestrictedApi")
     public  static  class ViewHolderPublicacionesAdmin extends RecyclerView.ViewHolder
     {
-        ImageView imageView;
+        ImageView ivFotoArticulo;
         TextView tvNombreApellido;
-        TextView tvNombre;
+        ImageView ivFotoPerfilArticulo;
+        TextView tvTitulo;
         TextView tvDescripcion;
-        TextView tvCondicion;
         TextView tvInteres;
-        Button btnAceptar;
-        Button btnRechazar;
+        Button btnVer;
 
         public ViewHolderPublicacionesAdmin(@NonNull View itemView) {
             super(itemView);
 
-            imageView= itemView.findViewById(R.id.detallefotoperiladmin);
-            tvNombreApellido=itemView.findViewById(R.id.detallenombreapellidoadmin);
-            tvNombre=itemView.findViewById(R.id.detalletituloadmin);
-            tvDescripcion=itemView.findViewById(R.id.detallecondicionadmin);
-            tvCondicion=itemView.findViewById(R.id.detallecondicionadmin);
-            tvInteres=itemView.findViewById(R.id.tvLeinteresaarticuloadmin);
-
-            btnAceptar= itemView.findViewById(R.id.btnaceptaradmin);
-            btnRechazar=  itemView.findViewById(R.id.btnrechazaradmin);
+            ivFotoArticulo= (ImageView) itemView.findViewById(R.id.ivFotoarticulo);
+            tvNombreApellido=(TextView) itemView.findViewById(R.id.tvNombreApellidoComentarios);
+            ivFotoPerfilArticulo=(ImageView) itemView.findViewById(R.id.ivFotoPerfilarticulo);
+            tvTitulo=(TextView) itemView.findViewById(R.id.idtitutloarticulo);
+            tvDescripcion=(TextView) itemView.findViewById(R.id.iddescripcionarticulo);
+            btnVer= (Button) itemView.findViewById(R.id.btnver);
 
         }
     }
@@ -80,94 +75,37 @@ public class AdapterPublicacionesAdmin extends RecyclerView.Adapter <AdapterPubl
     @NonNull
     @Override
     public AdapterPublicacionesAdmin.ViewHolderPublicacionesAdmin onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.activity_aceptar_rechazar_publicacion,parent,false);
+        View view= LayoutInflater.from(context).inflate(R.layout.grid_item_articulo,parent,false);
         return new AdapterPublicacionesAdmin.ViewHolderPublicacionesAdmin(view);
     }
 
     @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(@NonNull AdapterPublicacionesAdmin.ViewHolderPublicacionesAdmin holder, @SuppressLint("RecyclerView") int position) {
-        service= Apis.getPublicacionService();
-
-        holder.tvNombreApellido.setText(publicaciones.get(position).getUsuario().getNombreApellido());
-        holder.tvNombre.setText(publicaciones.get(position).getNombre());
         holder.tvDescripcion.setText(publicaciones.get(position).getDescripcion());
-        holder.tvCondicion.setText(publicaciones.get(position).getCondicion());
-        holder.tvInteres.setText(publicaciones.get(position).getInteres());
-
-
-
+        holder.tvNombreApellido.setText(publicaciones.get(position).getUsuario().getNombreApellido());
+        holder.tvTitulo.setText(publicaciones.get(position).getNombre());
         if (publicaciones.get(position).getImagenes() != null){
             byte[] byteArray =  Base64.decode(publicaciones.get(position).getImagenes(), Base64.DEFAULT);
             ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
             Bitmap theImage = BitmapFactory.decodeStream(imageStream);
-            holder.imageView.setImageBitmap(theImage);
+            holder.ivFotoArticulo.setImageBitmap(theImage);
         }
 
+        if (publicaciones.get(position).getUsuario().getFotoPerfil() != null){
+            byte[] byteArray =  Base64.decode(publicaciones.get(position).getUsuario().getFotoPerfil(), Base64.DEFAULT);
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
+            Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+            holder.ivFotoPerfilArticulo.setImageBitmap(theImage);
+        }
 
-        holder.btnAceptar.setOnClickListener(new View.OnClickListener() {
+        holder.btnVer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Call<ResponseBody> call = service.updateAdmin(publicaciones.get(position).getId(), new PublicacionEditarRequestAdmin(1));
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if(response.isSuccessful())
-                        {
-                            Toast.makeText(context.getApplicationContext(), "Publicacion modificada con exito!",Toast.LENGTH_LONG).show();
-                        }
-                        else
-                        {
-                            Gson gson = new Gson();
-                            Type type = new TypeToken<List<Error>>() {}.getType();
-                            List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
-
-                            for (Error item: message) {
-                                Toast.makeText(context.getApplicationContext(),item.getMessage(),Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        System.out.println(t.getCause()+ " \n"+t.getMessage());
-                        Toast.makeText(context.getApplicationContext(),"Error al modificar la publicación!", Toast.LENGTH_LONG).show();
-                    }
-                });
-
-            }
-        });
-
-        holder.btnRechazar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Call<ResponseBody> call = service.updateAdmin(publicaciones.get(position).getId(), new PublicacionEditarRequestAdmin(5));
-                call.enqueue(new Callback<ResponseBody>() {
-                    @Override
-                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                        if(response.isSuccessful())
-                        {
-                            Toast.makeText(context.getApplicationContext(),"Publicacion modificada con exito!",Toast.LENGTH_LONG).show();
-                        }
-                        else
-                        {
-                            Gson gson = new Gson();
-                            Type type = new TypeToken<List<Error>>() {}.getType();
-                            List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
-
-                            for (Error item: message) {
-                                Toast.makeText(context.getApplicationContext(),item.getMessage(),Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    }
-
-                    @Override
-                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                        System.out.println(t.getCause()+ " \n"+t.getMessage());
-                        Toast.makeText(context.getApplicationContext(),"Error al modificar la publicación!", Toast.LENGTH_LONG).show();
-                    }
-                });
+                Intent intent= new Intent(view.getContext().getApplicationContext(),AprobarPublicaciones.class);
+                intent.putExtra("idPublicacion",publicaciones.get(position).getId());
+               // intent.putExtra("idUsuario",idUsuario);
+                view.getContext().startActivity(intent);
 
             }
         });
@@ -177,8 +115,5 @@ public class AdapterPublicacionesAdmin extends RecyclerView.Adapter <AdapterPubl
     public int getItemCount() {
         return publicaciones.size();
     }
-
-
-
 }
 
