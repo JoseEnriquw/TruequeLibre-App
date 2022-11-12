@@ -7,6 +7,9 @@
     tools:context=".PublicacionesPorCategoria">
 
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/idcvbuscadorporcategoria"
@@ -19,15 +22,12 @@
         android:shape="ring"
         android:thicknessRatio="1.9"
         app:cardCornerRadius="40dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="MissingConstraints">
+        >
 
         <SearchView
             android:id="@+id/svFlitrarArticulos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:iconifiedByDefault="false"
             android:queryHint="@string/sv_FiltrarArticulos">
 
@@ -37,17 +37,11 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvarticulos"
-        android:layout_width="0dp"
-        android:layout_height="550dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/idcvbuscadorporcategoria"
-        android:layout_marginTop="140dp"
-        android:layout_marginBottom="200dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.333"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idcvbuscadorporcategoria"
-        app:layout_constraintVertical_bias="0.45" />
-
+        android:layout_marginTop="20dp"
+         />
+    </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
