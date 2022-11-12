@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "652433380867",
+    "project_id": "truequelibre2022",
+    "storage_bucket": "truequelibre2022.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652433380867:android:4862d5ca17ae0ed2716036",
+        "android_client_info": {
+          "package_name": "com.example.truequelibre"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652433380867-1mpo87ol5npkejunovn549ba0n9tqbv0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAGl8sVI7y3dSLlPZI7nK5bIYLuYKGD0uw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652433380867-1mpo87ol5npkejunovn549ba0n9tqbv0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

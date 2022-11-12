@@ -17,11 +17,48 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        tools:ignore="MissingConstraints">
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+
+            android:elevation="12dp"
+            android:id="@+id/imgUsuarioChatCard"
+            app:cardCornerRadius="40dp"
+            android:layout_centerHorizontal="true"
+            android:innerRadius="0dp"
+            android:shape="ring"
+            android:thicknessRatio="1.9">
+            <ImageView
+                android:layout_height="80dp"
+                android:layout_width="match_parent"
+                android:id="@+id/imgvUsuarioChat"
+                tools:srcCompat="@tools:sample/avatars"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true">
+            </ImageView>
+        </com.google.android.material.card.MaterialCardView>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginLeft="10dp"
+            android:id="@+id/tvNombreUsuarioChat"
+            android:layout_toRightOf="@id/imgUsuarioChatCard"
+            android:text="Usuario"
+            ></TextView>
+    </RelativeLayout>
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_gchat"
+        android:id="@+id/rvMensajes"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="16dp"
+        android:layout_marginTop="80dp"
         app:layout_constrainedHeight="true"
         app:layout_constraintBottom_toTopOf="@+id/text_gchat_indicator"
         app:layout_constraintTop_toBottomOf="@+id/layout_group_chat" />
@@ -52,11 +89,11 @@
 
         <EditText
             android:layout_marginStart="16dp"
-            android:id="@+id/edit_gchat_message"
+            android:id="@+id/txtEnviarMensajeChat"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toStartOf="@+id/button_gchat_send"
+            android:layout_toStartOf="@+id/btnEnviarMensajeChat"
             android:background="@android:color/transparent"
             android:hint="Enter Message"
             android:inputType="text"
@@ -64,7 +101,7 @@
             tools:ignore="Autofill" />
 
         <Button
-            android:id="@+id/button_gchat_send"
+            android:id="@+id/btnEnviarMensajeChat"
             android:layout_width="64dp"
             android:layout_height="48dp"
             android:layout_alignParentEnd="true"
