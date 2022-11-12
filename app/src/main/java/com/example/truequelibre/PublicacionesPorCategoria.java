@@ -57,7 +57,7 @@ public class PublicacionesPorCategoria extends AppCompatActivity implements Sear
                 if(response.isSuccessful()) {
                     lista = response.body();
 
-                    _adapter= new AdapterArticulos(context,lista);
+                    _adapter= new AdapterArticulos(context,lista,idUsuario);
 
                     GridLayoutManager gridLayoutManager = new GridLayoutManager(context
                             ,1,GridLayoutManager.VERTICAL,false);

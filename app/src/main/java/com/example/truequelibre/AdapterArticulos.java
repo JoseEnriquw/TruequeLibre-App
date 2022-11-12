@@ -39,11 +39,13 @@ public class AdapterArticulos extends RecyclerView.Adapter <AdapterArticulos.Vie
 
     private Context context;
     private List<Publicacion> publicaciones;
+    private Integer idUsuario;
     IPublicacionService service;
 
-    public AdapterArticulos(Context context, List<Publicacion> publicaciones) {
+    public AdapterArticulos(Context context, List<Publicacion> publicaciones,Integer idUsuario) {
         this.context = context;
         this.publicaciones = publicaciones;
+        this.idUsuario = idUsuario;
         service= Apis.getPublicacionService();
     }
 
@@ -79,7 +81,7 @@ public class AdapterArticulos extends RecyclerView.Adapter <AdapterArticulos.Vie
 
     @SuppressLint("RestrictedApi")
     @Override
-    public void onBindViewHolder(@NonNull AdapterArticulos.ViewHolderArticulos holder, int position) {
+    public void onBindViewHolder(@NonNull AdapterArticulos.ViewHolderArticulos holder, @SuppressLint("RecyclerView") int position) {
         holder.tvDescripcion.setText(publicaciones.get(position).getDescripcion());
         holder.tvNombreyApellido.setText(publicaciones.get(position).getUsuario().getNombreApellido());
         holder.tvNombre.setText(publicaciones.get(position).getNombre());
@@ -102,6 +104,7 @@ public class AdapterArticulos extends RecyclerView.Adapter <AdapterArticulos.Vie
             public void onClick(View view) {
                 Intent intent= new Intent(view.getContext().getApplicationContext(),DetalleArticulo.class);
                 intent.putExtra("idPublicacion",publicaciones.get(position).getId());
+                intent.putExtra("idUsuario",idUsuario);
                 view.getContext().startActivity(intent);
 
             }

@@ -39,8 +39,6 @@ public interface IPublicacionService {
     @GET("publicacion/getOne/{id}/")
     Call<PublicacionResponse> getOne(@Path("id") Integer id);
 
-    @GET("publicacion/getDetail/{id}/")
-    Call<Publicacion> getOneDetail(@Path("id") Integer id);
 
     @PUT("publicacion/{id}/")
     Call<ResponseBody> update(@Path("id") Integer id,@Body PublicacionEditarRequest request);

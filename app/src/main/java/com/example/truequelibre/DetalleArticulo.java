@@ -2,6 +2,7 @@ package com.example.truequelibre;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.denzcoskun.imageslider.ImageSlider;
@@ -19,11 +21,16 @@ import com.denzcoskun.imageslider.models.SlideModel;
 import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Entity.PublicacionResponse;
 import com.example.truequelibre.Utils.Apis;
+import com.example.truequelibre.Utils.Error;
 import com.example.truequelibre.Utils.IPublicacionService;
 import com.example.truequelibre.Utils.ImagenConverter;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.ByteArrayInputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -44,7 +51,9 @@ public class DetalleArticulo extends AppCompatActivity {
     IPublicacionService service;
     private ViewFlipper imageFlipper;
     private Integer idPublicacion;
-    private Publicacion publicacion;
+    private Integer idUsuario;
+    private PublicacionResponse publicacion;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,20 +70,18 @@ public class DetalleArticulo extends AppCompatActivity {
         btnofertar =  findViewById(R.id.btndetalleofertar);
         btnoverperfil =  findViewById(R.id.btndetalleverperfil);
 
+        context=this;
 
         imageFlipper = (ViewFlipper)findViewById( R.id.image_flipper );
-
-        /*ArrayList<SlideModel> slideModels = new ArrayList<>();
-        slideModels.add(new SlideModel("https://c4.wallpaperflare.com/wallpaper/108/140/869/digital-digital-art-artwork-fantasy-art-drawing-hd-wallpaper-preview.jpg", ScaleTypes.FIT));
-        slideModels.add(new SlideModel("https://c4.wallpaperflare.com/wallpaper/946/379/721/artwork-landscape-mountains-forest-wallpaper-preview.jpg", ScaleTypes.FIT));
-        slideModels.add(new SlideModel("https://c4.wallpaperflare.com/wallpaper/846/616/937/digital-digital-art-artwork-illustration-drawing-hd-wallpaper-preview.jpg", ScaleTypes.FIT));
-        slideModels.add(new SlideModel("https://c4.wallpaperflare.com/wallpaper/816/451/655/sphere-art-artwork-1980s-wallpaper-preview.jpg", ScaleTypes.FIT));
-        imageSlider.setImageList(slideModels, ScaleTypes.FIT);*/
+        idPublicacion = getIntent().getIntExtra("idPublicacion",0);
+        idUsuario = getIntent().getIntExtra("idUsuario",0);
 
         btnofertar.setOnClickListener( new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent= new Intent(view.getContext().getApplicationContext(),QueOfrecesACambio.class);
+                intent.putExtra("idUsuario", idUsuario);
+                intent.putExtra("idPublicacion",idPublicacion);
                 view.getContext().startActivity(intent);
             }
         }
@@ -91,27 +98,37 @@ public class DetalleArticulo extends AppCompatActivity {
                                        }
         );
 
-        idPublicacion = getIntent().getIntExtra("idPublicacion",0);
-        service= Apis.getPublicacionService();
-        Call<Publicacion> callPublicacion =service.getOneDetail(idPublicacion);
 
-        callPublicacion.enqueue(new Callback<Publicacion>() {
+        service= Apis.getPublicacionService();
+        Call<PublicacionResponse> callPublicacion =service.getOne(idPublicacion);
+
+        callPublicacion.enqueue(new Callback<PublicacionResponse>() {
             @Override
-            public void onResponse(Call<Publicacion> call, Response<Publicacion> response) {
+            public void onResponse(Call<PublicacionResponse> call, Response<PublicacionResponse> response) {
                 if(response.isSuccessful()) {
                     publicacion = response.body();
                     cargarControles(publicacion);
                 }
+                else {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<Error>>() {
+                    }.getType();
+                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+
+                    for (Error item : message) {
+                        Toast.makeText(context, item.getMessage(), Toast.LENGTH_LONG);
+                    }
+                }
             }
             @Override
-            public void onFailure(Call<Publicacion> call, Throwable t) {
+            public void onFailure(Call<PublicacionResponse> call, Throwable t) {
 
             }
         });
 
     }
 
-    public void cargarControles(Publicacion publicacion){
+    public void cargarControles(PublicacionResponse publicacion){
         if (publicacion.getImagenes() != null){
             Bitmap bitmap = ImagenConverter.convertByteToBitmap(publicacion.getImagenes());
             ImageView imagen = new ImageView(getApplicationContext());

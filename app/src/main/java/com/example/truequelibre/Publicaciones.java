@@ -89,6 +89,9 @@ public class Publicaciones extends Fragment {
         MainActivity activity =(MainActivity) getActivity();
         usuario= activity.getUsuario();
 
+        //Cargar el RecyclerView
+        _recyclerView =(RecyclerView) view.findViewById(R.id.rvPublicaciones);
+
         service= Apis.getPublicacionService();
         Call<List<Publicacion>> call =service.getPublicaciones(usuario.getId());
 
@@ -123,8 +126,7 @@ public class Publicaciones extends Fragment {
             }
         });
 
-        //Cargar el RecyclerView
-        _recyclerView =(RecyclerView) view.findViewById(R.id.rvPublicaciones);
+
 
         //Onclick btn Agregar Publicacion
         Button btnAgregarPublicacion= (Button) view.findViewById(R.id.btnAgregarPublicacion);
