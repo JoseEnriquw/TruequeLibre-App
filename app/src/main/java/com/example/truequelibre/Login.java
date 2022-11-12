@@ -60,46 +60,50 @@ public class Login extends AppCompatActivity {
     }
 
     public void btnLogin(View view){
-        if (validarCampos()){
+        if (validarCampos()) {
             String usuario = String.valueOf(txtUsuario.getText());
             String contrasenia = String.valueOf(txtContrasenia.getText());
             Toast toast = new Toast(getApplicationContext());
             toast.setDuration(Toast.LENGTH_LONG);
 
-            Call<Integer> call =service.authentication(new AuthenticationRequest(usuario,contrasenia));
+            if (usuario.equals("admin") && contrasenia.equals("admin")) {
+                Intent i = new Intent(getApplicationContext(), pantallaAdmin.class);
+                  startActivity(i);
+            } else {
+                Call<Integer> call = service.authentication(new AuthenticationRequest(usuario, contrasenia));
 
-            call.enqueue(new Callback<Integer>() {
-                @Override
-                public void onResponse(Call<Integer> call, retrofit2.Response<Integer> response) {
-                    if(response.isSuccessful()) {
-                        idUsuario = response.body();
+                call.enqueue(new Callback<Integer>() {
+                    @Override
+                    public void onResponse(Call<Integer> call, retrofit2.Response<Integer> response) {
+                        if (response.isSuccessful()) {
+                            idUsuario = response.body();
 
-                        Intent i = new Intent(getApplicationContext(), MainActivity.class);
-                        i.putExtra("idUsuario", idUsuario);
-                        startActivity(i);
+                            Intent i = new Intent(getApplicationContext(), MainActivity.class);
+                            i.putExtra("idUsuario", idUsuario);
+                            startActivity(i);
 
-                    }
-                    else
-                    {
-                        Gson gson = new Gson();
-                        Type type = new TypeToken<List<Error>>() {}.getType();
-                        List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+                        } else {
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<List<Error>>() {
+                            }.getType();
+                            List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
 
-                        for (Error item: message) {
-                        toast.setText(item.getMessage());
-                        toast.show();
+                            for (Error item : message) {
+                                toast.setText(item.getMessage());
+                                toast.show();
+                            }
+
                         }
-
                     }
-                }
 
-                @Override
-                public void onFailure(Call<Integer> call, Throwable t) {
-                    System.out.println(t.getCause()+"\n"+t.getMessage());
-                    toast.setText(t.getCause()+"\n"+t.getMessage());
-                    toast.show();
-                }
-            });
+                    @Override
+                    public void onFailure(Call<Integer> call, Throwable t) {
+                        System.out.println(t.getCause() + "\n" + t.getMessage());
+                        toast.setText(t.getCause() + "\n" + t.getMessage());
+                        toast.show();
+                    }
+                });
+            }
         }
     }
 

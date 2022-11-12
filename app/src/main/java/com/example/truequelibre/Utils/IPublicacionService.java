@@ -7,6 +7,7 @@ import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Entity.PublicacionCreateRequest;
 import com.example.truequelibre.Entity.PublicacionResponse;
 import com.example.truequelibre.Entity.PublicacionEditarRequest;
+import com.example.truequelibre.PublicacionEditarRequestAdmin;
 
 import java.util.List;
 
@@ -39,10 +40,15 @@ public interface IPublicacionService {
     @GET("publicacion/getOne/{id}/")
     Call<PublicacionResponse> getOne(@Path("id") Integer id);
 
-
     @PUT("publicacion/{id}/")
     Call<ResponseBody> update(@Path("id") Integer id,@Body PublicacionEditarRequest request);
 
+    @PUT("publicacion/admin/{id}/")
+    Call<ResponseBody> updateAdmin(@Path("id") Integer id,@Body PublicacionEditarRequestAdmin request);
+
     @POST("publicacion/filtrar/")
     Call<List<Publicacion>> getAllByCategoriaFilter(@Body GetAllByCategoriaFilterRequest request);
+
+    @GET("publicacion/admin/")
+    Call<List<Publicacion>> GetAllAdmin();
 }
