@@ -5,9 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.util.Base64;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -16,9 +14,6 @@ import android.widget.Toast;
 import android.widget.ViewFlipper;
 
 import com.denzcoskun.imageslider.ImageSlider;
-import com.denzcoskun.imageslider.constants.ScaleTypes;
-import com.denzcoskun.imageslider.models.SlideModel;
-import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Entity.PublicacionResponse;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.Error;
@@ -27,9 +22,7 @@ import com.example.truequelibre.Utils.ImagenConverter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
-import java.io.ByteArrayInputStream;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -67,7 +60,7 @@ public class DetalleArticulo extends AppCompatActivity {
         txtcondicion = findViewById(R.id.detallecondicion);
         txtdescripcion = findViewById(R.id.detalledescripcion);
         txtintereses = findViewById(R.id.detalleintereses);
-        btnofertar =  findViewById(R.id.btndetalleofertar);
+        btnofertar =  findViewById(R.id.btnaceptar);
         btnoverperfil =  findViewById(R.id.btndetalleverperfil);
 
         context=this;
