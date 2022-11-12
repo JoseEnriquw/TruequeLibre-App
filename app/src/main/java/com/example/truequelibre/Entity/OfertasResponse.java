@@ -1,50 +1,81 @@
 package com.example.truequelibre.Entity;
 
 public class OfertasResponse {
-    Integer id_oferta;
-    String nombre;
-    String descripcion;
-    String imagen;
+
+    String nombre_ofertante;
+    String descripcion_ofertante;
+    String imagen_ofertante;
+    String nombre_principal;
+    String descripcion_principal;
+    String imagen_principal;
+    Integer id;
 
     public OfertasResponse() {
     }
 
-    public Integer getId_oferta() {
-        return id_oferta;
+    public OfertasResponse(String nombre_ofertante, String descripcion_ofertante, String imagen_ofertante, String nombre_principal, String descripcion_principal, String imagen_principal, Integer id) {
+        this.nombre_ofertante = nombre_ofertante;
+        this.descripcion_ofertante = descripcion_ofertante;
+        this.imagen_ofertante = imagen_ofertante;
+        this.nombre_principal = nombre_principal;
+        this.descripcion_principal = descripcion_principal;
+        this.imagen_principal = imagen_principal;
+        this.id = id;
     }
 
-    public OfertasResponse(Integer id_oferta, String nombre, String descripcion, String imagen) {
-        this.id_oferta = id_oferta;
-        this.nombre = nombre;
-        this.descripcion = descripcion;
-        this.imagen = imagen;
+    public String getNombre_ofertante() {
+        return nombre_ofertante;
     }
 
-    public void setId_oferta(Integer id_oferta) {
-        this.id_oferta = id_oferta;
+    public void setNombre_ofertante(String nombre_ofertante) {
+        this.nombre_ofertante = nombre_ofertante;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getDescripcion_ofertante() {
+        return descripcion_ofertante;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setDescripcion_ofertante(String descripcion_ofertante) {
+        this.descripcion_ofertante = descripcion_ofertante;
     }
 
-    public String getDescripcion() {
-        return descripcion;
+    public String getImagen_ofertante() {
+        return imagen_ofertante;
     }
 
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
+    public void setImagen_ofertante(String imagen_ofertante) {
+        this.imagen_ofertante = imagen_ofertante;
     }
 
-    public String getImagen() {
-        return imagen;
+    public String getNombre_principal() {
+        return nombre_principal;
     }
 
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
+    public void setNombre_principal(String nombre_principal) {
+        this.nombre_principal = nombre_principal;
+    }
+
+    public String getDescripcion_principal() {
+        return descripcion_principal;
+    }
+
+    public void setDescripcion_principal(String descripcion_principal) {
+        this.descripcion_principal = descripcion_principal;
+    }
+
+    public String getImagen_principal() {
+        return imagen_principal;
+    }
+
+    public void setImagen_principal(String imagen_principal) {
+        this.imagen_principal = imagen_principal;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 }

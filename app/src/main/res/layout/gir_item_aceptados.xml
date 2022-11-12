@@ -36,7 +36,7 @@
 
             <TextView
                 android:id="@+id/aceptadosnombrearticulo"
-                android:layout_width="wrap_content"
+                android:layout_width="200dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/ivFotoarticulo"
                 android:layout_marginLeft="60dp"
@@ -71,7 +71,7 @@
 
             <TextView
                 android:id="@+id/aceptadosdescripcion"
-                android:layout_width="wrap_content"
+                android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/aceptadosnombrearticulo"
                 android:layout_marginLeft="60dp"
