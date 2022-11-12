@@ -2,6 +2,9 @@ package com.example.truequelibre;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,15 +15,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.truequelibre.Entity.Oferta;
+import com.example.truequelibre.Entity.OfertasResponse;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 public class AdapterEnviados extends RecyclerView.Adapter <AdapterEnviados.ViewHolderEnviados>{
 
     private Context context;
-    private List<Oferta> ofertas;
+    private List<OfertasResponse> ofertas;
 
-    public AdapterEnviados(Context context, List<Oferta> ofertas) {
+    public AdapterEnviados(Context context, List<OfertasResponse> ofertas) {
         this.context = context;
         this.ofertas = ofertas;
     }
@@ -55,15 +60,19 @@ public class AdapterEnviados extends RecyclerView.Adapter <AdapterEnviados.ViewH
     @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(@NonNull AdapterEnviados.ViewHolderEnviados holder, int position) {
-        holder.tvNombreofertado.setText(ofertas.get(position).getPublicacionprincipal().getNombre());
-        holder.tvNombrequerido.setText(ofertas.get(position).getOfertas().getNombre());
-       /* Picasso.get()
-                .load(ofertas.get(position).getOfertas().getUrlImg())
-                .into(holder.imageViewarticuloquerido);
+        holder.tvNombreofertado.setText(ofertas.get(position).getNombre_ofertante());
+        holder.tvNombrequerido.setText(ofertas.get(position).getNombre_principal());
+        if (ofertas.get(position).getImagen_ofertante() != null & ofertas.get(position).getImagen_principal() != null){
+            byte[] byteArray =  Base64.decode(ofertas.get(position).getImagen_ofertante(), Base64.DEFAULT);
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
+            Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+            holder.imageViewarticuloofertado.setImageBitmap(theImage);
 
-        Picasso.get()
-                .load(ofertas.get(position).getPublicacionprincipal().getUrlImg())
-                .into(holder.imageViewarticuloofertado);*/
+            byte[] byteArrayp =  Base64.decode(ofertas.get(position).getImagen_principal(), Base64.DEFAULT);
+            ByteArrayInputStream imageStreamp = new ByteArrayInputStream(byteArrayp);
+            Bitmap theImagep = BitmapFactory.decodeStream(imageStreamp);
+            holder.imageViewarticuloquerido.setImageBitmap(theImagep);
+        }
 
 
     }

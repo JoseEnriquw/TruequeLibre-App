@@ -2,6 +2,9 @@ package com.example.truequelibre;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,18 +14,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.truequelibre.Entity.OfertasResponse;
 import com.example.truequelibre.Entity.Publicacion;
 
+import java.io.ByteArrayInputStream;
 import java.util.List;
 
 public class AdapterAceptados extends RecyclerView.Adapter <AdapterAceptados.ViewHolderAceptados>{
 
     private Context context;
-    private List<Publicacion> publicaciones;
+    private List<OfertasResponse> ofertas;
 
-    public AdapterAceptados (Context context, List<Publicacion> publicaciones) {
+    public AdapterAceptados (Context context, List<OfertasResponse> ofertas) {
         this.context = context;
-        this.publicaciones = publicaciones;
+        this.ofertas = ofertas;
     }
 
     @SuppressLint("RestrictedApi")
@@ -52,17 +57,19 @@ public class AdapterAceptados extends RecyclerView.Adapter <AdapterAceptados.Vie
     @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(@NonNull AdapterAceptados.ViewHolderAceptados holder, int position) {
-        holder.tvTitulo.setText(publicaciones.get(position).getNombre());
-        holder.tvDescripcion.setText(publicaciones.get(position).getDescripcion());
-        /*Picasso.get()
-                .load(publicaciones.get(position).getImagenes())
-                .into(holder.imageView);
-*/
+        holder.tvTitulo.setText(ofertas.get(position).getNombre_ofertante());
+        holder.tvDescripcion.setText(ofertas.get(position).getDescripcion_ofertante());
+        if (ofertas.get(position).getImagen_ofertante() != null){
+            byte[] byteArray =  Base64.decode(ofertas.get(position).getImagen_ofertante(), Base64.DEFAULT);
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
+            Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+            holder.imageView.setImageBitmap(theImage);
+        }
     }
 
     @Override
     public int getItemCount() {
-        return publicaciones.size();
+        return ofertas.size();
     }
 
 
