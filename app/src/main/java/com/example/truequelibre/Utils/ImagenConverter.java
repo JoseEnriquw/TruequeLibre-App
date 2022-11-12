@@ -1,9 +1,12 @@
 package com.example.truequelibre.Utils;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
+import android.util.Base64;
 import android.widget.ImageView;
 
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 
 public class ImagenConverter {
@@ -14,5 +17,11 @@ public class ImagenConverter {
         return baos.toByteArray();
     }
 
+    public static Bitmap convertByteToBitmap(String bytesBase64){
+        byte[] byteArray =  Base64.decode(bytesBase64, Base64.DEFAULT);
+        ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
+        Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+        return theImage;
+    }
 
 }

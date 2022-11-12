@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.RatingBar;
@@ -13,10 +14,17 @@ import com.example.truequelibre.Entity.CalificacionUsuario;
 import com.example.truequelibre.Entity.Estado;
 import com.example.truequelibre.Entity.Persona;
 import com.example.truequelibre.Entity.Usuario;
+import com.example.truequelibre.Utils.Apis;
+import com.example.truequelibre.Utils.IUsuarioService;
+import com.example.truequelibre.Utils.ImagenConverter;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class VerPerfilOtroUsuario extends AppCompatActivity {
 
@@ -26,6 +34,9 @@ public class VerPerfilOtroUsuario extends AppCompatActivity {
     ImageView imageVOtroPerfil;
     TextView  tvNombreApellidoComentarioOtroPerfil;
     RatingBar ratingBarComentarioOtroPerfil;
+    private IUsuarioService service;
+    private Usuario usuario;
+    private Integer idUsuario;
 
 
     @Override
@@ -39,8 +50,6 @@ public class VerPerfilOtroUsuario extends AppCompatActivity {
         RatingBar ratingBar=new RatingBar(this);
         Date date = new Date(2022/11/05);
 
-        Persona per = new Persona("34695008d","regina","laurentino");
-        Estado estado = new Estado();
 
         _adapter= new AdapterComentariosMiPerfil(this,lista);
 
@@ -48,12 +57,39 @@ public class VerPerfilOtroUsuario extends AppCompatActivity {
         _recyclerView.setLayoutManager(gridLayoutManager);
         _recyclerView.setHasFixedSize(true);
         _recyclerView.setAdapter(_adapter);
-
         imageVOtroPerfil= findViewById(R.id.ivFotoPerfilOther);
         tvNombreApellidoComentarioOtroPerfil=findViewById(R.id.tvNombreApellidoPerfilOther);
         ratingBarComentarioOtroPerfil = findViewById(R.id.rbMiPerfilOther);
 
+        tvNombreApellidoComentarioOtroPerfil.setText(getIntent().getStringExtra("nombreApellidoUsuario"));
 
+        idUsuario = getIntent().getIntExtra("idUsuario", 0);
+        service = Apis.getUsuarioService();
+        Call<Usuario> callUsuario = service.getById(idUsuario);
+
+        callUsuario.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                if(response.isSuccessful()){
+                    usuario = response.body();
+                    cargarDatos(usuario);
+
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+
+            }
+        });
+
+
+    }
+
+    public void cargarDatos(Usuario usuario){
+        tvNombreApellidoComentarioOtroPerfil.setText(usuario.getNombreApellido());
+        Bitmap bitmap = ImagenConverter.convertByteToBitmap(usuario.getImagen());
+        imageVOtroPerfil.setImageBitmap(bitmap);
 
     }
 }

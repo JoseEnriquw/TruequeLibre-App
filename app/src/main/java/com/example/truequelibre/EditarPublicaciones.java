@@ -20,18 +20,16 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentManager;
 
 import com.example.truequelibre.Entity.Dropdown.CategoriaDropdown;
 import com.example.truequelibre.Entity.Dropdown.CondicionDropdown;
 import com.example.truequelibre.Entity.Dropdown.LocalidadDropdown;
 import com.example.truequelibre.Entity.Dropdown.PublicacionDropdown;
-import com.example.truequelibre.Entity.PublicacionEditar;
+import com.example.truequelibre.Entity.PublicacionResponse;
 import com.example.truequelibre.Entity.PublicacionEditarRequest;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
 import com.example.truequelibre.Utils.ImagenConverter;
-import com.example.truequelibre.ui.publicaciones.PublicacionesFragment;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -50,7 +48,7 @@ public class EditarPublicaciones extends AppCompatActivity {
     EditText txtTitulo;
     EditText txtDescripcion;
     IPublicacionService service;
-    PublicacionEditar publicacion;
+    PublicacionResponse publicacion;
     PublicacionDropdown lista= new PublicacionDropdown();
     ArrayAdapter<CategoriaDropdown> adapterCategorias;
     AutoCompleteTextView dropDawnCate;
@@ -170,25 +168,25 @@ public class EditarPublicaciones extends AppCompatActivity {
         Integer idPublicacion = (Integer) getIntent().getSerializableExtra("idPublicacion");
 
         service= Apis.getPublicacionService();
-        Call<PublicacionEditar> callPublicacion =service.getOne(idPublicacion);
+        Call<PublicacionResponse> callPublicacion =service.getOne(idPublicacion);
 
-        callPublicacion.enqueue(new Callback<PublicacionEditar>() {
+        callPublicacion.enqueue(new Callback<PublicacionResponse>() {
             @Override
-            public void onResponse(Call<PublicacionEditar> call, Response<PublicacionEditar> response) {
+            public void onResponse(Call<PublicacionResponse> call, Response<PublicacionResponse> response) {
                 if(response.isSuccessful()) {
                     publicacion = response.body();
                     cargarControles(publicacion);
                 }
             }
             @Override
-            public void onFailure(Call<PublicacionEditar> call, Throwable t) {
+            public void onFailure(Call<PublicacionResponse> call, Throwable t) {
 
             }
         });
 
     }
 
-    public void cargarControles(PublicacionEditar publicacion){
+    public void cargarControles(PublicacionResponse publicacion){
         if (publicacion.getImagenes() != null){
             byte[] byteArray =  Base64.decode(publicacion.getImagenes(), Base64.DEFAULT);
             ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
