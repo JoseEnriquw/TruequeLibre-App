@@ -3,6 +3,7 @@ package com.example.truequelibre.Utils;
 import com.example.truequelibre.Entity.CreateOfertaRequest;
 import com.example.truequelibre.Entity.FiltrarOfertaRequest;
 import com.example.truequelibre.Entity.OfertasResponse;
+import com.example.truequelibre.Entity.PublicacionResponseNotificacion;
 import com.example.truequelibre.Entity.UpdateOfertaVM;
 
 import java.util.List;
@@ -19,7 +20,7 @@ import retrofit2.http.Path;
 public interface IOfertaService {
 
     @GET("oferta/{id}")
-    Call<ResponseBody> getOferta(@Path("id") Integer id);
+    Call<PublicacionResponseNotificacion> getOferta(@Path("id") Integer id);
 
     @DELETE("oferta/{id}")
     Call<ResponseBody> deleteOferta(@Path("id") Integer id);
