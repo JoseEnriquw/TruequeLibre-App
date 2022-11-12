@@ -6,156 +6,158 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardviewcarrousel"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:layout_height="match_parent">
 
-
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardviewcarrousel"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <ViewFlipper
-                android:id="@+id/image_flipper"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" >
-            </ViewFlipper>
-        </LinearLayout>
-    </androidx.cardview.widget.CardView>
+            android:layout_height="300dp"
+            android:layout_margin="10dp">
 
-    <com.google.android.material.card.MaterialCardView
-
-        android:id="@+id/detallematerialCardView"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_below="@id/cardviewcarrousel"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="30dp"
-        android:innerRadius="0dp"
-        android:shape="ring"
-        android:thicknessRatio="1.9"
-        app:cardCornerRadius="40dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardviewcarrousel"
-        tools:ignore="MissingConstraints">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </ScrollView>
+                android:layout_height="wrap_content">
+                <ViewFlipper
+                    android:id="@+id/image_flipper"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+                </ViewFlipper>
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
 
-        <ImageView
-            android:id="@+id/detallefotoperil"
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/detallematerialCardView"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_below="@id/cardviewcarrousel"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="30dp"
+            android:innerRadius="0dp"
+            android:shape="ring"
+            android:thicknessRatio="1.9"
+            app:cardCornerRadius="40dp">
+
+            <ImageView
+                android:id="@+id/detallefotoperil"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                tools:srcCompat="@tools:sample/avatars"></ImageView>
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
+            android:id="@+id/detallenombreapellido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="35dp"
+            android:hint="@string/tv_nombre_apellido_detalle"
+            android:layout_toRightOf="@+id/detallematerialCardView"
+            android:layout_below="@id/cardviewcarrousel"
+
+            />
+        <Button
+            android:id="@+id/btndetalleverperfil"
+            android:layout_width="85dp"
+            android:layout_height="40dp"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="25dp"
+            android:text="@string/btn_perfil"
+            android:layout_below="@id/cardviewcarrousel"
+            />
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            tools:srcCompat="@tools:sample/avatars"></ImageView>
+            android:layout_below="@+id/detallematerialCardView"
+            android:layout_marginTop="20dp">
 
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"  >
 
-    </com.google.android.material.card.MaterialCardView>
+                <TextView
+                    android:id="@+id/detalletitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="32dp"
+                    android:text="@string/tv_nombre" />
 
-    <TextView
-        android:id="@+id/detallenombreapellido"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="40dp"
-        android:text="Nombre y Apellido"
-        app:layout_constraintLeft_toLeftOf="@id/ivFotoPerfilarticulo"
-        app:layout_constraintStart_toEndOf="@+id/detallematerialCardView"
-        app:layout_constraintTop_toBottomOf="@+id/cardviewcarrousel"
-        tools:ignore="MissingConstraints,NotSibling" />
+                <TextView
+                    android:id="@+id/tvDetalletitulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:hint="@string/tv_nombre"
+                    android:layout_below="@id/detalletitulo"/>
 
-    <TextView
-        android:id="@+id/detalletitulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:text="Titulo"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detallematerialCardView"
-        tools:ignore="MissingConstraints" />
+                <TextView
+                    android:id="@+id/detallecondicion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tv_condicion"
+                    android:layout_below="@id/tvDetalletitulo"/>
+                <TextView
+                    android:id="@+id/tvDetallecondicion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:hint="@string/tv_condicion"
+                    android:layout_below="@id/detallecondicion"/>
 
-    <TextView
-        android:id="@+id/detallecondicion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="24dp"
-        android:text="Condicion"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detalletitulo"
-        tools:ignore="MissingConstraints" />
+                <TextView
+                    android:id="@+id/detalledescripcion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tv_descripcion"
+                    android:layout_below="@id/tvDetallecondicion"/>
 
-    <TextView
-        android:id="@+id/detalledescripcion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="28dp"
-        android:text="Descripcion"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detallecondicion"
-        tools:ignore="MissingConstraints" />
+                <TextView
+                    android:id="@+id/tvDetalledescripcion"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:hint="@string/tv_descripcion"
+                    android:layout_below="@id/detalledescripcion"/>
 
-    <TextView
-        android:id="@+id/idleinteresaarticulo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="32dp"
-        android:text="Le interesa: "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detalledescripcion"
-        tools:ignore="MissingConstraints" />
+                <TextView
+                    android:id="@+id/leinteresaarticulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="24dp"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/tv_le_interesa"
+                    android:layout_below="@+id/tvDetalledescripcion"/>
 
-    <TextView
-        android:id="@+id/detalleintereses"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="32dp"
-        android:text="Intereses "
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/idleinteresaarticulo"
-        tools:ignore="MissingConstraints" />
+                <TextView
+                    android:id="@+id/tvLeinteresaarticulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="40dp"
+                    android:hint="@string/tv_le_interesa"
+                    android:layout_below="@id/leinteresaarticulo"/>
 
-    <Button
-        android:id="@+id/btndetalleverperfil"
-        android:layout_width="85dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="28dp"
-        android:text="Perfil"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.867"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardviewcarrousel" />
+                <Button
+                    android:id="@+id/btnaceptar"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="30dp"
+                    android:text="Ofertar"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/tvLeinteresaarticulo"
+                 />
+             </RelativeLayout>
+        </ScrollView>
 
-    <Button
-        android:id="@+id/btnaceptar"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="30dp"
-        android:text="Ofertar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/detalleintereses"
-        app:layout_constraintVertical_bias="0.0" />
-
+    </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
