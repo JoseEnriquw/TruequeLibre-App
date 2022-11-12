@@ -7,21 +7,23 @@
     tools:context=".MainActivity">
 
     <Button
-        android:id="@+id/btnrechazar"
-        android:layout_width="300dp"
+        android:id="@+id/btnrechazaradmin"
+        android:layout_width="100dp"
         android:layout_height="40dp"
-        android:layout_alignParentRight="true"
-        android:layout_marginTop="30dp"
+
+        android:layout_marginStart="52dp"
+        android:layout_marginTop="84dp"
         android:text="Rechazar"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.531"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/btnaceptar"
         app:layout_constraintTop_toBottomOf="@+id/detalleintereses"
-        app:layout_constraintVertical_bias="0.154" />
+        app:layout_constraintVertical_bias="0.003"
+        tools:ignore="MissingConstraints" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/cardviewcarrousel"
+        android:id="@+id/cardviewcarrouseladmin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
@@ -43,10 +45,10 @@
 
     <com.google.android.material.card.MaterialCardView
 
-        android:id="@+id/detallematerialCardView"
+        android:id="@+id/detallematerialCardViewadmin"
         android:layout_width="40dp"
         android:layout_height="40dp"
-        android:layout_below="@id/cardviewcarrousel"
+        android:layout_below="@id/cardviewcarrouseladmin"
         android:layout_marginLeft="20dp"
         android:layout_marginTop="30dp"
         android:innerRadius="0dp"
@@ -54,7 +56,7 @@
         android:thicknessRatio="1.9"
         app:cardCornerRadius="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardviewcarrousel"
+        app:layout_constraintTop_toBottomOf="@+id/cardviewcarrouseladmin"
         tools:ignore="MissingConstraints">
 
         <ScrollView
@@ -68,7 +70,7 @@
         </ScrollView>
 
         <ImageView
-            android:id="@+id/detallefotoperil"
+            android:id="@+id/detallefotoperiladmin"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_alignParentTop="true"
@@ -79,7 +81,7 @@
     </com.google.android.material.card.MaterialCardView>
 
     <TextView
-        android:id="@+id/detallenombreapellido"
+        android:id="@+id/detallenombreapellidoadmin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
@@ -159,17 +161,19 @@
 
     <Button
         android:id="@+id/btnaceptar"
-        android:layout_width="300dp"
+        android:layout_width="100dp"
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_marginTop="30dp"
         android:text="Aceptar"
+        android:textColorHighlight="#2DAEA2"
+        android:textColorLink="#2AACA0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.54"
+        app:layout_constraintHorizontal_bias="0.315"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/detalleintereses"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.163" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -39,10 +39,12 @@ public interface IPublicacionService {
     @GET("publicacion/getOne/{id}/")
     Call<PublicacionResponse> getOne(@Path("id") Integer id);
 
-
     @PUT("publicacion/{id}/")
     Call<ResponseBody> update(@Path("id") Integer id,@Body PublicacionEditarRequest request);
 
     @POST("publicacion/filtrar/")
     Call<List<Publicacion>> getAllByCategoriaFilter(@Body GetAllByCategoriaFilterRequest request);
+
+    @GET("publicacion/admin/")
+    Call<List<Publicacion>> GetAllAdmin();
 }
