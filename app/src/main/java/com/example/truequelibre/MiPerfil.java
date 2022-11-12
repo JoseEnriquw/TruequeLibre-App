@@ -1,24 +1,40 @@
 package com.example.truequelibre;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.truequelibre.Entity.CalificacionUsuario;
 import com.example.truequelibre.Entity.Estado;
 import com.example.truequelibre.Entity.Persona;
+import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Entity.Usuario;
+import com.example.truequelibre.Utils.Apis;
+import com.example.truequelibre.Utils.ICalificacionUsuariosService;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
+import java.io.ByteArrayInputStream;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -29,6 +45,12 @@ public class MiPerfil extends Fragment {
 
     private RecyclerView _recyclerView;
     private AdapterComentariosMiPerfil _adapter;
+    Usuario usuario;
+    TextView tvNombreApellido;
+    ImageView ivFoto;
+    List<CalificacionUsuario> lista = new ArrayList<>();
+    ICalificacionUsuariosService service;
+    RatingBar ratingBar;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -75,18 +97,68 @@ public class MiPerfil extends Fragment {
                              Bundle savedInstanceState) {
 
         View view= inflater.inflate(R.layout.fragment_mi_perfil, container, false);
+        MainActivity activity =(MainActivity) getActivity();
+        usuario= activity.getUsuario();
+
+        service= Apis.getCalificacionUsuariosService();
+
+        tvNombreApellido= (TextView)view.findViewById(R.id.tvNombreApellidoPerfil);
+        ivFoto=(ImageView)view.findViewById(R.id.ivFotoPerfil);
+        ratingBar=(RatingBar)view.findViewById(R.id.rbMiPerfil);
+        ratingBar.setIsIndicator(true);
+
+        tvNombreApellido.setText(usuario.getNombreApellido());
+        if (usuario.getImagen() != null){
+            byte[] byteArray =  Base64.decode(usuario.getImagen(), Base64.DEFAULT);
+            ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
+            Bitmap theImage = BitmapFactory.decodeStream(imageStream);
+            ivFoto.setImageBitmap(theImage);
+        }
+
+
         _recyclerView =(RecyclerView) view.findViewById(R.id.rvComentariosMiPerfil);
-        List<CalificacionUsuario> lista = new ArrayList<CalificacionUsuario>();
-        RatingBar ratingBar=new RatingBar(getContext());
-        Date date = new Date(2022/11/05);
 
+        Call<List<CalificacionUsuario>> call =service.getCalificacionesByUsuario(usuario.getId());
 
-        _adapter= new AdapterComentariosMiPerfil(getContext(),lista);
+        call.enqueue(new Callback<List<CalificacionUsuario>>() {
+            @Override
+            public void onResponse(Call<List<CalificacionUsuario>> call, retrofit2.Response<List<CalificacionUsuario>> response) {
+                if(response.isSuccessful()) {
+                    lista = response.body();
+                    _adapter= new AdapterComentariosMiPerfil(getContext(),lista);
 
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),1,GridLayoutManager.VERTICAL,false);
-        _recyclerView.setLayoutManager(gridLayoutManager);
-        _recyclerView.setHasFixedSize(true);
-        _recyclerView.setAdapter(_adapter);
+                    GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),1,GridLayoutManager.VERTICAL,false);
+                    _recyclerView.setLayoutManager(gridLayoutManager);
+                    _recyclerView.setHasFixedSize(true);
+                    _recyclerView.setAdapter(_adapter);
+
+                    float promedio=0;
+                    for (CalificacionUsuario item: lista)
+                    {
+                        promedio+=item.getEstrellas();
+                    }
+                    promedio/=lista.size();
+
+                    ratingBar.setRating(promedio);
+                }
+                else {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<Error>>() { }.getType();
+
+                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+
+                    for (Error item : message) {
+                        Toast.makeText(getContext(), item.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<CalificacionUsuario>> call, Throwable t) {
+                System.out.println(t.getCause()+ " \n"+t.getMessage());
+                Toast.makeText(getContext(),"Hubo un error al traer los datos de la base de datos :(",Toast.LENGTH_LONG).show();
+            }
+        });
 
         // Inflate the layout for this fragment
         return view;
