@@ -53,19 +53,26 @@ public class AdapterPublicacionesAdmin extends RecyclerView.Adapter <AdapterPubl
     public  static  class ViewHolderPublicacionesAdmin extends RecyclerView.ViewHolder
     {
         ImageView imageView;
-        TextView tvTitulo;
-        TextView tvSubtitulo;
+        TextView tvNombreApellido;
+        TextView tvNombre;
+        TextView tvDescripcion;
+        TextView tvCondicion;
+        TextView tvInteres;
         Button btnAceptar;
         Button btnRechazar;
 
         public ViewHolderPublicacionesAdmin(@NonNull View itemView) {
             super(itemView);
 
-            imageView= itemView.findViewById(R.id.imgvPublicacionesadmin);
-            tvTitulo=itemView.findViewById(R.id.tvTitulo);
-            tvSubtitulo=itemView.findViewById(R.id.tvSubtitulo);
-            btnAceptar= itemView.findViewById(R.id.ibMoreOptions);
-            btnRechazar=  itemView.findViewById(R.id.ibMoreOptions);
+            imageView= itemView.findViewById(R.id.detallefotoperiladmin);
+            tvNombreApellido=itemView.findViewById(R.id.detallenombreapellidoadmin);
+            tvNombre=itemView.findViewById(R.id.detalletituloadmin);
+            tvDescripcion=itemView.findViewById(R.id.detallecondicionadmin);
+            tvCondicion=itemView.findViewById(R.id.detallecondicionadmin);
+            tvInteres=itemView.findViewById(R.id.tvLeinteresaarticuloadmin);
+
+            btnAceptar= itemView.findViewById(R.id.btnaceptaradmin);
+            btnRechazar=  itemView.findViewById(R.id.btnrechazaradmin);
 
         }
     }
@@ -73,7 +80,7 @@ public class AdapterPublicacionesAdmin extends RecyclerView.Adapter <AdapterPubl
     @NonNull
     @Override
     public AdapterPublicacionesAdmin.ViewHolderPublicacionesAdmin onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.grid_item,parent,false);
+        View view= LayoutInflater.from(context).inflate(R.layout.activity_aceptar_rechazar_publicacion,parent,false);
         return new AdapterPublicacionesAdmin.ViewHolderPublicacionesAdmin(view);
     }
 
@@ -82,8 +89,12 @@ public class AdapterPublicacionesAdmin extends RecyclerView.Adapter <AdapterPubl
     public void onBindViewHolder(@NonNull AdapterPublicacionesAdmin.ViewHolderPublicacionesAdmin holder, @SuppressLint("RecyclerView") int position) {
         service= Apis.getPublicacionService();
 
-        holder.tvTitulo.setText(publicaciones.get(position).getNombre());
-        holder.tvSubtitulo.setText(publicaciones.get(position).getDescripcion());
+        holder.tvNombreApellido.setText(publicaciones.get(position).getUsuario().getNombreApellido());
+        holder.tvNombre.setText(publicaciones.get(position).getNombre());
+        holder.tvDescripcion.setText(publicaciones.get(position).getDescripcion());
+        holder.tvCondicion.setText(publicaciones.get(position).getCondicion());
+        holder.tvInteres.setText(publicaciones.get(position).getInteres());
+
 
 
         if (publicaciones.get(position).getImagenes() != null){
@@ -92,20 +103,19 @@ public class AdapterPublicacionesAdmin extends RecyclerView.Adapter <AdapterPubl
             Bitmap theImage = BitmapFactory.decodeStream(imageStream);
             holder.imageView.setImageBitmap(theImage);
         }
-        PublicacionEditarRequestAdmin publi = new PublicacionEditarRequestAdmin();
 
 
         holder.btnAceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                publi.setIdPublicacion(publicaciones.get(position).getId());
-                Call<ResponseBody> deleteRequest = service.update(idPublicacion, publicacion);
-                deleteRequest.enqueue(new Callback<ResponseBody>() {
+
+                Call<ResponseBody> call = service.updateAdmin(publicaciones.get(position).getId(), new PublicacionEditarRequestAdmin(1));
+                call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if(response.isSuccessful())
                         {
-                            Toast.makeText(getApplicationContext(),"Publicacion modificada con exito!",Toast.LENGTH_LONG).show();
+                            Toast.makeText(context.getApplicationContext(), "Publicacion modificada con exito!",Toast.LENGTH_LONG).show();
                         }
                         else
                         {
@@ -114,7 +124,7 @@ public class AdapterPublicacionesAdmin extends RecyclerView.Adapter <AdapterPubl
                             List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
 
                             for (Error item: message) {
-                                Toast.makeText(getApplicationContext(),item.getMessage(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(context.getApplicationContext(),item.getMessage(),Toast.LENGTH_LONG).show();
                             }
                         }
                     }
@@ -122,7 +132,7 @@ public class AdapterPublicacionesAdmin extends RecyclerView.Adapter <AdapterPubl
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         System.out.println(t.getCause()+ " \n"+t.getMessage());
-                        Toast.makeText(getApplicationContext(),"Error al modificar la publicación!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context.getApplicationContext(),"Error al modificar la publicación!", Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -132,13 +142,13 @@ public class AdapterPublicacionesAdmin extends RecyclerView.Adapter <AdapterPubl
         holder.btnRechazar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Call<ResponseBody> deleteRequest = service.update(idPublicacion, publicacion);
-                deleteRequest.enqueue(new Callback<ResponseBody>() {
+                Call<ResponseBody> call = service.updateAdmin(publicaciones.get(position).getId(), new PublicacionEditarRequestAdmin(5));
+                call.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if(response.isSuccessful())
                         {
-                            Toast.makeText(getApplicationContext(),"Publicacion modificada con exito!",Toast.LENGTH_LONG).show();
+                            Toast.makeText(context.getApplicationContext(),"Publicacion modificada con exito!",Toast.LENGTH_LONG).show();
                         }
                         else
                         {
@@ -147,7 +157,7 @@ public class AdapterPublicacionesAdmin extends RecyclerView.Adapter <AdapterPubl
                             List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
 
                             for (Error item: message) {
-                                Toast.makeText(getApplicationContext(),item.getMessage(),Toast.LENGTH_LONG).show();
+                                Toast.makeText(context.getApplicationContext(),item.getMessage(),Toast.LENGTH_LONG).show();
                             }
                         }
                     }
@@ -155,7 +165,7 @@ public class AdapterPublicacionesAdmin extends RecyclerView.Adapter <AdapterPubl
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         System.out.println(t.getCause()+ " \n"+t.getMessage());
-                        Toast.makeText(getApplicationContext(),"Error al modificar la publicación!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context.getApplicationContext(),"Error al modificar la publicación!", Toast.LENGTH_LONG).show();
                     }
                 });
 

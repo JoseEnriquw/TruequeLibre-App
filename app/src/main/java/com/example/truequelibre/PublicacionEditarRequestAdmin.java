@@ -6,9 +6,7 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class PublicacionEditarRequestAdmin implements Serializable {
-    @SerializedName("idPublicacion")
-    @Expose
-    private Integer idPublicacion;
+
     @SerializedName("idEstado")
     @Expose
     private Integer idEstado;
@@ -16,18 +14,14 @@ public class PublicacionEditarRequestAdmin implements Serializable {
     public PublicacionEditarRequestAdmin() {
     }
 
-    public PublicacionEditarRequestAdmin(Integer idPublicacion, Integer idEstado) {
-        this.idPublicacion = idPublicacion;
+    public PublicacionEditarRequestAdmin( Integer idEstado) {
+
         this.idEstado = idEstado;
     }
 
-    public Integer getIdPublicacion() {
-        return idPublicacion;
-    }
 
-    public void setIdPublicacion(Integer idPublicacion) {
-        this.idPublicacion = idPublicacion;
-    }
+
+
 
     public Integer getIdEstado() {
         return idEstado;
