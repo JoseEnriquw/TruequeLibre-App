@@ -45,6 +45,7 @@
                 android:layout_marginLeft="60dp"
                 android:layout_marginTop="10dp"
                 android:text="Articulo"
+                android:textStyle="bold"
                 tools:ignore="NotSibling" />
 
 
@@ -80,6 +81,27 @@
                 android:layout_marginLeft="60dp"
                 android:layout_marginTop="5dp"
                 android:text="Descripcion breve" />
+
+            <TextView
+                android:id="@+id/recibidospor"
+                android:layout_width="wrap_content"
+                android:layout_height="20dp"
+                android:layout_below="@id/recibidosdescripcion"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="5dp"
+                android:text="Por tu publicacion:"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/recibidosNombrepublicacionprincipal"
+                android:layout_width="200dp"
+                android:layout_height="20dp"
+                android:layout_toRightOf="@id/recibidospor"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="60dp"
+                android:text="Nombre articulo" />
+
+
 
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
