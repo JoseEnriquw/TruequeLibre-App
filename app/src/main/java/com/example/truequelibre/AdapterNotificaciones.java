@@ -2,6 +2,7 @@ package com.example.truequelibre;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +12,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.truequelibre.Entity.OfertasResponse;
 import com.example.truequelibre.Entity.Publicacion;
 
 import java.util.List;
@@ -18,11 +20,18 @@ import java.util.List;
 public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotificaciones.ViewHolderNotificaciones>{
 
     private Context context;
-    private List<Publicacion> publicaciones;
+    private List<OfertasResponse> listaOfertas;
+    private String nombreUsuario;
 
-    public AdapterNotificaciones(Context context, List<Publicacion> publicaciones) {
+    public AdapterNotificaciones(Context context, List<OfertasResponse> listaOfertas) {
         this.context = context;
-        this.publicaciones = publicaciones;
+        this.listaOfertas = listaOfertas;
+    }
+
+    public AdapterNotificaciones(Context context, List<OfertasResponse> listaOfertas, String nombreUsuario) {
+        this.context = context;
+        this.listaOfertas = listaOfertas;
+        this.nombreUsuario = nombreUsuario;
     }
 
     @SuppressLint("RestrictedApi")
@@ -54,10 +63,20 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
 
     @SuppressLint("RestrictedApi")
     @Override
-    public void onBindViewHolder(@NonNull AdapterNotificaciones.ViewHolderNotificaciones holder, int position) {
-        holder.tvNombreyapellido.setText(publicaciones.get(position).getUsuario().getNombreApellido());
-        holder.tvdescripcionulo.setText(publicaciones.get(position).getDescripcion());
+    public void onBindViewHolder(@NonNull AdapterNotificaciones.ViewHolderNotificaciones holder, @SuppressLint("RecyclerView") int position) {
+        holder.tvNombreyapellido.setText(listaOfertas.get(position).getNombre_ofertante());
+        holder.tvdescripcionulo.setText(listaOfertas.get(position).getNombre_ofertante());
         holder.tvfechanotificacion.setText("hace 1 dia");
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,Chat.class);
+                intent.putExtra("idOferta", listaOfertas.get(position).getId());
+                intent.putExtra("usuarioActual", nombreUsuario);
+                context.startActivity(intent);
+            }
+        });
        /* Picasso.get()
                 .load(publicaciones.get(position).getIdusuario().getUrlImg())
                 .into(holder.imageView);*/
@@ -65,7 +84,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
 
     @Override
     public int getItemCount() {
-        return publicaciones.size();
+        return listaOfertas.size();
     }
 
 
