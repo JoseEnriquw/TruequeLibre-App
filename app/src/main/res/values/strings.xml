@@ -64,6 +64,13 @@
     <string name="item_editar">Editar</string>
     <string name="item_eliminar">Eliminar</string>
 
+    <string name="tv_nombre_apellido_detalle">Nombre y Apellido</string>
+    <string name="btn_perfil">Perfil</string>
+    <string name="tv_nombre">Nombre</string>
+    <string name="tv_condicion">Condicion</string>
+    <string name="tv_descripcion">Descripcion</string>
+    <string name="tv_le_interesa">Le interesa:</string>
+
     <string name="sv_FiltrarArticulos">¿Que estas buscando?</string>
 
 </resources>
