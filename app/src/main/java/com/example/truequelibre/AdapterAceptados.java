@@ -37,12 +37,14 @@ public class AdapterAceptados extends RecyclerView.Adapter <AdapterAceptados.Vie
         TextView tvTitulo;
         TextView tvDescripcion;
 
+
         public ViewHolderAceptados(@NonNull View itemView) {
             super(itemView);
 
             imageView= itemView.findViewById(R.id.aceptadosfotoarticulo);
             tvTitulo=itemView.findViewById(R.id.aceptadosnombrearticulo);
             tvDescripcion=itemView.findViewById(R.id.aceptadosdescripcion);
+
 
         }
     }
