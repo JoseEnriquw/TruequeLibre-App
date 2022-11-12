@@ -37,7 +37,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                     android:layout_below="@id/idimgcategorias"
+                    android:textAllCaps="true"
+                    android:textColor="@color/car_ui_dialog_icon_color"
+                    android:textSize="15dp"
+                    android:paddingBottom="10dp"
+                    android:layout_below="@id/idimgcategorias"
                     android:text="TextView" />
             </RelativeLayout>
 
