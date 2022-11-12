@@ -124,7 +124,7 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
                                                if(response.isSuccessful())
                                                {
                                                     publicaciones.remove(position);
-                                                    notifyItemChanged(position);
+                                                    notifyItemRemoved(position);
                                                }
                                                else
                                                {
