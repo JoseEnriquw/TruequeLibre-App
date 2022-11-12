@@ -36,18 +36,6 @@ tools:context=".ui.miPerfil.MiPerfilFragment">
             android:text="Nombre y Apellido"
             android:textSize="15dp" />
 
-
-        <ImageButton
-            android:id="@+id/imageButton"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:layout_below="@id/ivFotoPerfil"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="8dp"
-            android:layout_toRightOf="@id/tvNombreApellidoPerfil"
-            android:background="@color/white"
-            android:src="@drawable/ic_edit" />
-
         <View
             android:id="@+id/divider3"
             android:layout_width="match_parent"

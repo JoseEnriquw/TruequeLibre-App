@@ -25,4 +25,9 @@ public class Apis {
     {
         return Cliente.getCliente(HOST).create(IOfertaService.class);
     }
+
+    public static ICalificacionUsuariosService getCalificacionUsuariosService()
+    {
+        return Cliente.getCliente(HOST).create(ICalificacionUsuariosService.class);
+    }
 }
