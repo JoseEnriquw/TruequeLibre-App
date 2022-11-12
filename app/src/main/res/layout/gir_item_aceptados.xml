@@ -42,7 +42,10 @@
                 android:layout_marginLeft="60dp"
                 android:layout_marginTop="10dp"
                 android:text="Articulo"
+                android:textStyle="bold"
                 tools:ignore="NotSibling" />
+
+
 
 
             <com.google.android.material.card.MaterialCardView
