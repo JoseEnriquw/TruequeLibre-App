@@ -63,10 +63,10 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
     @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(@NonNull AdapterRecibidos.ViewHolderRecibidos holder, int position) {
-        holder.tvArticulo.setText(ofertas.get(position).getNombre());
-        holder.tvdescripcionbreveo.setText(ofertas.get(position).getDescripcion());
-        if (ofertas.get(position).getImagen() != null){
-            byte[] byteArray =  Base64.decode(ofertas.get(position).getImagen(), Base64.DEFAULT);
+        holder.tvArticulo.setText(ofertas.get(position).getNombre_ofertante());
+        holder.tvdescripcionbreveo.setText(ofertas.get(position).getDescripcion_ofertante());
+        if (ofertas.get(position).getImagen_ofertante() != null){
+            byte[] byteArray =  Base64.decode(ofertas.get(position).getImagen_ofertante(), Base64.DEFAULT);
             ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
             Bitmap theImage = BitmapFactory.decodeStream(imageStream);
             holder.imageViewarticulo.setImageBitmap(theImage);

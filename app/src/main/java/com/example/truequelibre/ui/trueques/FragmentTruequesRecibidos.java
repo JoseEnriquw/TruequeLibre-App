@@ -101,12 +101,7 @@ public class FragmentTruequesRecibidos extends Fragment {
 
         _recyclerView =(RecyclerView) view.findViewById(R.id.rvrecibidos);
 
-       /* List<Oferta> lista = new ArrayList<Oferta>();
 
-        Persona per = new Persona("34695008d","regina","laurentino");
-        Estado estado = new Estado();
-        Categoria cat = new Categoria();
-        Condicion CONDI = new Condicion();*/
 
         MainActivity activity =(MainActivity) getActivity();
         usuario= activity.getUsuario();
