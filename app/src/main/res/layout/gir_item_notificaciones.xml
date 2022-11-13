@@ -4,55 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
-
-    android:orientation="vertical">
-
-    <com.google.android.material.divider.MaterialDivider
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        tools:ignore="MissingConstraints" />
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="20dp"
+    android:orientation="vertical"
+    >
 
     <com.google.android.material.card.MaterialCardView
-        android:layout_width="368dp"
-        android:layout_height="61dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginVertical="10dp"
-
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.5">
-
+        app:layout_constraintVertical_bias="0.5"
+        app:cardUseCompatPadding="true"
+        >
 
         <RelativeLayout
-            android:id="@+id/rlnotificaciones"
-            android:layout_width="375dp"
+            android:id="@+id/chatrlCardPublicaciones"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-
+            android:padding="10dp"
             >
 
-            <TextView
-                android:id="@+id/notificacionesusurio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/notificacionfotoarticulo"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="10dp"
-                android:text="Nombre y Apellido"
-                tools:ignore="NotSibling" />
+            <ImageButton
+                android:id="@+id/chatibMoreOptions"
+                android:layout_width="10dp"
+                android:layout_height="20dp"
+                android:backgroundTint="@color/cardview_light_background"
+                android:layout_alignParentRight="true"
+                app:srcCompat="@drawable/menu_show" />
 
 
             <com.google.android.material.card.MaterialCardView
-
+                android:id="@+id/cardimagenchat"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="0dp"
                 android:elevation="12dp"
                 android:innerRadius="0dp"
                 android:shape="ring"
@@ -60,42 +51,49 @@
                 app:cardCornerRadius="40dp">
 
                 <ImageView
-                    android:id="@+id/notificacionfotoarticulo"
+                    android:id="@+id/chatfotoarticulo"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_alignParentTop="true"
                     android:layout_centerHorizontal="true"
+                    android:layout_toLeftOf="@id/ibMoreOptions"
                     tools:srcCompat="@tools:sample/avatars"></ImageView>
 
 
             </com.google.android.material.card.MaterialCardView>
 
+            <TextView
+                android:id="@+id/tvUsuarioChat"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/cardimagenchat"
+                android:text="Usuario"
+                android:textStyle="bold" />
+
 
             <TextView
-                android:id="@+id/notificaciondescripcion"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvMensajeChat"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/notificacionesusurio"
-                android:layout_marginLeft="60dp"
-                android:layout_marginTop="5dp"
-                android:text="Descripcion breve" />
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/cardimagenchat"
+                android:layout_below="@id/tvUsuarioChat"
+                android:text="mensaje" />
 
-            <TextView
-                android:id="@+id/aceptadosfecha"
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/notiFinalizartrueque"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="10dp"
-                android:layout_toRightOf="@id/notificacionesusurio"
-                android:text="Hace 1 semana" />
+                android:clickable="true"
+                app:backgroundTint="@color/yellow"
+                android:layout_marginLeft="130dp"
+                android:layout_toRightOf="@id/tvMensajeChat"
+                app:srcCompat="@drawable/ic_notifications_black_24dp" />
 
 
         </RelativeLayout>
 
-
     </com.google.android.material.card.MaterialCardView>
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

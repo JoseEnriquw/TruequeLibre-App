@@ -81,19 +81,6 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <CheckBox
-                android:id="@+id/chkRecordarme"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-
-                android:text="@string/chkRecordarme" />
-
-            <TextView
-                android:id="@+id/tvOlvideContrasenia"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/lnkOlvideContrasenia" />
-
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="wrap_content"
