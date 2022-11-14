@@ -57,13 +57,13 @@ public class CalificarUsuario extends AppCompatActivity {
         boton=(Button) findViewById(R.id.buttoncalificar);
         ratingBar.setIsIndicator(true);
 
-        tvNombreApellido.setText(usuario.getNombreApellido());
-        if (usuario.getImagen() != null){
+       // tvNombreApellido.setText(usuario.getNombreApellido());
+     /*   if (usuario.getImagen() != null){
             byte[] byteArray =  Base64.decode(usuario.getImagen(), Base64.DEFAULT);
             ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
             Bitmap theImage = BitmapFactory.decodeStream(imageStream);
             ivFoto.setImageBitmap(theImage);
-        }
+        }*/
     }
 
     public void CalificarUsuario(){

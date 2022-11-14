@@ -49,6 +49,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
     private Integer positionaux;
     private Integer id_usuario_principal;
     private Integer id_usuario_logeado;
+    private Integer id_usuario_ofertante;
 
   /*  public AdapterNotificaciones(Context context, List<OfertasResponse> listaOfertas) {
         this.context = context;
@@ -109,6 +110,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
         holder.tvNombreyapellido.setText(listaChat.get(position).getNombre_ofertante());
         holder.tvdescripcionulo.setText(listaChat.get(position).getNombre_ofertante());
         id_usuario_principal =listaChat.get(position).getId_usuario_principal();
+        id_usuario_ofertante=listaChat.get(position).getId_usuario_ofertante();
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,8 +121,6 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                 context.startActivity(intent);
             }
         });
-
-
        /* Picasso.get()
                 .load(publicaciones.get(position).getIdusuario().getUrlImg())
                 .into(holder.imageView);*/
@@ -141,13 +141,8 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                         @Override
                         public void onClick(View v) {
                             //ACEPTAR LA FINALIZACION?
-
-                            AceptarFinalizacion();
-
-                        }
+                            AceptarFinalizacion();                        }
                     });
-
-
                 }
                 if(listaChat.get(position).isUsuario_principal_acepto()==true && listaChat.get(position).isUsuario_ofertante_acepto()==true){
                     int miColor = context.getResources().getColor(R.color.mi_color_verde);
@@ -159,6 +154,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                             //Calificar
 
                             CalificarUsuarioMensaje();
+                            notifyDataSetChanged();
 
                         }
                     });
@@ -168,8 +164,9 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
             holder.campanita.setVisibility(View.INVISIBLE);
 
         }
-        holder.menuInflater.inflate(R.menu.popup_menu_chat,holder.menuBuilder);
 
+
+        holder.menuInflater.inflate(R.menu.popup_menu_chat,holder.menuBuilder);
         holder.btnOpciones.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -191,7 +188,6 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                         }
                         return true;
                     }
-
                     @Override
                     public void onMenuModeChange(@NonNull MenuBuilder menu) {
 
@@ -209,7 +205,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
 
 
     private void FinalizarMensaje(){
-        builder.setMessage("Esta seguro que desea dar por finalizado el trueque? (Se le avisara al usuario zarasa para que acepte)")
+        builder.setMessage("Esta seguro que desea dar por finalizado el trueque? (Se le avisara al otro usuario para que acepte)")
                 .setCancelable(false)
                 .setPositiveButton("Finalizar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -234,18 +230,27 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
 
 
     private void CalificarUsuarioMensaje(){
-        builder.setMessage("Desea dejarle una calificacion al usuario zarasa?")
+        builder.setMessage("Desea dejarle una calificacion al usuario ?")
                 .setCancelable(false)
                 .setPositiveButton("Calificar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // finish();
                         // ABRIR CALIFICAR USUARIO
+                        Intent i = new Intent(context,CalificarUsuario.class);
+
+                        if(id_usuario_logeado==id_usuario_principal){
+                        i.putExtra("idusuariocalificador",id_usuario_logeado);
+                        i.putExtra("idcalificado",id_usuario_ofertante);}
+                        else{
+                            i.putExtra("idusuariocalificador",id_usuario_ofertante);
+                            i.putExtra("idcalificado",id_usuario_logeado);
+                        }
+                        i.putExtra("idoferta", listaChat.get(positionaux).getId());
+                        context.startActivity(i);
 
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
                         dialog.cancel();
                         Toast.makeText(context,"you choose no action for alertbox",
                                 Toast.LENGTH_SHORT).show();
@@ -266,9 +271,6 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful())
                 {
-                    //ofertas.remove(position);
-                //    listaChat.removeAll(listaChat.stream().filter(x-> x.getId() == listaChat.get(positionaux).getId()).collect(Collectors.toList()));
-                 //   notifyDataSetChanged();
 
                 }
                 else
@@ -306,10 +308,6 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful())
                 {
-                    //ofertas.remove(position);
-                    //    listaChat.removeAll(listaChat.stream().filter(x-> x.getId() == listaChat.get(positionaux).getId()).collect(Collectors.toList()));
-                    //   notifyDataSetChanged();
-
                 }
                 else
                 {
@@ -333,35 +331,27 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
     public void EsperandoConfirmacion(){
         builder.setMessage("   ")
                 .setCancelable(false)
-                .setPositiveButton("Finalizar", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-
-                    }
-                })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        //  Action for 'NO' Button
                         dialog.cancel();
-                        Toast.makeText(context,"you choose no action for alertbox",
-                                Toast.LENGTH_SHORT).show();
                     }
                 });
         //Creating dialog box
         AlertDialog alert = builder.create();
         //Setting the title manually
-        alert.setTitle("Esperando al otro usuario");
+        alert.setTitle("Esperando confirmacion del otro usuario");
         alert.show();
     }
 
     public void AceptarFinalizacion(){
-        builder.setMessage("zarsa")
+        builder.setMessage("")
                 .setCancelable(false)
-                .setPositiveButton("Finalizar", new DialogInterface.OnClickListener() {
+                .setPositiveButton("Aceptar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         updateFinalizarTrueque(true);
                     }
                 })
-                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                .setNegativeButton("Rechazar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         //  Action for 'NO' Button
                         dialog.cancel();
