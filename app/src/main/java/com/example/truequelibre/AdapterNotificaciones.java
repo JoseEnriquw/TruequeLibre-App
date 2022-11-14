@@ -239,14 +239,13 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                 .setPositiveButton("Calificar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         // finish();
+                        // ABRIR CALIFICAR USUARIO
 
-                        Toast.makeText(context,"you choose yes action for alertbox",
-                                Toast.LENGTH_SHORT).show();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                                            
+
                         dialog.cancel();
                         Toast.makeText(context,"you choose no action for alertbox",
                                 Toast.LENGTH_SHORT).show();

@@ -59,14 +59,6 @@ public class NotificationesFragment extends Fragment {
         usuario= activity.getUsuario();
 
         _recyclerView =(RecyclerView) root.findViewById(R.id.rvNotificaciones);
-     /*   _adapter= new AdapterNotificaciones(getContext(),lista,usuario.getNombreApellido());
-
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(),1,GridLayoutManager.VERTICAL,false);
-        _recyclerView.setLayoutManager(gridLayoutManager);
-        _recyclerView.setHasFixedSize(true);
-        _recyclerView.setAdapter(_adapter);*/
-
-
 
 
         FiltrarOfertaRequest requestofertas = new FiltrarOfertaRequest(usuario.getId(),  "Aceptados");
