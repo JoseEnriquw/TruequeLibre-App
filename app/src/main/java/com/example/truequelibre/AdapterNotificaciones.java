@@ -25,6 +25,7 @@ import com.example.truequelibre.Entity.OfertasResponse;
 import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Entity.UpdateOfertaVM;
 import com.example.truequelibre.Utils.Apis;
+import com.example.truequelibre.Utils.IFinalizarTruequeService;
 import com.example.truequelibre.Utils.IOfertaService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -46,17 +47,21 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
     private String nombreUsuario;
     AlertDialog.Builder builder;
     IOfertaService service;
+    IFinalizarTruequeService servicefinalizar;
     private Integer positionaux;
+    private Integer id_usuario_principal;
+    private Integer id_usuario_logeado;
 
-    public AdapterNotificaciones(Context context, List<OfertasResponse> listaOfertas) {
+  /*  public AdapterNotificaciones(Context context, List<OfertasResponse> listaOfertas) {
         this.context = context;
         this.listaChat = listaOfertas;
-    }
+    }*/
 
-    public AdapterNotificaciones(Context context, List<OfertasResponse> listaOfertas, String nombreUsuario) {
+    public AdapterNotificaciones(Context context, List<OfertasResponse> listaOfertas, String nombreUsuario, Integer id_usuario_logeado) {
         this.context = context;
         this.listaChat = listaOfertas;
         this.nombreUsuario = nombreUsuario;
+        this.id_usuario_logeado =id_usuario_logeado;
     }
 
     @SuppressLint("RestrictedApi")
@@ -101,9 +106,11 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
     @Override
     public void onBindViewHolder(@NonNull AdapterNotificaciones.ViewHolderNotificaciones holder, @SuppressLint("RecyclerView") int position) {
         service= Apis.getOfertaService();
+        servicefinalizar = Apis.getIFinalizarTruequeService();
         holder.tvNombreyapellido.setText(listaChat.get(position).getNombre_ofertante());
         holder.tvdescripcionulo.setText(listaChat.get(position).getNombre_ofertante());
     //    holder.tvfechanotificacion.setText("hace 1 dia");
+        id_usuario_principal =listaChat.get(position).getId_usuario_principal();
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -114,17 +121,21 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                 context.startActivity(intent);
             }
         });
+
+
        /* Picasso.get()
                 .load(publicaciones.get(position).getIdusuario().getUrlImg())
                 .into(holder.imageView);*/
         if(listaChat.get(position).getEstado_id()==8){
             holder.notificacion.setVisibility(View.VISIBLE);
             holder.btnOpciones.setVisibility(View.INVISIBLE);
+                if(id_usuario_logeado ==id_usuario_principal){
+                    //MENSAJE
+                }
+
         }else{
             holder.notificacion.setVisibility(View.INVISIBLE);
         }
-
-
         holder.menuInflater.inflate(R.menu.popup_menu_chat,holder.menuBuilder);
 
         holder.btnOpciones.setOnClickListener(new View.OnClickListener() {
@@ -157,10 +168,6 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                 optionMenu.show();
             }
         });
-
-
-
-
     }
 
     @Override
@@ -175,6 +182,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                 .setPositiveButton("Finalizar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         updateFinalizarTrueque();
+                        createFinalizarTrueque();
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -243,9 +251,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                         Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG);
                     }
                 }
-
             }
-
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 System.out.println(t.getCause()+ " \n"+t.getMessage());
@@ -254,4 +260,39 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
         });
     }
 
+
+    public void createFinalizarTrueque(){
+        CreateFinalizarTruequeRequest finalizarrequest = new CreateFinalizarTruequeRequest();
+        finalizarrequest.setIdOferta(listaChat.get(positionaux).getId());
+        if(id_usuario_logeado ==id_usuario_principal){
+            finalizarrequest.setUsuario_principal_acepto(true);
+        }else {
+            finalizarrequest.setUsuario_ofertante_acepto(true);
+        }
+        Call<ResponseBody> createRequest = servicefinalizar.createfinalizartrueque(finalizarrequest);
+        createRequest.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful())
+                {
+
+                }
+                else
+                {
+                    Gson gson = new Gson();
+                    Type type = new TypeToken<List<Error>>() {}.getType();
+                    List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+
+                    for (Error item: message) {
+                        Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG);
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                System.out.println(t.getCause()+ " \n"+t.getMessage());
+                Toast.makeText(context,"Hubo un error al traer los datos de la base de datos :(", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
 }

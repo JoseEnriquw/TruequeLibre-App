@@ -80,7 +80,7 @@ public class NotificationesFragment extends Fragment {
             public void onResponse(Call<List<OfertasResponse>> call, retrofit2.Response<List<OfertasResponse>> response) {
                 if(response.isSuccessful()) {
                     lista = response.body();
-                    _adapter = new AdapterNotificaciones(getContext(), lista,usuario.getNombreApellido());
+                    _adapter = new AdapterNotificaciones(getContext(), lista,usuario.getNombreApellido(), usuario.getId());
 
                     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false);
                     _recyclerView.setLayoutManager(gridLayoutManager);
