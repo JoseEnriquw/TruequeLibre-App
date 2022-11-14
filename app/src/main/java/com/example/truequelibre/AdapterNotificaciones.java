@@ -4,12 +4,12 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.view.LayoutInflater;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,10 +22,9 @@ import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.truequelibre.Entity.OfertasResponse;
-import com.example.truequelibre.Entity.Publicacion;
+import com.example.truequelibre.Entity.UpdateFinalizarVM;
 import com.example.truequelibre.Entity.UpdateOfertaVM;
 import com.example.truequelibre.Utils.Apis;
-import com.example.truequelibre.Utils.IFinalizarTruequeService;
 import com.example.truequelibre.Utils.IOfertaService;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -33,7 +32,6 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -47,7 +45,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
     private String nombreUsuario;
     AlertDialog.Builder builder;
     IOfertaService service;
-    IFinalizarTruequeService servicefinalizar;
+
     private Integer positionaux;
     private Integer id_usuario_principal;
     private Integer id_usuario_logeado;
@@ -74,7 +72,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
         ImageButton btnOpciones;
         MenuBuilder menuBuilder;
         MenuInflater menuInflater;
-        FloatingActionButton notificacion;
+        FloatingActionButton campanita;
 
 
         public ViewHolderNotificaciones(@NonNull View itemView) {
@@ -87,7 +85,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
             btnOpciones= (ImageButton) itemView.findViewById(R.id.chatibMoreOptions);
             menuBuilder=new MenuBuilder(itemView.getContext());
             menuInflater=new MenuInflater(itemView.getContext());
-            notificacion =itemView.findViewById(R.id.notiFinalizartrueque);
+            campanita =itemView.findViewById(R.id.notiFinalizartrueque);
 
 
 
@@ -99,17 +97,17 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
     public AdapterNotificaciones.ViewHolderNotificaciones onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(context).inflate(R.layout.gir_item_notificaciones,parent,false);
         builder = new AlertDialog.Builder(context);
+        service= Apis.getOfertaService();
         return new AdapterNotificaciones.ViewHolderNotificaciones(view);
     }
 
     @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(@NonNull AdapterNotificaciones.ViewHolderNotificaciones holder, @SuppressLint("RecyclerView") int position) {
-        service= Apis.getOfertaService();
-        servicefinalizar = Apis.getIFinalizarTruequeService();
+
+        positionaux =position;
         holder.tvNombreyapellido.setText(listaChat.get(position).getNombre_ofertante());
         holder.tvdescripcionulo.setText(listaChat.get(position).getNombre_ofertante());
-    //    holder.tvfechanotificacion.setText("hace 1 dia");
         id_usuario_principal =listaChat.get(position).getId_usuario_principal();
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -127,14 +125,48 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                 .load(publicaciones.get(position).getIdusuario().getUrlImg())
                 .into(holder.imageView);*/
         if(listaChat.get(position).getEstado_id()==8){
-            holder.notificacion.setVisibility(View.VISIBLE);
+            holder.campanita.setVisibility(View.VISIBLE);
             holder.btnOpciones.setVisibility(View.INVISIBLE);
-                if(id_usuario_logeado ==id_usuario_principal){
-                    //MENSAJE
+                if((id_usuario_logeado ==id_usuario_principal && listaChat.get(position).isUsuario_principal_acepto()==true)|| (id_usuario_logeado !=id_usuario_principal && listaChat.get(position).isUsuario_ofertante_acepto()==true) ){
+                    holder.campanita.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                              //ESPERANDO QUE EL OTRO USUARIO REPSONDA
+                            EsperandoConfirmacion();
+                        }
+                    });
+                }else {
+
+                    holder.campanita.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //ACEPTAR LA FINALIZACION?
+
+                            AceptarFinalizacion();
+
+                        }
+                    });
+
+
+                }
+                if(listaChat.get(position).isUsuario_principal_acepto()==true && listaChat.get(position).isUsuario_ofertante_acepto()==true){
+                    int miColor = context.getResources().getColor(R.color.mi_color_verde);
+                    ColorStateList csl = new ColorStateList(new int[][]{new int[0]}, new int[]{miColor});
+                    holder.campanita.setBackgroundTintList(csl);
+                    holder.campanita.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            //Calificar
+
+                            CalificarUsuarioMensaje();
+
+                        }
+                    });
                 }
 
         }else{
-            holder.notificacion.setVisibility(View.INVISIBLE);
+            holder.campanita.setVisibility(View.INVISIBLE);
+
         }
         holder.menuInflater.inflate(R.menu.popup_menu_chat,holder.menuBuilder);
 
@@ -181,8 +213,8 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                 .setCancelable(false)
                 .setPositiveButton("Finalizar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        updateFinalizarTrueque();
-                        createFinalizarTrueque();
+                        updateEstadoFinalizarTrueque();
+                        updateFinalizarTrueque(false);
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -214,8 +246,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        //  Action for 'NO' Button
-                        updateFinalizarTrueque();
+                                            
                         dialog.cancel();
                         Toast.makeText(context,"you choose no action for alertbox",
                                 Toast.LENGTH_SHORT).show();
@@ -228,7 +259,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
         alert.show();
     }
 
-    private void updateFinalizarTrueque(){
+    private void updateEstadoFinalizarTrueque(){
         UpdateOfertaVM estado = new UpdateOfertaVM(8);
         Call<ResponseBody> updateRequest = service.updateOferta(listaChat.get(positionaux).getId(),estado);
         updateRequest.enqueue(new Callback<ResponseBody>() {
@@ -261,20 +292,24 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
     }
 
 
-    public void createFinalizarTrueque(){
-        CreateFinalizarTruequeRequest finalizarrequest = new CreateFinalizarTruequeRequest();
-        finalizarrequest.setIdOferta(listaChat.get(positionaux).getId());
-        if(id_usuario_logeado ==id_usuario_principal){
-            finalizarrequest.setUsuario_principal_acepto(true);
-        }else {
-            finalizarrequest.setUsuario_ofertante_acepto(true);
-        }
-        Call<ResponseBody> createRequest = servicefinalizar.createfinalizartrueque(finalizarrequest);
-        createRequest.enqueue(new Callback<ResponseBody>() {
+    public void updateFinalizarTrueque(boolean cerrado){
+        UpdateFinalizarVM request =new UpdateFinalizarVM();
+        if(cerrado ==true){
+            request.setUsuario_principal_acepto(true);
+            request.setUsuario_ofertante_acepto(true);
+        }else if(id_usuario_logeado ==id_usuario_principal ){
+            request.setUsuario_principal_acepto(true);
+        } else{request.setUsuario_ofertante_acepto(true); }
+
+        Call<ResponseBody> updateRequest = service.updatefinalizartrueque(listaChat.get(positionaux).getId(),request);
+        updateRequest.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful())
                 {
+                    //ofertas.remove(position);
+                    //    listaChat.removeAll(listaChat.stream().filter(x-> x.getId() == listaChat.get(positionaux).getId()).collect(Collectors.toList()));
+                    //   notifyDataSetChanged();
 
                 }
                 else
@@ -294,5 +329,51 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                 Toast.makeText(context,"Hubo un error al traer los datos de la base de datos :(", Toast.LENGTH_LONG).show();
             }
         });
+    }
+
+    public void EsperandoConfirmacion(){
+        builder.setMessage("   ")
+                .setCancelable(false)
+                .setPositiveButton("Finalizar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Action for 'NO' Button
+                        dialog.cancel();
+                        Toast.makeText(context,"you choose no action for alertbox",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        //Setting the title manually
+        alert.setTitle("Esperando al otro usuario");
+        alert.show();
+    }
+
+    public void AceptarFinalizacion(){
+        builder.setMessage("zarsa")
+                .setCancelable(false)
+                .setPositiveButton("Finalizar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        updateFinalizarTrueque(true);
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Action for 'NO' Button
+                        dialog.cancel();
+                        Toast.makeText(context,"you choose no action for alertbox",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        //Setting the title manually
+        alert.setTitle("Se ah propuesto la finalizacion del trueque acepta?");
+        alert.show();
     }
 }

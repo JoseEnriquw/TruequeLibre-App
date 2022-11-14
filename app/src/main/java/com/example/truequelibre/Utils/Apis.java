@@ -31,8 +31,5 @@ public class Apis {
         return Cliente.getCliente(HOST).create(ICalificacionUsuariosService.class);
     }
 
-    public static IFinalizarTruequeService getIFinalizarTruequeService()
-    {
-        return Cliente.getCliente(HOST).create(IFinalizarTruequeService.class);
-    }
+
 }

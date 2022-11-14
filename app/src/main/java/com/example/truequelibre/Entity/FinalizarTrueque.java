@@ -1,14 +1,14 @@
-package com.example.truequelibre;
+package com.example.truequelibre.Entity;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class CreateFinalizarTruequeRequest implements Serializable {
-    @SerializedName("idOferta")
+public class FinalizarTrueque implements Serializable {
+    @SerializedName("id")
     @Expose
-    Integer idOferta;
+    Integer id;
     @SerializedName("usuario_principal_acepto")
     @Expose
     boolean usuario_principal_acepto;
@@ -16,21 +16,21 @@ public class CreateFinalizarTruequeRequest implements Serializable {
     @Expose
     boolean usuario_ofertante_acepto;
 
-    public CreateFinalizarTruequeRequest() {
+    public FinalizarTrueque() {
     }
 
-    public CreateFinalizarTruequeRequest(Integer idOferta, boolean usuario_principal_acepto, boolean usuario_ofertante_acepto) {
-        this.idOferta = idOferta;
+    public FinalizarTrueque(Integer id, boolean usuario_principal_acepto, boolean usuario_ofertante_acepto) {
+        this.id = id;
         this.usuario_principal_acepto = usuario_principal_acepto;
         this.usuario_ofertante_acepto = usuario_ofertante_acepto;
     }
 
-    public Integer getIdOferta() {
-        return idOferta;
+    public Integer getId() {
+        return id;
     }
 
-    public void setIdOferta(Integer idOferta) {
-        this.idOferta = idOferta;
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public boolean isUsuario_principal_acepto() {
