@@ -23,14 +23,14 @@
                 android:textFontWeight="700"
                 >
             </TextView>
+
             <TextView
                 android:id="@+id/tvMensajeChat"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="50dp"
                 android:layout_marginTop="5dp"
-                android:text="Este es el mensaje"
-                >
-            </TextView>
+                android:text="Este es el mensaje"></TextView>
         </LinearLayout>
     </LinearLayout>
 
