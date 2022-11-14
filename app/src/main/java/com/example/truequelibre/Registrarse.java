@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
@@ -37,6 +38,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
+import java.util.regex.Pattern;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -128,7 +130,6 @@ public class Registrarse extends AppCompatActivity {
             }
         });
 
-
     }
 
     public void btnRegistrarse(View view){
@@ -143,6 +144,11 @@ public class Registrarse extends AppCompatActivity {
 
             }
         };
+    }
+
+    private boolean validarEmail(String email) {
+        Pattern pattern = Patterns.EMAIL_ADDRESS;
+        return pattern.matcher(email).matches();
     }
 
     public boolean validarCampos(){
@@ -162,6 +168,11 @@ public class Registrarse extends AppCompatActivity {
             }
         }
 
+        if (!validarEmail(txtCorreo.getText().toString())){
+            TextInputLayout layout = findViewById(R.id.email_text_input_layout);
+            layout.setError("El correo tiene un formato incorrecto!");
+        }
+
         return bnd;
     }
 
@@ -179,7 +190,6 @@ public class Registrarse extends AppCompatActivity {
 
         String fecha = sdf2.format(sdf.parse(startDateString));
         usuarionuevo.setFechaNacimiento(fecha);
-        usuarionuevo.setApellido(String.valueOf(txtDNI.getText()));
         usuarionuevo.setMail(String.valueOf(txtCorreo.getText()));
         usuarionuevo.setDni(String.valueOf(txtDNI.getText()));
         usuarionuevo.setTelefono(String.valueOf(txtTelefono.getText()));

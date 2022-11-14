@@ -102,11 +102,13 @@
 
         <Button
             android:id="@+id/btnEnviarMensajeChat"
-            android:layout_width="64dp"
+            android:layout_width="48dp"
             android:layout_height="48dp"
             android:layout_alignParentEnd="true"
-            android:background="?attr/selectableItemBackground"
-            android:text="Send"
+            android:background="@drawable/icon_send_chat"
+
+            android:backgroundTint="@color/purple_500"
+
             android:textColor="@color/black" />
 
     </RelativeLayout>

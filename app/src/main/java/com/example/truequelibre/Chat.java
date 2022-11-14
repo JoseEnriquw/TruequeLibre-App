@@ -103,8 +103,11 @@ public class Chat extends AppCompatActivity {
                     btnEnviar.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            databaseReference.push().setValue(new Mensaje(txtMensaje.getText().toString(), usActual));
-                            txtMensaje.setText("");
+                            if (!txtMensaje.getText().toString().equals("")){
+                                databaseReference.push().setValue(new Mensaje(txtMensaje.getText().toString(), usActual));
+                                txtMensaje.setText("");
+                            }
+
                         }
                     });
 

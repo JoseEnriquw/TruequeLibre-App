@@ -45,6 +45,7 @@ public class AprobarPublicaciones extends AppCompatActivity {
     private Integer idUsuario;
     private PublicacionResponse publicacion;
     private Context context;
+    private Button btnVerPerfil;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +60,7 @@ public class AprobarPublicaciones extends AppCompatActivity {
         tvDescripcion=findViewById(R.id.detallecondicionadmin);
         tvCondicion=findViewById(R.id.detallecondicionadmin);
         tvInteres=findViewById(R.id.tvLeinteresaarticuloadmin);
+        btnVerPerfil = findViewById(R.id.btndetalleverperfiladmin);
 
         btnAceptar= findViewById(R.id.btnaceptaradmin);
         btnRechazar=  findViewById(R.id.btnrechazaradmin);
@@ -73,7 +75,7 @@ public class AprobarPublicaciones extends AppCompatActivity {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
-                            Toast.makeText(context, "Publicacion modificada con exito!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(context, "Publicacion aprobada con exito!", Toast.LENGTH_LONG).show();
                             Intent i=new Intent(context,pantallaAdmin.class);
                             context.startActivity(i);
                         } else {
@@ -91,7 +93,7 @@ public class AprobarPublicaciones extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         System.out.println(t.getCause() + " \n" + t.getMessage());
-                        Toast.makeText(context, "Error al modificar la publicación!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Error al aprobar la publicación!", Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -107,7 +109,7 @@ public class AprobarPublicaciones extends AppCompatActivity {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if(response.isSuccessful())
                         {
-                            Toast.makeText(context,"Publicacion modificada con exito!",Toast.LENGTH_LONG).show();
+                            Toast.makeText(context,"Publicacion rechazada con exito!",Toast.LENGTH_LONG).show();
                             Intent i=new Intent(context,pantallaAdmin.class);
                             context.startActivity(i);
                         }
@@ -126,7 +128,7 @@ public class AprobarPublicaciones extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         System.out.println(t.getCause()+ " \n"+t.getMessage());
-                        Toast.makeText(context,"Error al modificar la publicación!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,"Error al rechazar la publicación!", Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -159,6 +161,15 @@ public class AprobarPublicaciones extends AppCompatActivity {
             @Override
             public void onFailure(Call<PublicacionResponse> call, Throwable t) {
 
+            }
+        });
+
+        btnVerPerfil.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context,VerPerfilOtroUsuario.class);
+                intent.putExtra("idUsuario", publicacion.getUsuario().getIdUsuario());
+                context.startActivity(intent);
             }
         });
     }

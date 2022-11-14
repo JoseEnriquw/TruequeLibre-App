@@ -42,14 +42,7 @@ public class QueOfrecesACambio extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_que_ofreces_acambio);
 
-        btn = (FloatingActionButton) findViewById(R.id.btnAgregarPublicacionOfrecer);
-        btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),AgregarPublicaciones.class);
-                v.getContext().startActivity(intent);
-            }
-        });
+
         idUsuario = getIntent().getIntExtra("idUsuario",0);
         idPublicacion = getIntent().getIntExtra("idPublicacion",0);
         _recyclerView =(RecyclerView) findViewById(R.id.rvPublicacionesOfrecer);
