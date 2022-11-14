@@ -1,5 +1,6 @@
 package com.example.truequelibre;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
@@ -51,6 +53,7 @@ public class MiPerfil extends Fragment {
     List<CalificacionUsuario> lista = new ArrayList<>();
     ICalificacionUsuariosService service;
     RatingBar ratingBar;
+    Button btnSalir;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -99,6 +102,15 @@ public class MiPerfil extends Fragment {
         View view= inflater.inflate(R.layout.fragment_mi_perfil, container, false);
         MainActivity activity =(MainActivity) getActivity();
         usuario= activity.getUsuario();
+
+        btnSalir = (Button) view.findViewById(R.id.btnSalir);
+        btnSalir.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(),Login.class);
+                v.getContext().startActivity(intent);
+            }
+        });
 
         service= Apis.getCalificacionUsuariosService();
 

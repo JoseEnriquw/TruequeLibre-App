@@ -114,6 +114,7 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
                             case R.id.itemEditar:
                                 Intent i = new Intent(view.getContext().getApplicationContext(),EditarPublicaciones.class);
                                 i.putExtra("idPublicacion", publicaciones.get(position).getId());
+                                i.putExtra("idUsuario", publicaciones.get(position).getUsuario().getIdUsuario());
                                 view.getContext().startActivity(i);
                                 break;
                             case R.id.itemEliminar:

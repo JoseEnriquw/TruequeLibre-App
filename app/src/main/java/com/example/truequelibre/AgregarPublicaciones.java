@@ -58,7 +58,7 @@ public class AgregarPublicaciones extends AppCompatActivity {
     private LocalidadDropdown ubicacion;
     private LocalidadDropdown ubicacionPretendida;
     private CondicionDropdown condicion;
-
+    private Integer idUsuario;
     FloatingActionButton photobutton;
     AlertDialog.Builder builder;
     ImageView imageViewarray[]=new ImageView[5];
@@ -75,6 +75,7 @@ public class AgregarPublicaciones extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_publicaciones);
         context=this;
+        idUsuario = getIntent().getIntExtra("idUsuario",0);
         photobutton = findViewById(R.id.btnAgregarImagenesPublicacion);
         builder = new AlertDialog.Builder(this);
         img1 = findViewById(R.id.imgvagregarpublicaciones1);
@@ -171,7 +172,8 @@ public class AgregarPublicaciones extends AppCompatActivity {
             String nombre = ((TextInputEditText)findViewById(R.id.txtTituloAgregar)).getText().toString();
             String descripcion = ((TextInputEditText)findViewById(R.id.txtDescripcionAgregar)).getText().toString();
             byte[] imageInByte = convertImgViewToArray();
-            PublicacionCreateRequest publicacion = new PublicacionCreateRequest(1,nombre,descripcion,
+
+            PublicacionCreateRequest publicacion = new PublicacionCreateRequest(idUsuario,nombre,descripcion,
                     categoria.getIdCategoria(),categoriaPretendida.getIdCategoria(),
                     condicion.getIdCondicion(), ubicacion.getIdLocalidad(),ubicacionPretendida.getIdLocalidad(), imageInByte);
             postPublicacionCreate(publicacion);

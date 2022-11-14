@@ -2,6 +2,7 @@ package com.example.truequelibre;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
@@ -25,8 +26,8 @@ import com.example.truequelibre.Entity.Dropdown.CategoriaDropdown;
 import com.example.truequelibre.Entity.Dropdown.CondicionDropdown;
 import com.example.truequelibre.Entity.Dropdown.LocalidadDropdown;
 import com.example.truequelibre.Entity.Dropdown.PublicacionDropdown;
-import com.example.truequelibre.Entity.PublicacionResponse;
 import com.example.truequelibre.Entity.PublicacionEditarRequest;
+import com.example.truequelibre.Entity.PublicacionResponse;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
 import com.example.truequelibre.Utils.ImagenConverter;
@@ -77,6 +78,7 @@ public class EditarPublicaciones extends AppCompatActivity {
     private LocalidadDropdown ubicacion;
     private LocalidadDropdown ubicacionPretendida;
     private CondicionDropdown condicion;
+    private Integer idUsuario;
 
 
     @Override
@@ -223,7 +225,7 @@ public class EditarPublicaciones extends AppCompatActivity {
                     ubicacionPretendida.getIdLocalidad(),
                     imageInByte
             );
-            postEditarPublicacion(request);
+            postEditarPublicacion(request,view);
         }
         catch (Exception ex){
             System.out.println(ex.getMessage() + " - " + ex.getCause());
@@ -269,7 +271,7 @@ public class EditarPublicaciones extends AppCompatActivity {
 
     }
 
-    public void postEditarPublicacion(PublicacionEditarRequest publicacion){
+    public void postEditarPublicacion(PublicacionEditarRequest publicacion,View view){
         Call<ResponseBody> deleteRequest = service.update(idPublicacion, publicacion);
         deleteRequest.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -277,6 +279,9 @@ public class EditarPublicaciones extends AppCompatActivity {
                 if(response.isSuccessful())
                 {
                     Toast.makeText(getApplicationContext(),"Publicacion modificada con exito!",Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(context,MainActivity.class);
+                    intent.putExtra("idUsuario", getIntent().getIntExtra("idUsuario",0));
+                    context.startActivity(intent);
                 }
                 else
                 {

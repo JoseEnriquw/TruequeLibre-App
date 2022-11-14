@@ -135,6 +135,7 @@ public class Publicaciones extends Fragment {
                     @Override
                     public void onClick(View view) {
                         Intent intent= new Intent(getActivity().getApplicationContext(),AgregarPublicaciones.class);
+                        intent.putExtra("idUsuario", usuario.getId());
                         startActivity(intent);
                     }
                 }

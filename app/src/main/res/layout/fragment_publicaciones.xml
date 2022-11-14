@@ -35,10 +35,7 @@
             android:textColor="@color/black"
             android:textSize="20sp" />
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/txt_publicaciones">
+
 
 
             <androidx.recyclerview.widget.RecyclerView
@@ -51,11 +48,12 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginEnd="10dp"
-                android:layout_marginBottom="10dp"
-                android:nestedScrollingEnabled="false"
+                android:layout_marginBottom="40dp"
+                android:nestedScrollingEnabled="true"
+                android:layout_below="@id/txt_publicaciones"
                 />
 
-        </androidx.core.widget.NestedScrollView>
+
 
 
     </RelativeLayout>
