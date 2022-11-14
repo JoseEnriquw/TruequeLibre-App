@@ -2,6 +2,7 @@ package com.example.truequelibre;
 
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
@@ -37,6 +38,7 @@ import java.lang.reflect.Type;
 import java.net.HttpURLConnection;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -168,19 +170,40 @@ public class AgregarPublicaciones extends AppCompatActivity {
     }
 
     public void Publicar(View v){
-        if (validarCampos()){
-            String nombre = ((TextInputEditText)findViewById(R.id.txtTituloAgregar)).getText().toString();
-            String descripcion = ((TextInputEditText)findViewById(R.id.txtDescripcionAgregar)).getText().toString();
-            byte[] imageInByte = convertImgViewToArray();
+        builder.setMessage("Una vez agregada, debe esperar a que esta sea aprobada")
+                .setCancelable(false)
+                .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        if (validarCampos()){
+                            String nombre = ((TextInputEditText)findViewById(R.id.txtTituloAgregar)).getText().toString();
+                            String descripcion = ((TextInputEditText)findViewById(R.id.txtDescripcionAgregar)).getText().toString();
+                            byte[] imageInByte = convertImgViewToArray();
 
-            PublicacionCreateRequest publicacion = new PublicacionCreateRequest(idUsuario,nombre,descripcion,
-                    categoria.getIdCategoria(),categoriaPretendida.getIdCategoria(),
-                    condicion.getIdCondicion(), ubicacion.getIdLocalidad(),ubicacionPretendida.getIdLocalidad(), imageInByte);
-            postPublicacionCreate(publicacion);
-        }
-        else{
-            Toast.makeText(getApplicationContext(),"Error: complete todos los campos!", Toast.LENGTH_LONG).show();
-        }
+                            PublicacionCreateRequest publicacion = new PublicacionCreateRequest(idUsuario,nombre,descripcion,
+                                    categoria.getIdCategoria(),categoriaPretendida.getIdCategoria(),
+                                    condicion.getIdCondicion(), ubicacion.getIdLocalidad(),ubicacionPretendida.getIdLocalidad(), imageInByte);
+                            postPublicacionCreate(publicacion);
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"Error: complete todos los campos!", Toast.LENGTH_LONG).show();
+                        }
+                    }
+                })
+                .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        //  Action for 'NO' Button
+                        dialog.cancel();
+                        Toast.makeText(context,"Cancelado",
+                                Toast.LENGTH_SHORT).show();
+                    }
+                });
+        //Creating dialog box
+        AlertDialog alert = builder.create();
+        //Setting the title manually
+        alert.setTitle("Desea agregar esta publicacion?");
+        alert.show();
+
+
     }
 
     public byte[] convertImgViewToArray(){
@@ -222,6 +245,9 @@ public class AgregarPublicaciones extends AppCompatActivity {
                 if(response.isSuccessful()){
                     if(response.code() == HttpURLConnection.HTTP_CREATED){
                         Toast.makeText(AgregarPublicaciones.this,"Publicación agregada con exito!", Toast.LENGTH_LONG).show();
+                        Intent intent = new Intent(context,MainActivity.class);
+                        intent.putExtra("idUsuario", idUsuario);
+                        context.startActivity(intent);
                     }
                     else{
                         Toast.makeText(AgregarPublicaciones.this,"Error al agregar publicación!", Toast.LENGTH_LONG).show();

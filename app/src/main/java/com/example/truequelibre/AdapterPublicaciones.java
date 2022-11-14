@@ -1,6 +1,7 @@
 package com.example.truequelibre;
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -16,13 +17,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.view.menu.MenuBuilder;
 import androidx.appcompat.view.menu.MenuPopupHelper;
 import androidx.fragment.app.FragmentManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.truequelibre.Entity.Publicacion;
+import com.example.truequelibre.Entity.PublicacionEditarRequest;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
+import com.example.truequelibre.Utils.ImagenConverter;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -40,6 +44,7 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
     private Context context;
     private List<Publicacion> publicaciones;
     IPublicacionService service;
+    private AlertDialog.Builder builder;
 
 
     public AdapterPublicaciones(Context context, List<Publicacion> publicaciones) {
@@ -80,7 +85,7 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
     @Override
     public void onBindViewHolder(@NonNull ViewHolderPublicaciones holder, @SuppressLint("RecyclerView") int position) {
         service= Apis.getPublicacionService();
-
+        builder = new AlertDialog.Builder(context);
        holder.tvTitulo.setText(publicaciones.get(position).getNombre());
        holder.tvSubtitulo.setText(publicaciones.get(position).getDescripcion());
        // ByteArrayInputStream imageStream = new ByteArrayInputStream(publicaciones.get(position).getImagenes());
@@ -118,34 +123,54 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
                                 view.getContext().startActivity(i);
                                 break;
                             case R.id.itemEliminar:
-                                Call<ResponseBody> deleteRequest = service.deletePublicacion(publicaciones.get(position).getId());
-                                deleteRequest.enqueue(new Callback<ResponseBody>() {
-                                    @Override
-                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
-                                               if(response.isSuccessful())
-                                               {
-                                                    publicaciones.remove(position);
-                                                    notifyItemRemoved(position);
-                                               }
-                                               else
-                                               {
-                                                   Gson gson = new Gson();
-                                                   Type type = new TypeToken<List<Error>>() {}.getType();
-                                                   List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+                                builder.setMessage(" ")
+                                        .setCancelable(false)
+                                        .setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                Call<ResponseBody> deleteRequest = service.deletePublicacion(publicaciones.get(position).getId());
+                                                deleteRequest.enqueue(new Callback<ResponseBody>() {
+                                                    @Override
+                                                    public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                                                        if(response.isSuccessful())
+                                                        {
+                                                            publicaciones.remove(position);
+                                                            notifyItemRemoved(position);
+                                                        }
+                                                        else
+                                                        {
+                                                            Gson gson = new Gson();
+                                                            Type type = new TypeToken<List<Error>>() {}.getType();
+                                                            List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
 
-                                                   for (Error item: message) {
-                                                       Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG);
-                                                   }
-                                               }
+                                                            for (Error item: message) {
+                                                                Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG);
+                                                            }
+                                                        }
 
-                                    }
+                                                    }
 
-                                    @Override
-                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
-                                        System.out.println(t.getCause()+ " \n"+t.getMessage());
-                                        Toast.makeText(context,"Hubo un error al traer los datos de la base de datos :(", Toast.LENGTH_LONG).show();
-                                    }
-                                });
+                                                    @Override
+                                                    public void onFailure(Call<ResponseBody> call, Throwable t) {
+                                                        System.out.println(t.getCause()+ " \n"+t.getMessage());
+                                                        Toast.makeText(context,"Hubo un error al traer los datos de la base de datos :(", Toast.LENGTH_LONG).show();
+                                                    }
+                                                });
+                                            }
+                                        })
+                                        .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                                            public void onClick(DialogInterface dialog, int id) {
+                                                //  Action for 'NO' Button
+                                                dialog.cancel();
+                                                Toast.makeText(context,"Cancelado",
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        });
+                                //Creating dialog box
+                                AlertDialog alert = builder.create();
+                                //Setting the title manually
+                                alert.setTitle("Desea eliminar esta publicacion?");
+                                alert.show();
+
                                 System.out.println("Eliminar------------------------");
                                 break;
                             default:
