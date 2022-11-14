@@ -2,8 +2,10 @@ package com.example.truequelibre.Utils;
 
 import com.example.truequelibre.Entity.CreateOfertaRequest;
 import com.example.truequelibre.Entity.FiltrarOfertaRequest;
+import com.example.truequelibre.Entity.FinalizarTrueque;
 import com.example.truequelibre.Entity.OfertasResponse;
 import com.example.truequelibre.Entity.PublicacionResponseNotificacion;
+import com.example.truequelibre.Entity.UpdateFinalizarVM;
 import com.example.truequelibre.Entity.UpdateOfertaVM;
 
 import java.util.List;
@@ -33,5 +35,11 @@ public interface IOfertaService {
 
    @POST("oferta/filtrar/")
     Call<List<OfertasResponse>> getAllOfertasRecibidas(@Body FiltrarOfertaRequest request);
+
+    @GET("oferta/estado/{id}")
+    Call<FinalizarTrueque> getfinalizartrueque(@Path("id") Integer id);
+
+    @PUT("oferta/estado/{id}")
+    Call<ResponseBody> updatefinalizartrueque(@Path("id") Integer id, @Body UpdateFinalizarVM request);
 
 }
