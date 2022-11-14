@@ -32,6 +32,7 @@
     <string name="tv_condicion_editar_publicacion">Condición</string>
     <string name="tv_ubicacion_editar_publicacion">Ubicación</string>
     <string name="tv_ubicacion_pretendida_editar_publicacion">Ubicación Pretendida</string>
+    <string name="et_comentario">Comentario</string>
 
 
     <!-- TODO: Remove or change this placeholder text -->

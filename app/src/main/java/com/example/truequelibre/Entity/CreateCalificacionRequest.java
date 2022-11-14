@@ -14,7 +14,7 @@ public class CreateCalificacionRequest implements Serializable {
     Integer idUsuarioCalificado;
     @SerializedName("idUsuario")
     @Expose
-    short estrellas;
+    float estrellas;
     @SerializedName("idUsuario")
     @Expose
     String comentario;
@@ -45,11 +45,11 @@ public class CreateCalificacionRequest implements Serializable {
         this.idUsuarioCalificado = idUsuarioCalificado;
     }
 
-    public short getEstrellas() {
+    public float getEstrellas() {
         return estrellas;
     }
 
-    public void setEstrellas(short estrellas) {
+    public void setEstrellas(float estrellas) {
         this.estrellas = estrellas;
     }
 

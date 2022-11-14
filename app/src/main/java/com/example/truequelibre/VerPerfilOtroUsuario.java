@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -17,6 +20,7 @@ import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IUsuarioService;
 import com.example.truequelibre.Utils.ImagenConverter;
+import com.google.android.material.textfield.TextInputLayout;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -91,5 +95,25 @@ public class VerPerfilOtroUsuario extends AppCompatActivity {
         Bitmap bitmap = ImagenConverter.convertByteToBitmap(usuario.getImagen());
         imageVOtroPerfil.setImageBitmap(bitmap);
 
+    }
+
+    public boolean validarCampos(){
+        boolean bnd = true;
+        LinearLayout llyParent = findViewById(R.id.linearLayoutLogin);
+        int count = llyParent.getChildCount();
+        for (int i=0;i<count;i++){
+            if (llyParent.getChildAt(i) instanceof TextInputLayout){
+                TextInputLayout layout = (TextInputLayout) llyParent.getChildAt(i);
+                FrameLayout frameLayout = (FrameLayout) layout.getChildAt(0);
+                int id = frameLayout.getChildAt(0).getId();
+                EditText et = ((EditText) findViewById(id));
+                if (et.length() == 0){
+                    layout.setError("Complete este campo!");
+                    bnd = false;
+                }
+            }
+        }
+
+        return bnd;
     }
 }

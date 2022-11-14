@@ -51,11 +51,6 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
     private Integer id_usuario_logeado;
     private Integer id_usuario_ofertante;
 
-  /*  public AdapterNotificaciones(Context context, List<OfertasResponse> listaOfertas) {
-        this.context = context;
-        this.listaChat = listaOfertas;
-    }*/
-
     public AdapterNotificaciones(Context context, List<OfertasResponse> listaOfertas, String nombreUsuario, Integer id_usuario_logeado) {
         this.context = context;
         this.listaChat = listaOfertas;
@@ -87,9 +82,6 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
             menuBuilder=new MenuBuilder(itemView.getContext());
             menuInflater=new MenuInflater(itemView.getContext());
             campanita =itemView.findViewById(R.id.notiFinalizartrueque);
-
-
-
         }
     }
 
@@ -121,9 +113,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                 context.startActivity(intent);
             }
         });
-       /* Picasso.get()
-                .load(publicaciones.get(position).getIdusuario().getUrlImg())
-                .into(holder.imageView);*/
+
         if(listaChat.get(position).getEstado_id()==8){
             holder.campanita.setVisibility(View.VISIBLE);
             holder.btnOpciones.setVisibility(View.INVISIBLE);
@@ -165,7 +155,6 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
 
         }
 
-
         holder.menuInflater.inflate(R.menu.popup_menu_chat,holder.menuBuilder);
         holder.btnOpciones.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -203,9 +192,8 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
         return listaChat.size();
     }
 
-
     private void FinalizarMensaje(){
-        builder.setMessage("Esta seguro que desea dar por finalizado el trueque? (Se le avisara al otro usuario para que acepte)")
+        builder.setMessage("Estás seguro que deseas dar por finalizado el trueque? (Se le avisara al otro usuario para que acepte)")
                 .setCancelable(false)
                 .setPositiveButton("Finalizar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -228,9 +216,8 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
         alert.show();
     }
 
-
     private void CalificarUsuarioMensaje(){
-        builder.setMessage("Desea dejarle una calificacion al usuario ?")
+        builder.setMessage("Desea dejarle una calificación al usuario ?")
                 .setCancelable(false)
                 .setPositiveButton("Calificar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
@@ -246,7 +233,6 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                         }
                         i.putExtra("idoferta", listaChat.get(positionaux).getId());
                         context.startActivity(i);
-
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -291,7 +277,6 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
             }
         });
     }
-
 
     public void updateFinalizarTrueque(boolean cerrado){
         UpdateFinalizarVM request =new UpdateFinalizarVM();
@@ -339,7 +324,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
         //Creating dialog box
         AlertDialog alert = builder.create();
         //Setting the title manually
-        alert.setTitle("Esperando confirmacion del otro usuario");
+        alert.setTitle("Esperando confirmación del otro usuario");
         alert.show();
     }
 
@@ -362,7 +347,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
         //Creating dialog box
         AlertDialog alert = builder.create();
         //Setting the title manually
-        alert.setTitle("Se ah propuesto la finalizacion del trueque acepta?");
+        alert.setTitle("Se ha propuesto la finalización del trueque acepta?");
         alert.show();
     }
 }
