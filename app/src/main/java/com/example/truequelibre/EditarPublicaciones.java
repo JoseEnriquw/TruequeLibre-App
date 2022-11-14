@@ -149,6 +149,24 @@ public class EditarPublicaciones extends AppCompatActivity {
                             ubicacionPretendida = adapterLocalidad.getItem(position);
                         }
                     });
+
+                    service= Apis.getPublicacionService();
+                    Call<PublicacionResponse> callPublicacion =service.getOne(idPublicacion);
+
+                    callPublicacion.enqueue(new Callback<PublicacionResponse>() {
+                        @Override
+                        public void onResponse(Call<PublicacionResponse> call, Response<PublicacionResponse> response) {
+                            if(response.isSuccessful()) {
+                                publicacion = response.body();
+                                cargarControles(publicacion);
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<PublicacionResponse> call, Throwable t) {
+
+                        }
+                    });
+
                 }else
                 {
                     Gson gson = new Gson();
@@ -169,22 +187,7 @@ public class EditarPublicaciones extends AppCompatActivity {
 
         Integer idPublicacion = (Integer) getIntent().getSerializableExtra("idPublicacion");
 
-        service= Apis.getPublicacionService();
-        Call<PublicacionResponse> callPublicacion =service.getOne(idPublicacion);
 
-        callPublicacion.enqueue(new Callback<PublicacionResponse>() {
-            @Override
-            public void onResponse(Call<PublicacionResponse> call, Response<PublicacionResponse> response) {
-                if(response.isSuccessful()) {
-                    publicacion = response.body();
-                    cargarControles(publicacion);
-                }
-            }
-            @Override
-            public void onFailure(Call<PublicacionResponse> call, Throwable t) {
-
-            }
-        });
 
     }
 
