@@ -2,6 +2,7 @@ package com.example.truequelibre;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -64,12 +65,13 @@ public class Registrarse extends AppCompatActivity {
     UsuarioDropdown lista= new UsuarioDropdown();
     UsuarioCreateRequest usuarionuevo = new UsuarioCreateRequest();
     Button botonLogin;
+    private Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registrarse);
-
+        context = this;
         txtNombre = (EditText) findViewById(R.id.txtNombre);
         txtApellido = (EditText) findViewById(R.id.txtApellido);
         txtFechaNacimiento = (EditText) findViewById(R.id.txtFechaNacimiento);
@@ -171,6 +173,7 @@ public class Registrarse extends AppCompatActivity {
         if (!validarEmail(txtCorreo.getText().toString())){
             TextInputLayout layout = findViewById(R.id.email_text_input_layout);
             layout.setError("El correo tiene un formato incorrecto!");
+            bnd = false;
         }
 
         return bnd;
@@ -210,7 +213,7 @@ public class Registrarse extends AppCompatActivity {
                         Toast.makeText(Registrarse.this,"Usuario creado con exito!", Toast.LENGTH_LONG).show();
                    //
                     Intent intent= new Intent(getApplicationContext(),Login.class);
-                    getApplicationContext().startActivity(intent);
+                    context.startActivity(intent);
                 }
                 else {
                     Gson gson = new Gson();

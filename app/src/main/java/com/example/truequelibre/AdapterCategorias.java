@@ -80,6 +80,7 @@ public class AdapterCategorias extends RecyclerView.Adapter <AdapterCategorias.V
                                                      intent.putExtra("IdCategoria",publicaciones.get(position).getId());
                                                      view.getContext().startActivity(intent);
 
+
                                                  }
                                              }
         );

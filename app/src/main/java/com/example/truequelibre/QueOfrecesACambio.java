@@ -57,7 +57,7 @@ public class QueOfrecesACambio extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     try{
                         lista = response.body();
-                        _adapter = new AdapterOfrecerACambio(context, lista,idPublicacion);
+                        _adapter = new AdapterOfrecerACambio(context, lista,idPublicacion,idUsuario);
 
                         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false);
                         _recyclerView.setLayoutManager(gridLayoutManager);

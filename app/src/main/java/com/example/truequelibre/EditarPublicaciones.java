@@ -91,7 +91,7 @@ public class EditarPublicaciones extends AppCompatActivity {
 
         context=this;
         bindImageView();
-
+        builder = new AlertDialog.Builder(this);
 
         idPublicacion = getIntent().getIntExtra("idPublicacion",0);
 
@@ -206,26 +206,45 @@ public class EditarPublicaciones extends AppCompatActivity {
 
     public void Editar(View view){
         try{
+            builder.setMessage(" ")
+                    .setCancelable(false)
+                    .setPositiveButton("Editar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            byte[] imageInByte = ImagenConverter.convertImgViewToArray(img1);
+                            if (categoria == null){ findItemAdapter(publicacion.getCategoria(),"categoria",false);}
+                            if (categoriaPretendida == null){findItemAdapter(publicacion.getInteres(),"categoria",true);}
+                            if(condicion == null){findItemAdapter(publicacion.getCondicion(),"condicion",false);}
+                            if(ubicacion == null){findItemAdapter(publicacion.getUbicacion(),"ubicacion",false);}
+                            if(ubicacionPretendida == null){findItemAdapter(publicacion.getUbicacionPretendida(),"ubicacion",true);}
 
-            byte[] imageInByte = ImagenConverter.convertImgViewToArray(img1);
-            if (categoria == null){ findItemAdapter(publicacion.getCategoria(),"categoria",false);}
-            if (categoriaPretendida == null){findItemAdapter(publicacion.getInteres(),"categoria",true);}
-            if(condicion == null){findItemAdapter(publicacion.getCondicion(),"condicion",false);}
-            if(ubicacion == null){findItemAdapter(publicacion.getUbicacion(),"ubicacion",false);}
-            if(ubicacionPretendida == null){findItemAdapter(publicacion.getUbicacionPretendida(),"ubicacion",true);}
+                            PublicacionEditarRequest request = new PublicacionEditarRequest(
+                                    String.valueOf(txtTitulo.getText()),
+                                    String.valueOf(txtDescripcion.getText()),
+                                    categoria.getIdCategoria(),
+                                    categoriaPretendida.getIdCategoria(),
+                                    condicion.getIdCondicion(),
+                                    1,
+                                    ubicacion.getIdLocalidad(),
+                                    ubicacionPretendida.getIdLocalidad(),
+                                    imageInByte
+                            );
+                            postEditarPublicacion(request,view);
+                        }
+                    })
+                    .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int id) {
+                            //  Action for 'NO' Button
+                            dialog.cancel();
+                            Toast.makeText(context,"Cancelado",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    });
+            //Creating dialog box
+            AlertDialog alert = builder.create();
+            //Setting the title manually
+            alert.setTitle("Desea editar esta publicacion?");
+            alert.show();
 
-            PublicacionEditarRequest request = new PublicacionEditarRequest(
-                    String.valueOf(txtTitulo.getText()),
-                    String.valueOf(txtDescripcion.getText()),
-                    categoria.getIdCategoria(),
-                    categoriaPretendida.getIdCategoria(),
-                    condicion.getIdCondicion(),
-                    1,
-                    ubicacion.getIdLocalidad(),
-                    ubicacionPretendida.getIdLocalidad(),
-                    imageInByte
-            );
-            postEditarPublicacion(request,view);
         }
         catch (Exception ex){
             System.out.println(ex.getMessage() + " - " + ex.getCause());
