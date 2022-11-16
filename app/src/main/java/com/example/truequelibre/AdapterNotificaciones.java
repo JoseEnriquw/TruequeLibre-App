@@ -116,6 +116,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                 Intent intent = new Intent(context,Chat.class);
                 intent.putExtra("idOferta", listaChat.get(position).getId());
                 intent.putExtra("usuarioActual", nombreUsuario);
+                intent.putExtra("idUsuarioActual", id_usuario_logeado);
                 context.startActivity(intent);
             }
         });
