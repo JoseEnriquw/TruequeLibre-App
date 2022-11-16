@@ -5,12 +5,17 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.constraintlayout.widget.ConstraintSet;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.truequelibre.Entity.Mensaje;
+import com.example.truequelibre.Utils.ImagenConverter;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,9 +30,16 @@ public class AdapterMensajes extends RecyclerView.Adapter<AdapterMensajes.ViewHo
     List<Mensaje> listaMensajes = new ArrayList<>();
     private Context context;
 
+    private Integer idUsuarioActual;
+
     public AdapterMensajes(List<Mensaje> listaMensajes, Context context) {
         this.listaMensajes = listaMensajes;
         this.context = context;
+    }
+
+    public AdapterMensajes(Context context, Integer idUsuarioActual) {
+        this.context = context;
+        this.idUsuarioActual = idUsuarioActual;
     }
 
     public AdapterMensajes(Context context) {
@@ -43,21 +55,22 @@ public class AdapterMensajes extends RecyclerView.Adapter<AdapterMensajes.ViewHo
     @SuppressLint("RestrictedApi")
     public  static  class ViewHolderMensajes extends RecyclerView.ViewHolder
     {
-        private TextView usuario;
+        private ConstraintLayout cll;
         private TextView mensaje;
-
+        private ImageView imgPerfil;
         public ViewHolderMensajes(@NonNull View itemView) {
             super(itemView);
-            usuario = (TextView) itemView.findViewById(R.id.tvUsuarioChat);
-            mensaje = (TextView) itemView.findViewById(R.id.tvMensajeChat);
+            cll = (ConstraintLayout) itemView.findViewById(R.id.cclayout);
+            imgPerfil = (ImageView) itemView.findViewById(R.id.small_profile_img);
+            mensaje = (TextView) itemView.findViewById(R.id.tvMessageContent);
         }
 
-        public TextView getUsuario() {
-            return usuario;
+        public ConstraintLayout getCll() {
+            return cll;
         }
 
-        public void setUsuario(TextView usuario) {
-            this.usuario = usuario;
+        public void setCll(ConstraintLayout cll) {
+            this.cll = cll;
         }
 
         public TextView getMensaje() {
@@ -66,6 +79,14 @@ public class AdapterMensajes extends RecyclerView.Adapter<AdapterMensajes.ViewHo
 
         public void setMensaje(TextView mensaje) {
             this.mensaje = mensaje;
+        }
+
+        public ImageView getImgPerfil() {
+            return imgPerfil;
+        }
+
+        public void setImgPerfil(ImageView imgPerfil) {
+            this.imgPerfil = imgPerfil;
         }
     }
 
@@ -77,17 +98,37 @@ public class AdapterMensajes extends RecyclerView.Adapter<AdapterMensajes.ViewHo
     @NonNull
     @Override
     public ViewHolderMensajes onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(context).inflate(R.layout.card_view_mensaje,parent,false);
+        View view= LayoutInflater.from(context).inflate(R.layout.message_holder,parent,false);
         return new AdapterMensajes.ViewHolderMensajes(view);
     }
 
     @SuppressLint("RestrictedApi")
     @Override
     public void onBindViewHolder(@NonNull ViewHolderMensajes holder, int position) {
-        holder.usuario.setText(listaMensajes.get(position).getUsuario());
         holder.mensaje.setText(listaMensajes.get(position).getMensaje());
-    }
+        holder.imgPerfil.setImageBitmap(ImagenConverter.convertByteToBitmap(listaMensajes.get(position).getFotoUsuario()));
 
+        ConstraintLayout constraintLayout = holder.cll;
+        if (idUsuarioActual == listaMensajes.get(position).getUsuario()) {
+
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(constraintLayout);
+            constraintSet.clear(R.id.profile_cardView, ConstraintSet.LEFT);
+            constraintSet.clear(R.id.tvMessageContent, ConstraintSet.LEFT);
+            constraintSet.connect(R.id.profile_cardView, ConstraintSet.RIGHT, R.id.cclayout, ConstraintSet.RIGHT, 0);
+            constraintSet.connect(R.id.tvMessageContent, ConstraintSet.RIGHT, R.id.profile_cardView, ConstraintSet.LEFT, 0);
+            constraintSet.applyTo(constraintLayout);
+        } else {
+
+            ConstraintSet constraintSet = new ConstraintSet();
+            constraintSet.clone(constraintLayout);
+            constraintSet.clear(R.id.profile_cardView, ConstraintSet.RIGHT);
+            constraintSet.clear(R.id.tvMessageContent, ConstraintSet.RIGHT);
+            constraintSet.connect(R.id.profile_cardView, ConstraintSet.LEFT, R.id.cclayout, ConstraintSet.LEFT, 0);
+            constraintSet.connect(R.id.tvMessageContent, ConstraintSet.LEFT, R.id.profile_cardView, ConstraintSet.RIGHT, 0);
+            constraintSet.applyTo(constraintLayout);
+        }
+    }
 
 
 
