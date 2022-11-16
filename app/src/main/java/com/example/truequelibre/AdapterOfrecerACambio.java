@@ -2,6 +2,7 @@ package com.example.truequelibre;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.util.Base64;
@@ -13,6 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.truequelibre.Entity.CreateOfertaRequest;
@@ -21,6 +25,7 @@ import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.Error;
 import com.example.truequelibre.Utils.IOfertaService;
 import com.example.truequelibre.Utils.ImagenConverter;
+import com.example.truequelibre.ui.trueques.TruequesFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -39,12 +44,14 @@ public class AdapterOfrecerACambio extends RecyclerView.Adapter <AdapterOfrecerA
     private List<Publicacion> publicaciones;
     private Integer idPublicacion;
     private IOfertaService service;
+    private Integer idUsuario;
 
-    public AdapterOfrecerACambio(Context context, List<Publicacion> publicaciones, Integer idPublicacion) {
+    public AdapterOfrecerACambio(Context context, List<Publicacion> publicaciones, Integer idPublicacion,Integer idUsuario) {
         this.context = context;
         this.publicaciones = publicaciones;
         this.idPublicacion = idPublicacion;
         service = Apis.getOfertaService();
+        this.idUsuario=idUsuario;
     }
 
     @SuppressLint("RestrictedApi")
@@ -86,6 +93,7 @@ public class AdapterOfrecerACambio extends RecyclerView.Adapter <AdapterOfrecerA
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 CreateOfertaRequest ofertaRequest = new CreateOfertaRequest(idPublicacion, publicaciones.get(position).getId());
                 Call<ResponseBody> callOfrecer = service.createOferta(ofertaRequest);
 
@@ -94,6 +102,15 @@ public class AdapterOfrecerACambio extends RecyclerView.Adapter <AdapterOfrecerA
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if(response.isSuccessful()){
                             Toast.makeText(context,"Se ha creado la oferta, debe esperar a que el usuario la acepte",Toast.LENGTH_LONG).show();
+                            try {
+                                Intent intent= new Intent(context,MainActivity.class);
+                                intent.putExtra("idUsuario",idUsuario);
+                                context.startActivity(intent);
+                            }
+                            catch (Exception ex)
+                            {
+                                System.out.println(ex.getMessage()+"\n"+ex.getCause());
+                            }
                         }
                         else {
                             Gson gson = new Gson();
@@ -109,7 +126,8 @@ public class AdapterOfrecerACambio extends RecyclerView.Adapter <AdapterOfrecerA
 
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
-
+                        System.out.println(t.getMessage()+"\n"+t.getCause());
+                        Toast.makeText(context,"Hubo un error al traer los datos de la base de datos :(", Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -121,7 +139,5 @@ public class AdapterOfrecerACambio extends RecyclerView.Adapter <AdapterOfrecerA
     public int getItemCount() {
         return publicaciones.size();
     }
-
-
 
 }

@@ -1,5 +1,6 @@
 package com.example.truequelibre;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -32,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     private ActivityMainBinding binding;
     private Usuario usuario;
     IUsuarioService service;
+    private NavController navController;
+
     public Usuario getUsuario() {
         return usuario;
     }
@@ -77,11 +80,9 @@ public class MainActivity extends AppCompatActivity {
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
                 R.id.buscar, R.id.notificationes, R.id.publicaciones, R.id.trueques, R.id.miPerfil)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
+        navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
         NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(binding.navView, navController);
-
-
     }
-
+    
 }

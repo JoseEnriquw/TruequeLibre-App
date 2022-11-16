@@ -78,6 +78,7 @@ public class Buscar extends Fragment {
 
         service= Apis.getCategoriaService();
         Call<List<Categoria>> call =service.getCategorias();
+        MainActivity activity =(MainActivity) getActivity();
 
 
         call.enqueue(new Callback<List<Categoria>>() {
