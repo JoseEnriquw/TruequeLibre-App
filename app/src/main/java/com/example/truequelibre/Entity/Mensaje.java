@@ -2,11 +2,18 @@ package com.example.truequelibre.Entity;
 
 public class Mensaje {
     private String mensaje;
-    private String usuario;
+    private Integer usuario;
+    private String fotoUsuario;
 
-    public Mensaje(String mensaje, String usuario) {
+    public Mensaje(String mensaje, Integer usuario) {
         this.mensaje = mensaje;
         this.usuario = usuario;
+    }
+
+    public Mensaje(String mensaje, Integer usuario, String fotoUsuario) {
+        this.mensaje = mensaje;
+        this.usuario = usuario;
+        this.fotoUsuario = fotoUsuario;
     }
 
     public Mensaje() {
@@ -20,11 +27,19 @@ public class Mensaje {
         this.mensaje = mensaje;
     }
 
-    public String getUsuario() {
+    public Integer getUsuario() {
         return usuario;
     }
 
-    public void setUsuario(String usuario) {
+    public void setUsuario(Integer usuario) {
         this.usuario = usuario;
+    }
+
+    public String getFotoUsuario() {
+        return fotoUsuario;
+    }
+
+    public void setFotoUsuario(String fotoUsuario) {
+        this.fotoUsuario = fotoUsuario;
     }
 }

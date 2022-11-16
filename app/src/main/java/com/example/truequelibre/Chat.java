@@ -54,7 +54,8 @@ public class Chat extends AppCompatActivity {
     private Integer idOferta;
     private String usOfertante;
     private String usActual;
-
+    private Integer idUsuarioActual;
+    private String fotoUsuarioActual;
     private IOfertaService service;
     private Context context ;
 
@@ -68,6 +69,8 @@ public class Chat extends AppCompatActivity {
 
 
         usActual =getIntent().getStringExtra("usuarioActual");
+        idUsuarioActual = getIntent().getIntExtra("idUsuarioActual",0);
+
 
         rvMensajes = (RecyclerView) findViewById(R.id.rvMensajes);
         tvNombreUsuario = (TextView) findViewById(R.id.tvNombreUsuarioChat);
@@ -83,19 +86,21 @@ public class Chat extends AppCompatActivity {
             public void onResponse(Call<PublicacionResponseNotificacion> call, Response<PublicacionResponseNotificacion> response) {
                 if (response.isSuccessful()){
                     PublicacionResponseNotificacion body = response.body();
-                    if (body.getNombre_usuario_ofertante().equals(usActual)){
+                    if (body.getId_usuario_ofertante().equals(idUsuarioActual)){
                         tvNombreUsuario.setText(body.getNombre_usuario_principal());
+                        fotoUsuarioActual = body.getImagen_usuario_ofertante();
                         imgv.setImageBitmap(ImagenConverter.convertByteToBitmap(body.getImagen_usuario_principal()));
                     }
                     else{
                         tvNombreUsuario.setText(body.getNombre_usuario_ofertante());
+                        fotoUsuarioActual = body.getImagen_usuario_principal();
                         imgv.setImageBitmap(ImagenConverter.convertByteToBitmap(body.getImagen_usuario_ofertante()));
                     }
 
                     database = FirebaseDatabase.getInstance();
                     databaseReference = database.getReference("chat-" + body.getId_usuario_ofertante() + "-" +  body.getId_usuario_principal());
 
-                    adapterMensajes = new AdapterMensajes(context);
+                    adapterMensajes = new AdapterMensajes(context,idUsuarioActual);
                     LinearLayoutManager l = new LinearLayoutManager(context);
                     rvMensajes.setLayoutManager(l);
                     rvMensajes.setAdapter(adapterMensajes);
@@ -104,7 +109,7 @@ public class Chat extends AppCompatActivity {
                         @Override
                         public void onClick(View v) {
                             if (!txtMensaje.getText().toString().equals("")){
-                                databaseReference.push().setValue(new Mensaje(txtMensaje.getText().toString(), usActual));
+                                databaseReference.push().setValue(new Mensaje(txtMensaje.getText().toString(), idUsuarioActual,fotoUsuarioActual));
                                 txtMensaje.setText("");
                             }
 
