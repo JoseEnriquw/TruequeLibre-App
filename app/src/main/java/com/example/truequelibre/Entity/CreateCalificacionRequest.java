@@ -6,23 +6,23 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class CreateCalificacionRequest implements Serializable {
-    @SerializedName("idUsuario")
+    @SerializedName("idUsuarioCalificador")
     @Expose
     Integer idUsuarioCalificador;
-    @SerializedName("idUsuario")
+    @SerializedName("idUsuarioCalificado")
     @Expose
     Integer idUsuarioCalificado;
-    @SerializedName("idUsuario")
+    @SerializedName("estrellas")
     @Expose
-    short estrellas;
-    @SerializedName("idUsuario")
+    float estrellas;
+    @SerializedName("comentario")
     @Expose
     String comentario;
 
     public CreateCalificacionRequest() {
     }
 
-    public CreateCalificacionRequest(Integer idUsuarioCalificador, Integer idUsuarioCalificado, short estrellas, String comentario) {
+    public CreateCalificacionRequest(Integer idUsuarioCalificador, Integer idUsuarioCalificado, float estrellas, String comentario) {
         this.idUsuarioCalificador = idUsuarioCalificador;
         this.idUsuarioCalificado = idUsuarioCalificado;
         this.estrellas = estrellas;
@@ -45,11 +45,11 @@ public class CreateCalificacionRequest implements Serializable {
         this.idUsuarioCalificado = idUsuarioCalificado;
     }
 
-    public short getEstrellas() {
+    public float getEstrellas() {
         return estrellas;
     }
 
-    public void setEstrellas(short estrellas) {
+    public void setEstrellas(float estrellas) {
         this.estrellas = estrellas;
     }
 

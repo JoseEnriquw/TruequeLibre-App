@@ -5,6 +5,7 @@ import com.example.truequelibre.Entity.FiltrarOfertaRequest;
 import com.example.truequelibre.Entity.FinalizarTrueque;
 import com.example.truequelibre.Entity.OfertasResponse;
 import com.example.truequelibre.Entity.PublicacionResponseNotificacion;
+import com.example.truequelibre.Entity.UpdateComentarVM;
 import com.example.truequelibre.Entity.UpdateFinalizarVM;
 import com.example.truequelibre.Entity.UpdateOfertaVM;
 
@@ -41,5 +42,8 @@ public interface IOfertaService {
 
     @PUT("oferta/estado/{id}")
     Call<ResponseBody> updatefinalizartrueque(@Path("id") Integer id, @Body UpdateFinalizarVM request);
+
+    @PUT("oferta/comentario/{id}")
+    Call<ResponseBody> updatecomentariotrueque(@Path("id") Integer id, @Body UpdateComentarVM request);
 
 }
