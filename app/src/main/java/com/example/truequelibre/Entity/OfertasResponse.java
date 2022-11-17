@@ -13,12 +13,14 @@ public class OfertasResponse {
     Integer id_usuario_ofertante;
     boolean usuario_principal_acepto;
     boolean usuario_ofertante_acepto;
+    boolean usuario_principal_califico;
+    boolean usuario_ofertante_califico;
     Integer id;
 
     public OfertasResponse() {
     }
 
-    public OfertasResponse(String nombre_ofertante, String descripcion_ofertante, String imagen_ofertante, String nombre_principal, String descripcion_principal, String imagen_principal, Integer estado_id, Integer id_usuario_principal, Integer id_usuario_ofertante, boolean usuario_principal_acepto, boolean usuario_ofertante_acepto, Integer id) {
+    public OfertasResponse(String nombre_ofertante, String descripcion_ofertante, String imagen_ofertante, String nombre_principal, String descripcion_principal, String imagen_principal, Integer estado_id, Integer id_usuario_principal, Integer id_usuario_ofertante, boolean usuario_principal_acepto, boolean usuario_ofertante_acepto, boolean usuario_principal_califico, boolean usuario_ofertante_califico, Integer id) {
         this.nombre_ofertante = nombre_ofertante;
         this.descripcion_ofertante = descripcion_ofertante;
         this.imagen_ofertante = imagen_ofertante;
@@ -30,7 +32,25 @@ public class OfertasResponse {
         this.id_usuario_ofertante = id_usuario_ofertante;
         this.usuario_principal_acepto = usuario_principal_acepto;
         this.usuario_ofertante_acepto = usuario_ofertante_acepto;
+        this.usuario_principal_califico = usuario_principal_califico;
+        this.usuario_ofertante_califico = usuario_ofertante_califico;
         this.id = id;
+    }
+
+    public boolean isUsuario_principal_califico() {
+        return usuario_principal_califico;
+    }
+
+    public void setUsuario_principal_califico(boolean usuario_principal_califico) {
+        this.usuario_principal_califico = usuario_principal_califico;
+    }
+
+    public boolean isUsuario_ofertante_califico() {
+        return usuario_ofertante_califico;
+    }
+
+    public void setUsuario_ofertante_califico(boolean usuario_ofertante_califico) {
+        this.usuario_ofertante_califico = usuario_ofertante_califico;
     }
 
     public Integer getId_usuario_ofertante() {
