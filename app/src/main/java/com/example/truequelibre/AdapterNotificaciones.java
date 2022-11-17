@@ -116,6 +116,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
         usuario_principal_califico=listaChat.get(position).isUsuario_principal_califico();
         usuario_ofertante_califico=listaChat.get(position).isUsuario_ofertante_califico();
         holder.cerradoicon.setVisibility(View.INVISIBLE);
+        holder.campanita.setVisibility(View.INVISIBLE);
 
         if (listaChat.get(position).getImagen_ofertante() != null){
             byte[] byteArray =  Base64.decode(listaChat.get(position).getImagen_ofertante(), Base64.DEFAULT);
@@ -136,11 +137,41 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
             }
         });
 
+        //BOTONERA
+        holder.menuInflater.inflate(R.menu.popup_menu_chat,holder.menuBuilder);
+        holder.btnOpciones.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                MenuPopupHelper optionMenu=new MenuPopupHelper(view.getContext(),holder.menuBuilder,view);
+                optionMenu.setForceShowIcon(true);
+                holder.menuBuilder.setCallback(new MenuBuilder.Callback() {
+                    @Override
+                    public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
+                        switch (item.getItemId())
+                        {
+                            case R.id.itemfinalizar:
+                                FinalizarMensaje();
+                                break;
+                            default:
+                                return false;
+                        }
+                        return true;
+                    }
+                    @Override
+                    public void onMenuModeChange(@NonNull MenuBuilder menu) {
+
+                    }
+                });
+                optionMenu.show();
+            }
+        });
+
         if(listaChat.get(position).getEstado_id()==8){
             holder.btnOpciones.setVisibility(View.INVISIBLE);
             holder.campanita.setVisibility(View.VISIBLE);
             holder.cerradoicon.setVisibility(View.INVISIBLE);
-                if((id_usuario_logeado ==id_usuario_principal && listaChat.get(position).isUsuario_principal_acepto()==true)|| (id_usuario_logeado !=id_usuario_principal && listaChat.get(position).isUsuario_ofertante_acepto()==true) ){
+                if((id_usuario_logeado ==id_usuario_principal && listaChat.get(position).isUsuario_principal_acepto()==true)||
+                   (id_usuario_logeado ==id_usuario_ofertante && listaChat.get(position).isUsuario_ofertante_acepto()==true) ){
                     holder.campanita.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
@@ -156,12 +187,13 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                             AceptarFinalizacion();                        }
                     });
                 }
-                if(listaChat.get(position).isUsuario_principal_acepto()==true && listaChat.get(position).isUsuario_ofertante_acepto()==true) {
+                if(listaChat.get(position).isUsuario_principal_acepto()==true &&
+                        listaChat.get(position).isUsuario_ofertante_acepto()==true) {
 
-                    if ((id_usuario_logeado == id_usuario_principal && listaChat.get(position).isUsuario_principal_califico() == true) || (id_usuario_logeado != id_usuario_principal && listaChat.get(position).isUsuario_ofertante_califico() == true)) {
+                    if ((id_usuario_logeado == id_usuario_principal && listaChat.get(position).isUsuario_principal_califico() == true) ||
+                        (id_usuario_logeado == id_usuario_ofertante && listaChat.get(position).isUsuario_ofertante_califico() == true)) {
                         holder.campanita.setVisibility(View.INVISIBLE);
                         holder.cerradoicon.setVisibility(View.VISIBLE);
-
                         holder.cerradoicon.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -169,8 +201,6 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                                 EliminarChat();
                             }
                         });
-
-
                     } else {
                         int miColor = context.getResources().getColor(R.color.mi_color_verde);
                         ColorStateList csl = new ColorStateList(new int[][]{new int[0]}, new int[]{miColor});
@@ -186,42 +216,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                         });
                     }
                 }
-        }else{
-            holder.campanita.setVisibility(View.INVISIBLE);
-
         }
-
-        holder.menuInflater.inflate(R.menu.popup_menu_chat,holder.menuBuilder);
-        holder.btnOpciones.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                MenuPopupHelper optionMenu=new MenuPopupHelper(view.getContext(),holder.menuBuilder,view);
-                optionMenu.setForceShowIcon(true);
-
-                holder.menuBuilder.setCallback(new MenuBuilder.Callback() {
-                    @Override
-                    public boolean onMenuItemSelected(@NonNull MenuBuilder menu, @NonNull MenuItem item) {
-                        switch (item.getItemId())
-                        {
-                            case R.id.itemfinalizar:
-                                positionaux =position;
-                                FinalizarMensaje();
-                                notifyDataSetChanged();
-                                break;
-                            default:
-                                return false;
-                        }
-                        return true;
-                    }
-                    @Override
-                    public void onMenuModeChange(@NonNull MenuBuilder menu) {
-
-                    }
-                });
-                optionMenu.show();
-            }
-        });
     }
 
     @Override
@@ -237,7 +232,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                         estado = new UpdateOfertaVM(8);
                         updateEstadoFinalizarTrueque(estado);
                         updateFinalizarTrueque(false);
-                        notifyDataSetChanged();
+
                     }
                 })
                 .setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
