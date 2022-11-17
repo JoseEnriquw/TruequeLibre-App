@@ -115,6 +115,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
         id_usuario_ofertante=listaChat.get(position).getId_usuario_ofertante();
         usuario_principal_califico=listaChat.get(position).isUsuario_principal_califico();
         usuario_ofertante_califico=listaChat.get(position).isUsuario_ofertante_califico();
+        holder.cerradoicon.setVisibility(View.INVISIBLE);
 
         if (listaChat.get(position).getImagen_ofertante() != null){
             byte[] byteArray =  Base64.decode(listaChat.get(position).getImagen_ofertante(), Base64.DEFAULT);
