@@ -51,7 +51,6 @@ public class VerPerfilOtroUsuario extends AppCompatActivity {
     RatingBar ratingBar;
     Context context;
 
-//HACE RAMA
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
