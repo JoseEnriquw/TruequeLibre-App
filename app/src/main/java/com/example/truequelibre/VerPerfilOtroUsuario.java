@@ -61,15 +61,6 @@ public class VerPerfilOtroUsuario extends AppCompatActivity {
 
         context= this;
 
-
-
-
-
-
-       // GridLayoutManager gridLayoutManager = new GridLayoutManager(this,1,GridLayoutManager.VERTICAL,false);
-     /*   _recyclerView.setLayoutManager(gridLayoutManager);
-        _recyclerView.setHasFixedSize(true);
-        _recyclerView.setAdapter(_adapter);*/
         imageVOtroPerfil= findViewById(R.id.ivFotoPerfilOther);
         tvNombreApellidoComentarioOtroPerfil=findViewById(R.id.tvNombreApellidoPerfilOther);
         ratingBarComentarioOtroPerfil = findViewById(R.id.rbMiPerfilOther);
