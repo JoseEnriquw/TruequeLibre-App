@@ -18,10 +18,12 @@ public class ImagenConverter {
     }
 
     public static Bitmap convertByteToBitmap(String bytesBase64){
+        if(bytesBase64==null) return null;
         byte[] byteArray =  Base64.decode(bytesBase64, Base64.DEFAULT);
         ByteArrayInputStream imageStream = new ByteArrayInputStream(byteArray);
         Bitmap theImage = BitmapFactory.decodeStream(imageStream);
         return theImage;
+
     }
 
 }
