@@ -1,5 +1,6 @@
 package com.example.truequelibre;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -12,8 +13,10 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
@@ -31,6 +34,7 @@ import com.example.truequelibre.Entity.PublicacionResponse;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
 import com.example.truequelibre.Utils.ImagenConverter;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -67,10 +71,7 @@ public class EditarPublicaciones extends AppCompatActivity {
     ImageView img3;
     ImageView img4;
     ImageView img5;
-    int banderin;
     Context context;
-
-
     private Integer idPublicacion;
 
     private CategoriaDropdown categoria;
@@ -78,9 +79,12 @@ public class EditarPublicaciones extends AppCompatActivity {
     private LocalidadDropdown ubicacion;
     private LocalidadDropdown ubicacionPretendida;
     private CondicionDropdown condicion;
-    private Integer idUsuario;
+    private ProgressBar progressBar;
+    private ExtendedFloatingActionButton  btnEditar;
+    private FloatingActionButton  btnAgregarImagen;
 
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,13 +92,21 @@ public class EditarPublicaciones extends AppCompatActivity {
 
         txtTitulo = (EditText) findViewById(R.id.txtTituloEditar);
         txtDescripcion = (EditText) findViewById(R.id.txtDescripcionEditar);
+        dropDawnCate =(AutoCompleteTextView) findViewById(R.id.ddCategoriaEditarPublicacion);
+        dropDawnCatePretendida =(AutoCompleteTextView) findViewById(R.id.ddCategoriaPretendidaEditarPublicacion);
+        dropDownCondiciones =(AutoCompleteTextView) findViewById(R.id.ddCondicionEditarPublicacion);
+        dropDownLocalidades =(AutoCompleteTextView) findViewById(R.id.ddUbicacionEditarPublicacion);
+        dropDownLocalidadesPretendida =(AutoCompleteTextView) findViewById(R.id.ddUbicacionPretendidaEditarPublicacion);
+        progressBar= (ProgressBar)findViewById(R.id.pbEditarPublicacion);
+        btnEditar=(ExtendedFloatingActionButton)findViewById(R.id.btnEditarPublicacion);
+        btnAgregarImagen=(FloatingActionButton)findViewById(R.id.btnEditarImagenesPublicacion);
 
         context=this;
         bindImageView();
         builder = new AlertDialog.Builder(this);
 
         idPublicacion = getIntent().getIntExtra("idPublicacion",0);
-
+        Await(false);
         service= Apis.getPublicacionService();
         Call<PublicacionDropdown> call =service.getPublicacionDropdown();
 
@@ -104,9 +116,9 @@ public class EditarPublicaciones extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     lista = response.body();
                     adapterCategorias = new ArrayAdapter<>(getApplicationContext(), R.layout.drop_down_item, lista.getCategorias());
-                    dropDawnCate =(AutoCompleteTextView) findViewById(R.id.ddCategoriaEditarPublicacion);
+
                     dropDawnCate.setAdapter(adapterCategorias);
-                    dropDawnCatePretendida =(AutoCompleteTextView) findViewById(R.id.ddCategoriaPretendidaEditarPublicacion);
+
                     dropDawnCatePretendida.setAdapter(adapterCategorias);
 
                     dropDawnCate.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -122,7 +134,7 @@ public class EditarPublicaciones extends AppCompatActivity {
                         }
                     });
                     adapterCondiciones = new ArrayAdapter<>(getApplicationContext(), R.layout.drop_down_item, lista.getCondiciones());
-                    dropDownCondiciones =(AutoCompleteTextView) findViewById(R.id.ddCondicionEditarPublicacion);
+
                     dropDownCondiciones.setAdapter(adapterCondiciones);
 
                     dropDownCondiciones.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -132,9 +144,9 @@ public class EditarPublicaciones extends AppCompatActivity {
                         }
                     });
                     adapterLocalidad = new ArrayAdapter<>(getApplicationContext(), R.layout.drop_down_item, lista.getLocalidades());
-                    dropDownLocalidades =(AutoCompleteTextView) findViewById(R.id.ddUbicacionEditarPublicacion);
+
                     dropDownLocalidades.setAdapter(adapterLocalidad);
-                    dropDownLocalidadesPretendida =(AutoCompleteTextView) findViewById(R.id.ddUbicacionPretendidaEditarPublicacion);
+
                     dropDownLocalidadesPretendida.setAdapter(adapterLocalidad);
 
                     dropDownLocalidades.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -149,6 +161,24 @@ public class EditarPublicaciones extends AppCompatActivity {
                             ubicacionPretendida = adapterLocalidad.getItem(position);
                         }
                     });
+
+                    Call<PublicacionResponse> callPublicacion =service.getOne(idPublicacion);
+
+                    callPublicacion.enqueue(new Callback<PublicacionResponse>() {
+                        @Override
+                        public void onResponse(Call<PublicacionResponse> call, Response<PublicacionResponse> response) {
+                            if(response.isSuccessful()) {
+                                publicacion = response.body();
+                                cargarControles(publicacion);
+                                Await(true);
+                            }
+                        }
+                        @Override
+                        public void onFailure(Call<PublicacionResponse> call, Throwable t) {
+
+                        }
+                    });
+
                 }else
                 {
                     Gson gson = new Gson();
@@ -167,25 +197,20 @@ public class EditarPublicaciones extends AppCompatActivity {
             }
         });
 
-        Integer idPublicacion = (Integer) getIntent().getSerializableExtra("idPublicacion");
+    }
 
-        service= Apis.getPublicacionService();
-        Call<PublicacionResponse> callPublicacion =service.getOne(idPublicacion);
-
-        callPublicacion.enqueue(new Callback<PublicacionResponse>() {
-            @Override
-            public void onResponse(Call<PublicacionResponse> call, Response<PublicacionResponse> response) {
-                if(response.isSuccessful()) {
-                    publicacion = response.body();
-                    cargarControles(publicacion);
-                }
-            }
-            @Override
-            public void onFailure(Call<PublicacionResponse> call, Throwable t) {
-
-            }
-        });
-
+    private void Await(Boolean enabled)
+    {
+        progressBar.setVisibility(enabled? View.GONE:View.VISIBLE);
+        txtTitulo.setEnabled(enabled);
+        txtDescripcion.setEnabled(enabled);
+        dropDawnCate.setEnabled(enabled);
+        dropDawnCatePretendida.setEnabled(enabled);
+        dropDownCondiciones.setEnabled(enabled);
+        dropDownLocalidades.setEnabled(enabled);
+        dropDownLocalidadesPretendida.setEnabled(enabled);
+        btnEditar.setEnabled(enabled);
+        btnAgregarImagen.setEnabled(enabled);
     }
 
     public void cargarControles(PublicacionResponse publicacion){
@@ -292,6 +317,7 @@ public class EditarPublicaciones extends AppCompatActivity {
 
     public void postEditarPublicacion(PublicacionEditarRequest publicacion,View view){
         Call<ResponseBody> deleteRequest = service.update(idPublicacion, publicacion);
+        Await(false);
         deleteRequest.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -311,6 +337,7 @@ public class EditarPublicaciones extends AppCompatActivity {
                     for (Error item: message) {
                         Toast.makeText(getApplicationContext(),item.getMessage(),Toast.LENGTH_LONG).show();
                     }
+                    Await(true);
                 }
             }
 
@@ -318,6 +345,7 @@ public class EditarPublicaciones extends AppCompatActivity {
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 System.out.println(t.getCause()+ " \n"+t.getMessage());
                 Toast.makeText(getApplicationContext(),"Error al modificar la publicación!", Toast.LENGTH_LONG).show();
+                Await(true);
             }
         });
     }
