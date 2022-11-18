@@ -35,13 +35,24 @@
 
     </com.google.android.material.card.MaterialCardView>
 
+        <ProgressBar
+            android:id="@+id/pbPublicacionesPorCategoria"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/idcvbuscadorporcategoria"
+
+            />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvarticulos"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/idcvbuscadorporcategoria"
+        android:layout_below="@id/pbPublicacionesPorCategoria"
         android:layout_marginTop="20dp"
          />
+
+
     </RelativeLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

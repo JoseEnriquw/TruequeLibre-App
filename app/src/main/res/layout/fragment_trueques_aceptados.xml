@@ -9,12 +9,23 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+        <ProgressBar
+            android:id="@+id/pbTruequesAceptados"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="65dp"
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvAceptados"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="45dp"
+            android:layout_below="@+id/pbTruequesAceptados"
             />
+
+
 
     </RelativeLayout>
 </FrameLayout>

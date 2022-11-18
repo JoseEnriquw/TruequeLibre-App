@@ -34,7 +34,14 @@
             android:textAlignment="center"
             android:textColor="@color/black"
             android:textSize="20sp" />
-
+        <ProgressBar
+            android:id="@+id/pbMisPublicaciones"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/txt_publicaciones"
+            android:layout_marginTop="20dp"
+            />
 
 
 
@@ -50,7 +57,7 @@
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="40dp"
                 android:nestedScrollingEnabled="true"
-                android:layout_below="@id/txt_publicaciones"
+                android:layout_below="@id/pbMisPublicaciones"
                 />
 
 

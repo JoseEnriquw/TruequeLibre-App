@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.truequelibre.Entity.Publicacion;
@@ -44,6 +45,8 @@ public class Publicaciones extends Fragment {
     IPublicacionService service;
     private List<Publicacion> lista = new ArrayList<>();
     Usuario usuario;
+    private ProgressBar progressBar;
+    private Button btnAgregarPublicacion;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -89,6 +92,11 @@ public class Publicaciones extends Fragment {
         MainActivity activity =(MainActivity) getActivity();
         usuario= activity.getUsuario();
 
+        btnAgregarPublicacion = (Button) view.findViewById(R.id.btnAgregarPublicacion);
+        progressBar = (ProgressBar) view.findViewById(R.id.pbMisPublicaciones);
+        await(false);
+
+
         //Cargar el RecyclerView
         _recyclerView =(RecyclerView) view.findViewById(R.id.rvPublicaciones);
 
@@ -98,7 +106,9 @@ public class Publicaciones extends Fragment {
         call.enqueue(new Callback<List<Publicacion>>() {
             @Override
             public void onResponse(Call<List<Publicacion>> call, retrofit2.Response<List<Publicacion>> response) {
+                await(true);
                if(response.isSuccessful()) {
+
                    lista = response.body();
                    _adapter = new AdapterPublicaciones(getContext(), lista);
 
@@ -142,5 +152,10 @@ public class Publicaciones extends Fragment {
         );
 
         return view;
+    }
+
+    private void await(boolean enabled){
+        progressBar.setVisibility(enabled ? View.GONE : View.VISIBLE);
+        btnAgregarPublicacion.setEnabled(enabled);
     }
 }

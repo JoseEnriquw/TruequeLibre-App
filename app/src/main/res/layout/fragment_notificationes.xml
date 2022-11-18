@@ -15,7 +15,14 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
+            <ProgressBar
+                android:id="@+id/pbNotificaciones"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvQueOfreces"
+                android:layout_marginTop="30dp"
+                />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvNotificaciones"
                 android:layout_width="match_parent"
