@@ -11,9 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.example.truequelibre.Entity.Categoria;
-import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.Utils.Apis;
-import com.example.truequelibre.Utils.Error;
+import com.example.truequelibre.Utils.Notify;
 import com.example.truequelibre.Utils.ICategoriaService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -101,11 +100,11 @@ public class Buscar extends Fragment {
                 }
                 else {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() {
+                    Type type = new TypeToken<List<Notify>>() {
                     }.getType();
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(), type);
 
-                    for (Error item : message) {
+                    for (Notify item : message) {
                         Toast.makeText(getContext(), item.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }

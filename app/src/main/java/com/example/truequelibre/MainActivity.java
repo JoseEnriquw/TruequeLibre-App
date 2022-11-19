@@ -1,13 +1,11 @@
 package com.example.truequelibre;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.example.truequelibre.Entity.Categoria;
 import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.Utils.Apis;
-import com.example.truequelibre.Utils.Error;
+import com.example.truequelibre.Utils.Notify;
 import com.example.truequelibre.Utils.IUsuarioService;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -16,7 +14,6 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.example.truequelibre.databinding.ActivityMainBinding;
 import com.google.gson.Gson;
@@ -54,11 +51,11 @@ public class MainActivity extends AppCompatActivity {
                 }
                 else {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() {
+                    Type type = new TypeToken<List<Notify>>() {
                     }.getType();
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(), type);
 
-                    for (Error item : message) {
+                    for (Notify item : message) {
                         Toast.makeText(getApplicationContext(), item.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }

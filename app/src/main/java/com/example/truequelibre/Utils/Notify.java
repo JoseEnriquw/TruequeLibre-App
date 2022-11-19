@@ -1,11 +1,11 @@
 package com.example.truequelibre.Utils;
 
-public class Error {
+public class Notify {
     private String code;
     private String property;
     private String message;
 
-    public Error(String code, String property, String message) {
+    public Notify(String code, String property, String message) {
         this.code = code;
         this.property = property;
         this.message = message;

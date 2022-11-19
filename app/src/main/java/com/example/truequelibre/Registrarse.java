@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -20,29 +19,21 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.truequelibre.Entity.Dropdown.LocalidadDropdown;
-import com.example.truequelibre.Entity.Dropdown.PublicacionDropdown;
 import com.example.truequelibre.Entity.Dropdown.UsuarioDropdown;
-import com.example.truequelibre.Entity.PublicacionCreateRequest;
 import com.example.truequelibre.Entity.UsuarioCreateRequest;
 import com.example.truequelibre.Utils.Apis;
-import com.example.truequelibre.Utils.Error;
-import com.example.truequelibre.Utils.IPublicacionService;
+import com.example.truequelibre.Utils.Notify;
 import com.example.truequelibre.Utils.IUsuarioService;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
-import java.net.HttpURLConnection;
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Pattern;
 
-import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -123,11 +114,11 @@ public class Registrarse extends AppCompatActivity {
 
                 } else {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() {
+                    Type type = new TypeToken<List<Notify>>() {
                     }.getType();
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(), type);
 
-                    for (Error item : message) {
+                    for (Notify item : message) {
                         Toast.makeText(getApplicationContext(), item.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
@@ -248,11 +239,11 @@ public class Registrarse extends AppCompatActivity {
                 else {
                     await(true);
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() {
+                    Type type = new TypeToken<List<Notify>>() {
                     }.getType();
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(), type);
 
-                    for (Error item : message) {
+                    for (Notify item : message) {
                         Toast.makeText(getApplicationContext(), item.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
@@ -260,7 +251,7 @@ public class Registrarse extends AppCompatActivity {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 t.printStackTrace();
-                Toast.makeText(Registrarse.this,"Error al crear usuario!", Toast.LENGTH_LONG).show();
+                Toast.makeText(Registrarse.this,"Notify al crear usuario!", Toast.LENGTH_LONG).show();
                 await(true);
             }
         });

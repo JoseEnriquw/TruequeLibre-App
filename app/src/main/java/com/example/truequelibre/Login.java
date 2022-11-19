@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Process;
-import android.util.Base64;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -18,9 +16,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.truequelibre.Entity.AuthenticationRequest;
-import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.Utils.Apis;
-import com.example.truequelibre.Utils.Error;
+import com.example.truequelibre.Utils.Notify;
 import com.example.truequelibre.Utils.IUsuarioService;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.gson.Gson;
@@ -97,11 +94,11 @@ public class Login extends AppCompatActivity {
 
                         } else {
                             Gson gson = new Gson();
-                            Type type = new TypeToken<List<Error>>() {
+                            Type type = new TypeToken<List<Notify>>() {
                             }.getType();
-                            List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+                            List<Notify> message = gson.fromJson(response.errorBody().charStream(), type);
 
-                            for (Error item : message) {
+                            for (Notify item : message) {
                                 toast.setText(item.getMessage());
                                 toast.show();
                             }
