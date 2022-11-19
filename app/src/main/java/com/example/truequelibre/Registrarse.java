@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -64,8 +65,10 @@ public class Registrarse extends AppCompatActivity {
     IUsuarioService service;
     UsuarioDropdown lista= new UsuarioDropdown();
     UsuarioCreateRequest usuarionuevo = new UsuarioCreateRequest();
-    Button botonLogin;
+    Button btnRegistrar;
     private Context context;
+
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,7 +87,10 @@ public class Registrarse extends AppCompatActivity {
 
         tv_IniciarSesion = (TextView)findViewById(R.id.tvIniciarSesion);
 
-        botonLogin = findViewById(R.id.btnLogin);
+        btnRegistrar = findViewById(R.id.btn_Registrarse);
+
+        progressBar = (ProgressBar) findViewById(R.id.pbRegistrarse);
+        await(true);
 
 
         tv_IniciarSesion.setOnClickListener(new View.OnClickListener() {
@@ -135,6 +141,7 @@ public class Registrarse extends AppCompatActivity {
     }
 
     public void btnRegistrarse(View view){
+        await(false);
         if (validarCampos()){
             if(txtConfirmarContrasenia.getText().toString().equals(txtContrasenia.getText().toString())){
                 try {
@@ -145,7 +152,10 @@ public class Registrarse extends AppCompatActivity {
                 postUsuarioCreate(usuarionuevo);
 
             }
-        };
+        }
+        else{
+            await( true);
+        }
     }
 
     private boolean validarEmail(String email) {
@@ -177,6 +187,26 @@ public class Registrarse extends AppCompatActivity {
         }
 
         return bnd;
+    }
+
+    public void await(boolean enabled){
+        progressBar.setVisibility(enabled ? View.GONE : View.VISIBLE);
+        btnRegistrar.setEnabled(enabled);
+        LinearLayout llyParent = findViewById(R.id.linearLayoutRegistrarse);
+        int count = llyParent.getChildCount();
+        for (int i=0;i<count;i++){
+            if (llyParent.getChildAt(i) instanceof TextInputLayout){
+                TextInputLayout layout = (TextInputLayout) llyParent.getChildAt(i);
+                FrameLayout frameLayout = (FrameLayout) layout.getChildAt(0);
+                int id = frameLayout.getChildAt(0).getId();
+                EditText et = ((EditText) findViewById(id));
+                if (et.length() == 0){
+                    et.setEnabled(enabled);
+
+                }
+            }
+        }
+
     }
 
     public void RellenarCampos(View v) throws ParseException {
@@ -216,6 +246,7 @@ public class Registrarse extends AppCompatActivity {
                     context.startActivity(intent);
                 }
                 else {
+                    await(true);
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<Error>>() {
                     }.getType();
@@ -230,6 +261,7 @@ public class Registrarse extends AppCompatActivity {
             public void onFailure(Call<Void> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(Registrarse.this,"Error al crear usuario!", Toast.LENGTH_LONG).show();
+                await(true);
             }
         });
         return true;

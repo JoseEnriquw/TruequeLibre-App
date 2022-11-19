@@ -255,18 +255,27 @@
                 </AutoCompleteTextView>
 
                 </com.google.android.material.textfield.TextInputLayout>
-
+                <ProgressBar
+                    android:id="@+id/pbAgregarPublicacion"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_below="@id/tfUbicacionPretendidaAgregarPublicacion"
+                    />
 
                 <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
                     android:id="@+id/btnPublicarAgregarPublicacion"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@id/tfUbicacionPretendidaAgregarPublicacion"
+                    android:layout_below="@id/pbAgregarPublicacion"
                     android:layout_marginTop="20dp"
                     android:layout_marginBottom="20dp"
                     android:onClick="Publicar"
                     android:text="@string/btn_publicar_agregar_publicacion"
                     android:textAlignment="center" />
+
+
 
             </RelativeLayout>
         </ScrollView>

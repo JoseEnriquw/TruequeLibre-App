@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,8 @@ public class Chat extends AppCompatActivity {
     private IOfertaService service;
     private Context context ;
 
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -77,6 +80,9 @@ public class Chat extends AppCompatActivity {
         txtMensaje = (EditText) findViewById(R.id.txtEnviarMensajeChat);
         btnEnviar = (Button) findViewById(R.id.btnEnviarMensajeChat);
         imgv = (ImageView) findViewById(R.id.imgvUsuarioChat);
+
+        progressBar = (ProgressBar) findViewById(R.id.pbChat);
+        await(false);
 
         service = Apis.getOfertaService();
         Call<PublicacionResponseNotificacion> callOferta = service.getOferta(idOferta);
@@ -121,6 +127,7 @@ public class Chat extends AppCompatActivity {
                         public void onItemRangeInserted(int positionStart, int itemCount) {
                             super.onItemRangeInserted(positionStart, itemCount);
                             setScrollBar();
+
                         }
                     });
 
@@ -129,6 +136,7 @@ public class Chat extends AppCompatActivity {
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
                             Mensaje m = snapshot.getValue(Mensaje.class);
                             adapterMensajes.addMensaje(m);
+                            await(true);
                         }
                         @Override
                         public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {            }
@@ -139,6 +147,7 @@ public class Chat extends AppCompatActivity {
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {           }
                     });
+
                 }else {
                     Gson gson = new Gson();
                     Type type = new TypeToken<List<Error>>() { }.getType();
@@ -153,16 +162,16 @@ public class Chat extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PublicacionResponseNotificacion> call, Throwable t) {
-
+                await(true);
             }
         });
 
+    }
 
-
-
-
-
-
+    public void await(boolean enabled){
+        progressBar.setVisibility(enabled ? View.GONE : View.VISIBLE);
+        btnEnviar.setEnabled(enabled);
+        txtMensaje.setEnabled(enabled);
     }
 
     private void setScrollBar(){
