@@ -46,6 +46,19 @@ tools:context=".ui.miPerfil.MiPerfilFragment">
             android:text="Nombre y Apellido"
             android:textSize="15dp" />
 
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/btneditarperfil"
+            app:fabCustomSize="30dp"
+            app:fabSize="auto"
+            android:clickable="true"
+            android:layout_width="33dp"
+            android:layout_height="29dp"
+            android:layout_marginLeft="50dp"
+            android:layout_marginTop="100dp"
+            android:backgroundTint="@color/white"
+            android:layout_toRightOf="@+id/tvNombreApellidoPerfil"
+            android:src="@drawable/ic_edit" />
+
         <View
             android:id="@+id/divider3"
             android:layout_width="match_parent"

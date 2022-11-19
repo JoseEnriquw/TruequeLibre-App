@@ -1,5 +1,6 @@
 package com.example.truequelibre;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -27,6 +28,7 @@ import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.ICalificacionUsuariosService;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -55,6 +57,7 @@ public class MiPerfil extends Fragment {
     ICalificacionUsuariosService service;
     RatingBar ratingBar;
     Button btnSalir;
+    FloatingActionButton btnEditarperfil;
     private ProgressBar progressBar;
 
     // TODO: Rename parameter arguments, choose names that match
@@ -97,6 +100,7 @@ public class MiPerfil extends Fragment {
         }
     }
 
+    @SuppressLint("MissingInflatedId")
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -116,6 +120,21 @@ public class MiPerfil extends Fragment {
                 v.getContext().startActivity(intent);
             }
         });
+        btnEditarperfil = view.findViewById(R.id.btneditarperfil);
+        if(usuario.getImagen()!= null){btnEditarperfil.setVisibility(View.INVISIBLE);}else {
+
+
+            btnEditarperfil.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), EditarPerfil.class);
+                    intent.putExtra("idUsuario", usuario.getId());
+                    intent.putExtra("Nombre", usuario.getNombreApellido());
+                    intent.putExtra("Imagen", usuario.getImagen());
+                    v.getContext().startActivity(intent);
+                }
+            });
+        }
 
         await(false);
 

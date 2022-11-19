@@ -31,5 +31,9 @@ public class Apis {
         return Cliente.getCliente(HOST).create(ICalificacionUsuariosService.class);
     }
 
+    public static IPersonaService getPersonaService()
+    {
+        return Cliente.getCliente(HOST).create(IPersonaService.class);
+    }
 
 }
