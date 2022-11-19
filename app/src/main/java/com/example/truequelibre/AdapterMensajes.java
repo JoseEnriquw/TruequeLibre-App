@@ -106,7 +106,7 @@ public class AdapterMensajes extends RecyclerView.Adapter<AdapterMensajes.ViewHo
     @Override
     public void onBindViewHolder(@NonNull ViewHolderMensajes holder, int position) {
         holder.mensaje.setText(listaMensajes.get(position).getMensaje());
-        holder.imgPerfil.setImageBitmap(ImagenConverter.convertByteToBitmap(listaMensajes.get(position).getFotoUsuario()));
+        if(listaMensajes.get(position).getFotoUsuario() != null)  holder.imgPerfil.setImageBitmap(ImagenConverter.convertByteToBitmap(listaMensajes.get(position).getFotoUsuario()));
 
         ConstraintLayout constraintLayout = holder.cll;
         if (idUsuarioActual == listaMensajes.get(position).getUsuario()) {

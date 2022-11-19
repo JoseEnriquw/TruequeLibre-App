@@ -64,6 +64,7 @@ public class Chat extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        try {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chat);
         context = this;
@@ -95,12 +96,12 @@ public class Chat extends AppCompatActivity {
                     if (body.getId_usuario_ofertante().equals(idUsuarioActual)){
                         tvNombreUsuario.setText(body.getNombre_usuario_principal());
                         fotoUsuarioActual = body.getImagen_usuario_ofertante();
-                        imgv.setImageBitmap(ImagenConverter.convertByteToBitmap(body.getImagen_usuario_principal()));
+                        if(body.getImagen_usuario_principal()!= null)imgv.setImageBitmap(ImagenConverter.convertByteToBitmap(body.getImagen_usuario_principal()));
                     }
                     else{
                         tvNombreUsuario.setText(body.getNombre_usuario_ofertante());
                         fotoUsuarioActual = body.getImagen_usuario_principal();
-                        imgv.setImageBitmap(ImagenConverter.convertByteToBitmap(body.getImagen_usuario_ofertante()));
+                        if(body.getImagen_usuario_ofertante() != null)imgv.setImageBitmap(ImagenConverter.convertByteToBitmap(body.getImagen_usuario_ofertante()));
                     }
 
                     database = FirebaseDatabase.getInstance();
@@ -111,25 +112,41 @@ public class Chat extends AppCompatActivity {
                     rvMensajes.setLayoutManager(l);
                     rvMensajes.setAdapter(adapterMensajes);
 
-                    btnEnviar.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            if (!txtMensaje.getText().toString().equals("")){
-                                databaseReference.push().setValue(new Mensaje(txtMensaje.getText().toString(), idUsuarioActual,fotoUsuarioActual));
-                                txtMensaje.setText("");
+                        btnEnviar.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                if (!txtMensaje.getText().toString().equals("")){
+                                    databaseReference.push().setValue(new Mensaje(txtMensaje.getText().toString(), idUsuarioActual,fotoUsuarioActual));
+                                    txtMensaje.setText("");
+                                }
+
                             }
+                        });
 
-                        }
-                    });
+                        adapterMensajes.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
+                            @Override
+                            public void onItemRangeInserted(int positionStart, int itemCount) {
+                                super.onItemRangeInserted(positionStart, itemCount);
+                                setScrollBar();
+                            }
+                        });
 
-                    adapterMensajes.registerAdapterDataObserver(new RecyclerView.AdapterDataObserver() {
-                        @Override
-                        public void onItemRangeInserted(int positionStart, int itemCount) {
-                            super.onItemRangeInserted(positionStart, itemCount);
-                            setScrollBar();
+                        databaseReference.addChildEventListener(new ChildEventListener() {
+                            @Override
+                            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                                Mensaje m = snapshot.getValue(Mensaje.class);
+                                adapterMensajes.addMensaje(m);
+                            }
+                            @Override
+                            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {            }
+                            @Override
+                            public void onChildRemoved(@NonNull DataSnapshot snapshot) {            }
+                            @Override
+                            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {           }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {           }
+                        });
 
-                        }
-                    });
 
                     databaseReference.addChildEventListener(new ChildEventListener() {
                         @Override
@@ -166,15 +183,26 @@ public class Chat extends AppCompatActivity {
             }
         });
 
-    }
 
+
+        } catch (Exception ex){
+            ex.printStackTrace();
+            System.out.println(ex.getMessage() + "==" + ex.getCause());
+        }
+
+
+
+    }
     public void await(boolean enabled){
         progressBar.setVisibility(enabled ? View.GONE : View.VISIBLE);
         btnEnviar.setEnabled(enabled);
         txtMensaje.setEnabled(enabled);
     }
 
+
     private void setScrollBar(){
         rvMensajes.scrollToPosition(adapterMensajes.getItemCount()+1);
     }
+
+
 }
