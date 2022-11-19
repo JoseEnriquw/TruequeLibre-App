@@ -19,7 +19,7 @@ import android.widget.ViewFlipper;
 
 import com.example.truequelibre.Entity.PublicacionResponse;
 import com.example.truequelibre.Utils.Apis;
-import com.example.truequelibre.Utils.Error;
+import com.example.truequelibre.Utils.Notify;
 import com.example.truequelibre.Utils.IPublicacionService;
 import com.example.truequelibre.Utils.ImagenConverter;
 import com.google.gson.Gson;
@@ -85,11 +85,11 @@ public class AprobarPublicaciones extends AppCompatActivity {
                             context.startActivity(i);
                         } else {
                             Gson gson = new Gson();
-                            Type type = new TypeToken<List<Error>>() {
+                            Type type = new TypeToken<List<Notify>>() {
                             }.getType();
-                            List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+                            List<Notify> message = gson.fromJson(response.errorBody().charStream(), type);
 
-                            for (Error item : message) {
+                            for (Notify item : message) {
                                 Toast.makeText(context, item.getMessage(), Toast.LENGTH_LONG).show();
                             }
                         }
@@ -98,7 +98,7 @@ public class AprobarPublicaciones extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         System.out.println(t.getCause() + " \n" + t.getMessage());
-                        Toast.makeText(context, "Error al aprobar la publicación!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context, "Notify al aprobar la publicación!", Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -121,10 +121,10 @@ public class AprobarPublicaciones extends AppCompatActivity {
                         else
                         {
                             Gson gson = new Gson();
-                            Type type = new TypeToken<List<Error>>() {}.getType();
-                            List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+                            Type type = new TypeToken<List<Notify>>() {}.getType();
+                            List<Notify> message = gson.fromJson(response.errorBody().charStream(),type);
 
-                            for (Error item: message) {
+                            for (Notify item: message) {
                                 Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG).show();
                             }
                         }
@@ -133,7 +133,7 @@ public class AprobarPublicaciones extends AppCompatActivity {
                     @Override
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         System.out.println(t.getCause()+ " \n"+t.getMessage());
-                        Toast.makeText(context,"Error al rechazar la publicación!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(context,"Notify al rechazar la publicación!", Toast.LENGTH_LONG).show();
                     }
                 });
 
@@ -154,11 +154,11 @@ public class AprobarPublicaciones extends AppCompatActivity {
                 }
                 else {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() {
+                    Type type = new TypeToken<List<Notify>>() {
                     }.getType();
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(), type);
 
-                    for (Error item : message) {
+                    for (Notify item : message) {
                         Toast.makeText(context, item.getMessage(), Toast.LENGTH_LONG);
                     }
                 }

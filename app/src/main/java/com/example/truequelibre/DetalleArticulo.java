@@ -16,7 +16,7 @@ import android.widget.ViewFlipper;
 import com.denzcoskun.imageslider.ImageSlider;
 import com.example.truequelibre.Entity.PublicacionResponse;
 import com.example.truequelibre.Utils.Apis;
-import com.example.truequelibre.Utils.Error;
+import com.example.truequelibre.Utils.Notify;
 import com.example.truequelibre.Utils.IPublicacionService;
 import com.example.truequelibre.Utils.ImagenConverter;
 import com.google.gson.Gson;
@@ -104,11 +104,11 @@ public class DetalleArticulo extends AppCompatActivity {
                 }
                 else {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() {
+                    Type type = new TypeToken<List<Notify>>() {
                     }.getType();
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(), type);
 
-                    for (Error item : message) {
+                    for (Notify item : message) {
                         Toast.makeText(context, item.getMessage(), Toast.LENGTH_LONG);
                     }
                 }

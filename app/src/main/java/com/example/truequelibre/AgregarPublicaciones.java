@@ -202,7 +202,7 @@ public class AgregarPublicaciones extends AppCompatActivity {
                             postPublicacionCreate(publicacion);
                         }
                         else{
-                            Toast.makeText(getApplicationContext(),"Error: complete todos los campos!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(),"Notify: complete todos los campos!", Toast.LENGTH_LONG).show();
                         }
                     }
                 })
@@ -291,7 +291,7 @@ public class AgregarPublicaciones extends AppCompatActivity {
                         context.startActivity(intent);
                     }
                     else{
-                        Toast.makeText(AgregarPublicaciones.this,"Error al agregar publicación!", Toast.LENGTH_LONG).show();
+                        Toast.makeText(AgregarPublicaciones.this,"Notify al agregar publicación!", Toast.LENGTH_LONG).show();
                     }
                 }
                 else{
@@ -307,7 +307,7 @@ public class AgregarPublicaciones extends AppCompatActivity {
             @Override
             public void onFailure(Call<Void> call, Throwable t) {
                 t.printStackTrace();
-                Toast.makeText(AgregarPublicaciones.this,"Error al agregar publicación!", Toast.LENGTH_LONG).show();
+                Toast.makeText(AgregarPublicaciones.this,"Notify al agregar publicación!", Toast.LENGTH_LONG).show();
                 await(true);
             }
         });

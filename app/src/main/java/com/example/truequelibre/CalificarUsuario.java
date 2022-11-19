@@ -1,7 +1,6 @@
 package com.example.truequelibre;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -21,11 +20,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.truequelibre.Entity.CreateCalificacionRequest;
 import com.example.truequelibre.Entity.UpdateComentarVM;
-import com.example.truequelibre.Entity.UpdateFinalizarVM;
-import com.example.truequelibre.Entity.UpdateOfertaVM;
 import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.Utils.Apis;
-import com.example.truequelibre.Utils.Error;
+import com.example.truequelibre.Utils.Notify;
 import com.example.truequelibre.Utils.ICalificacionUsuariosService;
 import com.example.truequelibre.Utils.IOfertaService;
 import com.example.truequelibre.Utils.IUsuarioService;
@@ -98,11 +95,11 @@ public class CalificarUsuario extends AppCompatActivity {
                     }
                 } else {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() {
+                    Type type = new TypeToken<List<Notify>>() {
                     }.getType();
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(), type);
 
-                    for (Error item : message) {
+                    for (Notify item : message) {
                         Toast.makeText(context, item.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
@@ -162,11 +159,11 @@ public class CalificarUsuario extends AppCompatActivity {
                 }
                 else {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() { }.getType();
+                    Type type = new TypeToken<List<Notify>>() { }.getType();
 
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(), type);
 
-                    for (Error item : message) {
+                    for (Notify item : message) {
                         Toast.makeText(context, item.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }

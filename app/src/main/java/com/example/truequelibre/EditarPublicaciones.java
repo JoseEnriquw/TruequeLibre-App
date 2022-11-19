@@ -344,7 +344,7 @@ public class EditarPublicaciones extends AppCompatActivity {
             @Override
             public void onFailure(Call<ResponseBody> call, Throwable t) {
                 System.out.println(t.getCause()+ " \n"+t.getMessage());
-                Toast.makeText(getApplicationContext(),"Error al modificar la publicación!", Toast.LENGTH_LONG).show();
+                Toast.makeText(getApplicationContext(),"Notify al modificar la publicación!", Toast.LENGTH_LONG).show();
                 Await(true);
             }
         });

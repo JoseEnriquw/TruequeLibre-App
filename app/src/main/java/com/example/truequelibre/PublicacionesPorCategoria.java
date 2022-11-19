@@ -14,9 +14,8 @@ import android.widget.Toast;
 
 import com.example.truequelibre.Entity.GetAllByCategoriaRequest;
 import com.example.truequelibre.Entity.Publicacion;
-import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.Utils.Apis;
-import com.example.truequelibre.Utils.Error;
+import com.example.truequelibre.Utils.Notify;
 import com.example.truequelibre.Utils.IPublicacionService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -75,10 +74,10 @@ public class PublicacionesPorCategoria extends AppCompatActivity implements Sear
                 else
                 {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() {}.getType();
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+                    Type type = new TypeToken<List<Notify>>() {}.getType();
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(),type);
 
-                    for (Error item: message) {
+                    for (Notify item: message) {
                         Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG);
                     }
                 }
