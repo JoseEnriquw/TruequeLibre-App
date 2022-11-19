@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
@@ -28,6 +29,7 @@ import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Entity.PublicacionCreateRequest;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
+import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.textfield.TextInputEditText;
 import com.google.gson.Gson;
@@ -72,11 +74,18 @@ public class AgregarPublicaciones extends AppCompatActivity {
     int banderin;
     Context context;
 
+    private ExtendedFloatingActionButton btnAgregar;
+    private TextInputEditText txtTitulo;
+    private TextInputEditText txtDescripcion;
+
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_agregar_publicaciones);
         context=this;
+
         idUsuario = getIntent().getIntExtra("idUsuario",0);
         photobutton = findViewById(R.id.btnAgregarImagenesPublicacion);
         builder = new AlertDialog.Builder(this);
@@ -90,6 +99,20 @@ public class AgregarPublicaciones extends AppCompatActivity {
         imageViewarray[2] = img3;
         imageViewarray[3] = img4;
         imageViewarray[4] = img5;
+
+        dropDawnCate =(AutoCompleteTextView) findViewById(R.id.ddCategoriaAgregarPublicacion);
+        dropDawnCatePretendida =(AutoCompleteTextView) findViewById(R.id.ddCategoriaPretendidaAgregarPublicacion);
+        dropDownCondiciones =(AutoCompleteTextView) findViewById(R.id.ddCondicionAgregarPublicacion);
+        dropDownLocalidades =(AutoCompleteTextView) findViewById(R.id.ddUbicacionAgregarPublicacion);
+        dropDownLocalidadesPretendida =(AutoCompleteTextView) findViewById(R.id.ddUbicacionPretendidaAgregarPublicacion);
+
+        btnAgregar = (ExtendedFloatingActionButton) findViewById(R.id.btnPublicarAgregarPublicacion);
+        txtTitulo =(TextInputEditText) findViewById(R.id.txtTituloAgregar);
+        txtDescripcion = (TextInputEditText)findViewById(R.id.txtDescripcionAgregar);
+        progressBar =(ProgressBar) findViewById(R.id.pbAgregarPublicacion);
+
+        await(true);
+
         service= Apis.getPublicacionService();
         Call<PublicacionDropdown> call =service.getPublicacionDropdown();
 
@@ -99,11 +122,8 @@ public class AgregarPublicaciones extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     lista = response.body();
                     adapterCategorias = new ArrayAdapter<>(getApplicationContext(), R.layout.drop_down_item, lista.getCategorias());
-                    dropDawnCate =(AutoCompleteTextView) findViewById(R.id.ddCategoriaAgregarPublicacion);
                     dropDawnCate.setAdapter(adapterCategorias);
-                    dropDawnCatePretendida =(AutoCompleteTextView) findViewById(R.id.ddCategoriaPretendidaAgregarPublicacion);
                     dropDawnCatePretendida.setAdapter(adapterCategorias);
-
                     dropDawnCate.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -118,7 +138,6 @@ public class AgregarPublicaciones extends AppCompatActivity {
                     });
 
                     adapterCondiciones = new ArrayAdapter<>(getApplicationContext(), R.layout.drop_down_item, lista.getCondiciones());
-                    dropDownCondiciones =(AutoCompleteTextView) findViewById(R.id.ddCondicionAgregarPublicacion);
                     dropDownCondiciones.setAdapter(adapterCondiciones);
 
                     dropDownCondiciones.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -129,11 +148,8 @@ public class AgregarPublicaciones extends AppCompatActivity {
                     });
 
                     adapterLocalidad = new ArrayAdapter<>(getApplicationContext(), R.layout.drop_down_item, lista.getLocalidades());
-                    dropDownLocalidades =(AutoCompleteTextView) findViewById(R.id.ddUbicacionAgregarPublicacion);
                     dropDownLocalidades.setAdapter(adapterLocalidad);
-                    dropDownLocalidadesPretendida =(AutoCompleteTextView) findViewById(R.id.ddUbicacionPretendidaAgregarPublicacion);
                     dropDownLocalidadesPretendida.setAdapter(adapterLocalidad);
-
                     dropDownLocalidades.setOnItemClickListener(new AdapterView.OnItemClickListener(){
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -175,6 +191,7 @@ public class AgregarPublicaciones extends AppCompatActivity {
                 .setPositiveButton("Agregar", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         if (validarCampos()){
+                            await(false);
                             String nombre = ((TextInputEditText)findViewById(R.id.txtTituloAgregar)).getText().toString();
                             String descripcion = ((TextInputEditText)findViewById(R.id.txtDescripcionAgregar)).getText().toString();
                             byte[] imageInByte = convertImgViewToArray();
@@ -204,6 +221,28 @@ public class AgregarPublicaciones extends AppCompatActivity {
         alert.show();
 
 
+    }
+
+    public void await(boolean enabled){
+        progressBar.setVisibility(enabled ? View.GONE : View.VISIBLE);
+        btnAgregar.setEnabled(enabled);
+        dropDawnCate.setEnabled(enabled);
+        dropDawnCatePretendida.setEnabled(enabled);
+        dropDownLocalidades.setEnabled(enabled);
+        dropDownLocalidadesPretendida.setEnabled(enabled);
+        dropDownCondiciones.setEnabled(enabled);
+        txtTitulo.setEnabled(enabled);
+        txtDescripcion.setEnabled(enabled);
+    }
+
+    public void limpiarCampos(){
+        dropDawnCate.setText("");
+        dropDawnCatePretendida.setText("");
+        dropDownLocalidades.setText("");
+        dropDownLocalidadesPretendida.setText("");
+        dropDownCondiciones.setText("");
+        txtTitulo.setText("");
+        txtDescripcion.setText("");
     }
 
     public byte[] convertImgViewToArray(){
@@ -242,8 +281,10 @@ public class AgregarPublicaciones extends AppCompatActivity {
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
+                await(true);
                 if(response.isSuccessful()){
                     if(response.code() == HttpURLConnection.HTTP_CREATED){
+
                         Toast.makeText(AgregarPublicaciones.this,"Publicación agregada con exito!", Toast.LENGTH_LONG).show();
                         Intent intent = new Intent(context,MainActivity.class);
                         intent.putExtra("idUsuario", idUsuario);
@@ -267,6 +308,7 @@ public class AgregarPublicaciones extends AppCompatActivity {
             public void onFailure(Call<Void> call, Throwable t) {
                 t.printStackTrace();
                 Toast.makeText(AgregarPublicaciones.this,"Error al agregar publicación!", Toast.LENGTH_LONG).show();
+                await(true);
             }
         });
         return true;

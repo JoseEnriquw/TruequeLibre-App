@@ -1,15 +1,20 @@
 package com.example.truequelibre;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Process;
 import android.util.Base64;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.truequelibre.Entity.AuthenticationRequest;
@@ -34,7 +39,10 @@ public class Login extends AppCompatActivity {
     private EditText txtContrasenia;
     IUsuarioService service;
     Integer idUsuario;
+    private ProgressBar progressBar;
+    private Button btnLogin;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +52,9 @@ public class Login extends AppCompatActivity {
 
         txtUsuario = (EditText) findViewById(R.id.txtUsuario);
         txtContrasenia = (EditText) findViewById(R.id.txtContrasenia);
+        btnLogin= (Button)findViewById(R.id.btnLogin);
+        progressBar=(ProgressBar)findViewById(R.id.pbLogin);
+        progressBar.setVisibility(View.INVISIBLE);
 
         tv_Registrarse = (TextView)findViewById(R.id.tvRegistrarse);
         tv_Registrarse.setOnClickListener(new View.OnClickListener() {
@@ -66,10 +77,12 @@ public class Login extends AppCompatActivity {
             Toast toast = new Toast(getApplicationContext());
             toast.setDuration(Toast.LENGTH_LONG);
 
+
             if (usuario.equals("admin") && contrasenia.equals("admin")) {
                 Intent i = new Intent(getApplicationContext(), pantallaAdmin.class);
                   startActivity(i);
             } else {
+                Await(false);
                 Call<Integer> call = service.authentication(new AuthenticationRequest(usuario, contrasenia));
 
                 call.enqueue(new Callback<Integer>() {
@@ -92,7 +105,7 @@ public class Login extends AppCompatActivity {
                                 toast.setText(item.getMessage());
                                 toast.show();
                             }
-
+                            Await(true);
                         }
                     }
 
@@ -101,10 +114,20 @@ public class Login extends AppCompatActivity {
                         System.out.println(t.getCause() + "\n" + t.getMessage());
                         toast.setText(t.getCause() + "\n" + t.getMessage());
                         toast.show();
+                        Await(true);
                     }
                 });
             }
         }
+    }
+
+    private void Await(Boolean enabled)
+    {
+        progressBar.setVisibility(enabled?View.INVISIBLE:View.VISIBLE);
+        btnLogin.setEnabled(enabled);
+        txtContrasenia.setEnabled(enabled);
+        txtUsuario.setEnabled(enabled);
+        tv_Registrarse.setEnabled(enabled);
     }
 
     public boolean validarCampos(){

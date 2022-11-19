@@ -100,11 +100,22 @@ tools:context=".ui.miPerfil.MiPerfilFragment">
             android:layout_marginLeft="10dp"
             android:text="Comentarios:" />
 
+        <ProgressBar
+            android:id="@+id/pbMiPerfil"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvComentariosMiPerfil"
+
+            />
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvComentariosMiPerfil"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@id/tvComentariosMiPerfil" />
+            android:layout_below="@id/pbMiPerfil" />
+
+
 
     </RelativeLayout>
 

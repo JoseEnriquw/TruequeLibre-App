@@ -81,6 +81,13 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
+            <ProgressBar
+                android:id="@+id/pbLogin"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#016EEB"
+                />
+
             <Button
                 android:id="@+id/btnLogin"
                 android:layout_width="wrap_content"

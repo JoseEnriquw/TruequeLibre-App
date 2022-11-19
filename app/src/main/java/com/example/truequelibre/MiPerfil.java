@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -57,6 +58,7 @@ public class MiPerfil extends Fragment {
     RatingBar ratingBar;
     Button btnSalir;
     FloatingActionButton btnEditarperfil;
+    private ProgressBar progressBar;
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -107,6 +109,9 @@ public class MiPerfil extends Fragment {
         MainActivity activity =(MainActivity) getActivity();
         usuario= activity.getUsuario();
 
+        progressBar = (ProgressBar) view.findViewById(R.id.pbMiPerfil);
+
+
         btnSalir = (Button) view.findViewById(R.id.btnSalir);
         btnSalir.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -130,6 +135,9 @@ public class MiPerfil extends Fragment {
                 }
             });
         }
+
+        await(false);
+
         service= Apis.getCalificacionUsuariosService();
 
         tvNombreApellido= (TextView)view.findViewById(R.id.tvNombreApellidoPerfil);
@@ -153,6 +161,7 @@ public class MiPerfil extends Fragment {
         call.enqueue(new Callback<List<CalificacionUsuario>>() {
             @Override
             public void onResponse(Call<List<CalificacionUsuario>> call, retrofit2.Response<List<CalificacionUsuario>> response) {
+                await(true);
                 if(response.isSuccessful()) {
                     lista = response.body();
                     _adapter= new AdapterComentariosMiPerfil(getContext(),lista);
@@ -192,5 +201,10 @@ public class MiPerfil extends Fragment {
 
         // Inflate the layout for this fragment
         return view;
+    }
+
+    private void await(boolean enabled){
+        progressBar.setVisibility(enabled ? View.GONE : View.VISIBLE);
+        btnSalir.setEnabled(enabled);
     }
 }

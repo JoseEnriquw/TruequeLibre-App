@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.truequelibre.AdapterEnviados;
@@ -58,6 +59,8 @@ public class FragmentTruequesEnviados extends Fragment {
     IOfertaService service;
     private List<OfertasResponse> lista = new ArrayList<>();
     FiltrarOfertaRequest ofertas;
+
+    private ProgressBar progressBar;
 
     public FragmentTruequesEnviados() {
         // Required empty public constructor
@@ -109,6 +112,8 @@ public class FragmentTruequesEnviados extends Fragment {
         usuario= activity.getUsuario();
         FiltrarOfertaRequest requestofertas = new FiltrarOfertaRequest(usuario.getId(),  "Enviados");
 
+        progressBar = view.findViewById(R.id.pbTruequesEnviados);
+        progressBar.setVisibility(View.VISIBLE);
 
         service= Apis.getOfertaService();
         Call<List<OfertasResponse>> call =service.getAllOfertasRecibidas(requestofertas);
@@ -116,6 +121,7 @@ public class FragmentTruequesEnviados extends Fragment {
         call.enqueue(new Callback<List<OfertasResponse>>() {
             @Override
             public void onResponse(Call<List<OfertasResponse>> call, retrofit2.Response<List<OfertasResponse>> response) {
+                progressBar.setVisibility(View.GONE);
                 if(response.isSuccessful()) {
                     lista = response.body();
                     _adapter = new AdapterEnviados(getContext(), lista);

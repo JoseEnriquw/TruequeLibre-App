@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.truequelibre.Entity.Publicacion;
@@ -36,11 +37,15 @@ public class QueOfrecesACambio extends AppCompatActivity {
     private Integer idUsuario;
     private Integer idPublicacion;
     private Context context;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_que_ofreces_acambio);
+
+        progressBar = (ProgressBar) findViewById(R.id.pbOfrecerACambio);
+        progressBar.setVisibility(View.VISIBLE);
 
 
         idUsuario = getIntent().getIntExtra("idUsuario",0);
@@ -54,6 +59,7 @@ public class QueOfrecesACambio extends AppCompatActivity {
         call.enqueue(new Callback<List<Publicacion>>() {
             @Override
             public void onResponse(Call<List<Publicacion>> call, retrofit2.Response<List<Publicacion>> response) {
+                progressBar.setVisibility(View.GONE);
                 if(response.isSuccessful()) {
                     try{
                         lista = response.body();

@@ -19,7 +19,14 @@
         </TextView>
 
 
+        <ProgressBar
+            android:id="@+id/pbBuscar"
+            style="?android:attr/progressBarStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
 
+            />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvCategorias"
@@ -33,6 +40,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.499"
-            android:layout_below="@id/textBuscar"/>
+            android:layout_below="@id/pbBuscar"/>
+
+
     </RelativeLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
