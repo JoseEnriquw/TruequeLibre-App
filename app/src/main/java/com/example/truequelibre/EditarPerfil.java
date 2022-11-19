@@ -6,6 +6,7 @@ import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -25,9 +26,12 @@ import android.widget.Toast;
 import com.example.truequelibre.Entity.Dropdown.PublicacionDropdown;
 import com.example.truequelibre.Entity.PublicacionCreateRequest;
 import com.example.truequelibre.Entity.UpdatePersonaVM;
+import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.Utils.Apis;
+import com.example.truequelibre.Utils.Error;
 import com.example.truequelibre.Utils.IPersonaService;
 import com.example.truequelibre.Utils.IPublicacionService;
+import com.example.truequelibre.Utils.IUsuarioService;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -50,7 +54,10 @@ TextView etNombre;
 ImageView etfoto;
 ImageView imageViewarray[]=new ImageView[1];
 Button btneditar;
-    IPersonaService service;
+IUsuarioService serviceuser;
+IPersonaService service;
+Context contex;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -58,14 +65,17 @@ Button btneditar;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editar_perfil);
         Id=getIntent().getIntExtra("idUsuario",0);
-        Nombre=getIntent().getStringExtra("Nombre");
-        Imagen=getIntent().getStringExtra("Imagen");
+
+
+      Nombre=getIntent().getStringExtra("Nombre");
+       Imagen=getIntent().getStringExtra("Imagen");
         service= Apis.getPersonaService();
+
         etNombre= findViewById(R.id.editarnombre);
         etfoto=findViewById(R.id.editarimagen);
         btneditar=findViewById(R.id.btneditarimagenperfil);
         imageViewarray[0] = etfoto;
-
+        contex=this;
         etNombre.setText(Nombre);
         if (Imagen!= null){
             byte[] byteArray =  Base64.decode(Imagen, Base64.DEFAULT);
@@ -78,7 +88,7 @@ Button btneditar;
             @Override
             public void onClick(View v) {
                 byte[] imageInByte = convertImgViewToArray();
-                UpdatePersonaVM request = new UpdatePersonaVM(Id,imageInByte);
+                UpdatePersonaVM request = new UpdatePersonaVM(imageInByte);
                 PostEditarFotoPerfil(request);
             }
         });
@@ -108,12 +118,14 @@ Button btneditar;
 
     public boolean PostEditarFotoPerfil(UpdatePersonaVM request){
 
-        Call<ResponseBody> call = service.updatePersona(Id, request);
-        call.enqueue(new Callback<ResponseBody>() {
+        Call<Void> call = service.updatePersona(Id, request);
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+            public void onResponse(Call<Void> call, Response<Void> response) {
                 if(response.isSuccessful()) {
-
+                    Intent intent = new Intent(contex,MainActivity.class);
+                    intent.putExtra("idUsuario", Id);
+                    contex.startActivity(intent);
                 }
                 else{
                     Gson gson = new Gson();
@@ -126,7 +138,7 @@ Button btneditar;
                 }
             }
             @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 t.printStackTrace();
            }
         });
@@ -149,4 +161,7 @@ Button btneditar;
             return new byte[0];
         }
     }
+
+
+
 }

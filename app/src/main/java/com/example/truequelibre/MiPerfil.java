@@ -115,19 +115,21 @@ public class MiPerfil extends Fragment {
                 v.getContext().startActivity(intent);
             }
         });
+        btnEditarperfil = view.findViewById(R.id.btneditarperfil);
+        if(usuario.getImagen()!= null){btnEditarperfil.setVisibility(View.INVISIBLE);}else {
 
-        btnEditarperfil =view.findViewById(R.id.btneditarperfil);
-        btnEditarperfil.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(),EditarPerfil.class);
-                intent.putExtra("idUsuario", usuario.getId());
-                intent.putExtra("Nombre",usuario.getNombreApellido());
-                intent.putExtra("Imagen", usuario.getImagen());
-                v.getContext().startActivity(intent);
-            }
-        });
 
+            btnEditarperfil.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(v.getContext(), EditarPerfil.class);
+                    intent.putExtra("idUsuario", usuario.getId());
+                    intent.putExtra("Nombre", usuario.getNombreApellido());
+                    intent.putExtra("Imagen", usuario.getImagen());
+                    v.getContext().startActivity(intent);
+                }
+            });
+        }
         service= Apis.getCalificacionUsuariosService();
 
         tvNombreApellido= (TextView)view.findViewById(R.id.tvNombreApellidoPerfil);

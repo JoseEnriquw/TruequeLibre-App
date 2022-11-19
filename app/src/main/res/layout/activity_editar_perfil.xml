@@ -56,7 +56,7 @@
             android:layout_marginLeft="150dp"
             android:layout_below="@+id/editarnombre"
             android:layout_marginTop="20dp"
-            android:text="Calificar" />
+            android:text="Cambiar" />
 
 
 

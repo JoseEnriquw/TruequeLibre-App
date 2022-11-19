@@ -6,15 +6,22 @@ import com.google.gson.annotations.SerializedName;
 import java.io.Serializable;
 
 public class UpdatePersonaVM implements Serializable {
-    @SerializedName("id_usuario")
-    @Expose
-    Integer id_usuario;
     @SerializedName("imagen")
     @Expose
     byte[] imagen;
 
-    public UpdatePersonaVM(Integer id_usuario, byte[] imagen) {
-        this.id_usuario = id_usuario;
+    public UpdatePersonaVM( byte[] imagen) {
+        this.imagen = imagen;
+    }
+
+    public UpdatePersonaVM() {
+    }
+
+    public byte[] getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(byte[] imagen) {
         this.imagen = imagen;
     }
 }
