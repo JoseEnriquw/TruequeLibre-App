@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -35,6 +37,7 @@ public class PublicacionesPorCategoria extends AppCompatActivity implements Sear
     IPublicacionService service;
     List<Publicacion> lista=new ArrayList<>();
     Context context;
+    private ProgressBar progressBar;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -48,12 +51,16 @@ public class PublicacionesPorCategoria extends AppCompatActivity implements Sear
         idCategoria=(Integer)getIntent().getSerializableExtra("IdCategoria");
         service= Apis.getPublicacionService();
 
+        progressBar = (ProgressBar) findViewById(R.id.pbPublicacionesPorCategoria);
+        await(false);
+
         GetAllByCategoriaRequest request= new GetAllByCategoriaRequest(idCategoria,idUsuario);
         Call<List<Publicacion>> call =service.getPublicacionesByCategoria(request);
 
         call.enqueue(new Callback<List<Publicacion>>() {
             @Override
             public void onResponse(Call<List<Publicacion>> call, retrofit2.Response<List<Publicacion>> response) {
+                await(true);
                 if(response.isSuccessful()) {
                     lista = response.body();
 
@@ -101,5 +108,10 @@ public class PublicacionesPorCategoria extends AppCompatActivity implements Sear
             _adapter.filtrar(newText,idUsuario,idCategoria);
         }
         return false;
+    }
+
+    private void await(boolean enabled){
+        progressBar.setVisibility(enabled? View.GONE: View.VISIBLE);
+        search.setEnabled(enabled);
     }
 }

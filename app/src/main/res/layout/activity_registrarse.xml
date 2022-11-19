@@ -213,9 +213,13 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-
+            <ProgressBar
+                android:id="@+id/pbRegistrarse"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
             <Button
-                android:id="@+id/btnLogin"
+                android:id="@+id/btn_Registrarse"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -241,6 +245,8 @@
                 android:text="@string/lnkIniciarSesion"
                 android:textAlignment="center"
                 android:textColor="#4F92C6" />
+
+
         </LinearLayout>
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

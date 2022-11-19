@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -46,6 +47,7 @@ public class NotificationesFragment extends Fragment {
     IOfertaService service;
     Usuario usuario;
     List<OfertasResponse> lista = new ArrayList<>();
+    private ProgressBar progressBar;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -54,6 +56,9 @@ public class NotificationesFragment extends Fragment {
 
         binding = FragmentNotificationesBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
+
+        progressBar = (ProgressBar) root.findViewById(R.id.pbNotificaciones);
+        progressBar.setVisibility(View.VISIBLE);
 
         MainActivity activity =(MainActivity) getActivity();
         usuario= activity.getUsuario();
@@ -70,6 +75,7 @@ public class NotificationesFragment extends Fragment {
         call.enqueue(new Callback<List<OfertasResponse>>() {
             @Override
             public void onResponse(Call<List<OfertasResponse>> call, retrofit2.Response<List<OfertasResponse>> response) {
+                progressBar.setVisibility(View.GONE);
                 if(response.isSuccessful()) {
                     lista = response.body();
                     _adapter = new AdapterNotificaciones(getContext(), lista,usuario.getNombreApellido(), usuario.getId());

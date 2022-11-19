@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -59,6 +60,8 @@ public class Chat extends AppCompatActivity {
     private IOfertaService service;
     private Context context ;
 
+    private ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         try {
@@ -78,6 +81,9 @@ public class Chat extends AppCompatActivity {
         txtMensaje = (EditText) findViewById(R.id.txtEnviarMensajeChat);
         btnEnviar = (Button) findViewById(R.id.btnEnviarMensajeChat);
         imgv = (ImageView) findViewById(R.id.imgvUsuarioChat);
+
+        progressBar = (ProgressBar) findViewById(R.id.pbChat);
+        await(false);
 
         service = Apis.getOfertaService();
         Call<PublicacionResponseNotificacion> callOferta = service.getOferta(idOferta);
@@ -125,22 +131,22 @@ public class Chat extends AppCompatActivity {
                             }
                         });
 
-                        databaseReference.addChildEventListener(new ChildEventListener() {
-                            @Override
-                            public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
-                                Mensaje m = snapshot.getValue(Mensaje.class);
-                                adapterMensajes.addMensaje(m);
-                            }
-                            @Override
-                            public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {            }
-                            @Override
-                            public void onChildRemoved(@NonNull DataSnapshot snapshot) {            }
-                            @Override
-                            public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {           }
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {           }
-                        });
-
+                    databaseReference.addChildEventListener(new ChildEventListener() {
+                        @Override
+                        public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
+                            Mensaje m = snapshot.getValue(Mensaje.class);
+                            adapterMensajes.addMensaje(m);
+                            await(true);
+                        }
+                        @Override
+                        public void onChildChanged(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {            }
+                        @Override
+                        public void onChildRemoved(@NonNull DataSnapshot snapshot) {            }
+                        @Override
+                        public void onChildMoved(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {           }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {           }
+                    });
 
                 }else {
                     Gson gson = new Gson();
@@ -156,9 +162,10 @@ public class Chat extends AppCompatActivity {
 
             @Override
             public void onFailure(Call<PublicacionResponseNotificacion> call, Throwable t) {
-
+                await(true);
             }
         });
+
 
 
         } catch (Exception ex){
@@ -167,8 +174,13 @@ public class Chat extends AppCompatActivity {
         }
 
 
-    }
 
+    }
+    public void await(boolean enabled){
+        progressBar.setVisibility(enabled ? View.GONE : View.VISIBLE);
+        btnEnviar.setEnabled(enabled);
+        txtMensaje.setEnabled(enabled);
+    }
 
 
     private void setScrollBar(){

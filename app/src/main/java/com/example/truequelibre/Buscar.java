@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.fragment.app.Fragment;
@@ -34,6 +35,7 @@ public class Buscar extends Fragment {
     private AdapterCategorias _adapter;
     List<Categoria> lista= new ArrayList<>();
     ICategoriaService service;
+    private ProgressBar progressBar;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -80,10 +82,14 @@ public class Buscar extends Fragment {
         Call<List<Categoria>> call =service.getCategorias();
         MainActivity activity =(MainActivity) getActivity();
 
+        progressBar = (ProgressBar) view.findViewById(R.id.pbBuscar);
+        progressBar.setVisibility(View.VISIBLE);
+
 
         call.enqueue(new Callback<List<Categoria>>() {
             @Override
             public void onResponse(Call<List<Categoria>> call, retrofit2.Response<List<Categoria>> response) {
+                progressBar.setVisibility(View.GONE);
                 if(response.isSuccessful()) {
                     lista = response.body();
                     _adapter= new AdapterCategorias(getContext(),lista);
