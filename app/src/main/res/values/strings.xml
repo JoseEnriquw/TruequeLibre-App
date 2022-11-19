@@ -74,4 +74,5 @@
 
     <string name="sv_FiltrarArticulos">¿Que estas buscando?</string>
     <string name="tv_QueOfreces">Seleccione la publicación a ofertar</string>
+    <string name="item_menu_salir">Salir</string>
 </resources>

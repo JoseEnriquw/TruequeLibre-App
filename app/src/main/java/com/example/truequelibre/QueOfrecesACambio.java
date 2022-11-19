@@ -16,6 +16,7 @@ import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
+import com.example.truequelibre.Utils.Notify;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -63,7 +64,7 @@ public class QueOfrecesACambio extends AppCompatActivity {
                 if(response.isSuccessful()) {
                     try{
                         lista = response.body();
-                        _adapter = new AdapterOfrecerACambio(context, lista,idPublicacion,idUsuario);
+                        _adapter = new AdapterOfrecerACambio(context, lista,idPublicacion,idUsuario,progressBar);
 
                         GridLayoutManager gridLayoutManager = new GridLayoutManager(context, 2, GridLayoutManager.VERTICAL, false);
                         _recyclerView.setLayoutManager(gridLayoutManager);
@@ -77,11 +78,11 @@ public class QueOfrecesACambio extends AppCompatActivity {
                 }
                 else {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() { }.getType();
+                    Type type = new TypeToken<List<Notify>>() { }.getType();
 
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(), type);
 
-                    for (Error item : message) {
+                    for (Notify item : message) {
                         Toast.makeText(context, item.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }

@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,6 +22,7 @@ import com.example.truequelibre.Entity.UpdateOfertaVM;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IOfertaService;
 
+import com.example.truequelibre.Utils.Notify;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -41,10 +43,17 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
     private Context context;
     private List<OfertasResponse> ofertas;
     IOfertaService service;
+    private ProgressBar progressBar;
 
     public AdapterRecibidos(Context context, List<OfertasResponse> ofertas) {
         this.context = context;
         this.ofertas = ofertas;
+    }
+
+    public AdapterRecibidos(Context context, List<OfertasResponse> ofertas, ProgressBar progressBar) {
+        this.context = context;
+        this.ofertas = ofertas;
+        this.progressBar = progressBar;
     }
 
     @SuppressLint("RestrictedApi")
@@ -95,6 +104,7 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
         holder.btnaceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
             //ABRIR CHAT
             //    Intent intent= new Intent(view.getContext().getApplicationContext(),Chat.class);
             //    view.getContext().startActivity(intent);
@@ -106,6 +116,7 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
                             if(response.isSuccessful())
                             {
                                 //ofertas.remove(position);
+                                progressBar.setVisibility(View.GONE);
                                 ofertas.removeAll(ofertas.stream().filter(x-> x.getId() == ofertas.get(position).getId()).collect(Collectors.toList()));
                                 notifyDataSetChanged();
 
@@ -113,10 +124,10 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
                             else
                             {
                                 Gson gson = new Gson();
-                                Type type = new TypeToken<List<Error>>() {}.getType();
-                                List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+                                Type type = new TypeToken<List<Notify>>() {}.getType();
+                                List<Notify> message = gson.fromJson(response.errorBody().charStream(),type);
 
-                                for (Error item: message) {
+                                for (Notify item: message) {
                                     Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG);
                                 }
                             }
@@ -149,10 +160,10 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
                         else
                         {
                             Gson gson = new Gson();
-                            Type type = new TypeToken<List<Error>>() {}.getType();
-                            List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+                            Type type = new TypeToken<List<Notify>>() {}.getType();
+                            List<Notify> message = gson.fromJson(response.errorBody().charStream(),type);
 
-                            for (Error item: message) {
+                            for (Notify item: message) {
                                 Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG);
                             }
                         }

@@ -335,10 +335,10 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                 else
                 {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() {}.getType();
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+                    Type type = new TypeToken<List<Notify>>() {}.getType();
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(),type);
 
-                    for (Error item: message) {
+                    for (Notify item: message) {
                         Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG);
                     }
                 }

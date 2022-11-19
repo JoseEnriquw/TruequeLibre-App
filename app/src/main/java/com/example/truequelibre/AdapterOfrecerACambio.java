@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,13 +41,14 @@ public class AdapterOfrecerACambio extends RecyclerView.Adapter <AdapterOfrecerA
     private Integer idPublicacion;
     private IOfertaService service;
     private Integer idUsuario;
-
-    public AdapterOfrecerACambio(Context context, List<Publicacion> publicaciones, Integer idPublicacion,Integer idUsuario) {
+    private ProgressBar progressBar;
+    public AdapterOfrecerACambio(Context context, List<Publicacion> publicaciones, Integer idPublicacion,Integer idUsuario,ProgressBar progressBar) {
         this.context = context;
         this.publicaciones = publicaciones;
         this.idPublicacion = idPublicacion;
         service = Apis.getOfertaService();
         this.idUsuario=idUsuario;
+        this.progressBar = progressBar;
     }
 
     @SuppressLint("RestrictedApi")
@@ -89,12 +91,15 @@ public class AdapterOfrecerACambio extends RecyclerView.Adapter <AdapterOfrecerA
             @Override
             public void onClick(View v) {
 
+                progressBar.setVisibility(View.VISIBLE);
+
                 CreateOfertaRequest ofertaRequest = new CreateOfertaRequest(idPublicacion, publicaciones.get(position).getId());
                 Call<ResponseBody> callOfrecer = service.createOferta(ofertaRequest);
 
                 callOfrecer.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                        progressBar.setVisibility(View.GONE);
                         if(response.isSuccessful()){
                             Toast.makeText(context,"Se ha creado la oferta, debe esperar a que el usuario la acepte",Toast.LENGTH_LONG).show();
                             try {

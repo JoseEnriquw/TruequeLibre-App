@@ -22,6 +22,7 @@ import com.example.truequelibre.MainActivity;
 import com.example.truequelibre.R;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IOfertaService;
+import com.example.truequelibre.Utils.Notify;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -122,7 +123,7 @@ public class FragmentTruequesRecibidos extends Fragment {
                 progressBar.setVisibility(View.GONE);
                 if(response.isSuccessful()) {
                     lista = response.body();
-                    _adapter = new AdapterRecibidos(getContext(), lista);
+                    _adapter = new AdapterRecibidos(getContext(), lista,progressBar);
 
                     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false);
                     _recyclerView.setLayoutManager(gridLayoutManager);
@@ -131,11 +132,11 @@ public class FragmentTruequesRecibidos extends Fragment {
                 }
                 else {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() { }.getType();
+                    Type type = new TypeToken<List<Notify>>() { }.getType();
 
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(), type);
 
-                    for (Error item : message) {
+                    for (Notify item : message) {
                         Toast.makeText(getContext(), item.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }

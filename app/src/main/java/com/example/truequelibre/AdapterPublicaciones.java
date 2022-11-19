@@ -27,6 +27,7 @@ import com.example.truequelibre.Entity.PublicacionEditarRequest;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
 import com.example.truequelibre.Utils.ImagenConverter;
+import com.example.truequelibre.Utils.Notify;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -139,10 +140,10 @@ public class AdapterPublicaciones  extends RecyclerView.Adapter <AdapterPublicac
                                                         else
                                                         {
                                                             Gson gson = new Gson();
-                                                            Type type = new TypeToken<List<Error>>() {}.getType();
-                                                            List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+                                                            Type type = new TypeToken<List<Notify>>() {}.getType();
+                                                            List<Notify> message = gson.fromJson(response.errorBody().charStream(),type);
 
-                                                            for (Error item: message) {
+                                                            for (Notify item: message) {
                                                                 Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG);
                                                             }
                                                         }

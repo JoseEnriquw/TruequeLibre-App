@@ -24,11 +24,14 @@ import com.example.truequelibre.Entity.PublicacionResponseNotificacion;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IOfertaService;
 import com.example.truequelibre.Utils.ImagenConverter;
+import com.example.truequelibre.Utils.Notify;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -131,6 +134,20 @@ public class Chat extends AppCompatActivity {
                             }
                         });
 
+                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            if (!snapshot.hasChildren()) {
+                                await(true);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+
                     databaseReference.addChildEventListener(new ChildEventListener() {
                         @Override
                         public void onChildAdded(@NonNull DataSnapshot snapshot, @Nullable String previousChildName) {
@@ -150,11 +167,11 @@ public class Chat extends AppCompatActivity {
 
                 }else {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() { }.getType();
+                    Type type = new TypeToken<List<Notify>>() { }.getType();
 
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(), type);
 
-                    for (Error item : message) {
+                    for (Notify item : message) {
                         Toast.makeText(context, item.getMessage(), Toast.LENGTH_LONG).show();
                     }
                 }
