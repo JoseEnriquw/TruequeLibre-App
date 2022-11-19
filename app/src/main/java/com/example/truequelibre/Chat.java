@@ -24,11 +24,13 @@ import com.example.truequelibre.Entity.PublicacionResponseNotificacion;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IOfertaService;
 import com.example.truequelibre.Utils.ImagenConverter;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -130,6 +132,20 @@ public class Chat extends AppCompatActivity {
                                 setScrollBar();
                             }
                         });
+
+                    databaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot snapshot) {
+                            if (!snapshot.hasChildren()) {
+                                await(true);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
 
                     databaseReference.addChildEventListener(new ChildEventListener() {
                         @Override

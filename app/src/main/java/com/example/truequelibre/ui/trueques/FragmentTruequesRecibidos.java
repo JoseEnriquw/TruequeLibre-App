@@ -122,7 +122,7 @@ public class FragmentTruequesRecibidos extends Fragment {
                 progressBar.setVisibility(View.GONE);
                 if(response.isSuccessful()) {
                     lista = response.body();
-                    _adapter = new AdapterRecibidos(getContext(), lista);
+                    _adapter = new AdapterRecibidos(getContext(), lista,progressBar);
 
                     GridLayoutManager gridLayoutManager = new GridLayoutManager(getContext(), 1, GridLayoutManager.VERTICAL, false);
                     _recyclerView.setLayoutManager(gridLayoutManager);

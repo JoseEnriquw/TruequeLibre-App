@@ -152,17 +152,17 @@
 
                 <Button
                     android:id="@+id/btnaceptaradmin"
-                    android:layout_width="100dp"
+                    android:layout_width="160dp"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="80dp"
+                    android:layout_marginLeft="35dp"
                     android:layout_below="@+id/tvLeinteresaarticuloadmin"
                     android:layout_marginTop="19dp"
                     android:text="Aceptar" />
                 <Button
                     android:id="@+id/btnrechazaradmin"
-                    android:layout_width="100dp"
+                    android:layout_width="160dp"
                     android:layout_height="40dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_marginLeft="20dp"
                     android:layout_below="@+id/tvLeinteresaarticuloadmin"
                     android:layout_toRightOf="@+id/btnaceptaradmin"
                     android:layout_marginTop="19dp"

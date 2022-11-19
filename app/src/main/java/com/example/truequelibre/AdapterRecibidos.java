@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -41,10 +42,17 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
     private Context context;
     private List<OfertasResponse> ofertas;
     IOfertaService service;
+    private ProgressBar progressBar;
 
     public AdapterRecibidos(Context context, List<OfertasResponse> ofertas) {
         this.context = context;
         this.ofertas = ofertas;
+    }
+
+    public AdapterRecibidos(Context context, List<OfertasResponse> ofertas, ProgressBar progressBar) {
+        this.context = context;
+        this.ofertas = ofertas;
+        this.progressBar = progressBar;
     }
 
     @SuppressLint("RestrictedApi")
@@ -95,6 +103,7 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
         holder.btnaceptar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
             //ABRIR CHAT
             //    Intent intent= new Intent(view.getContext().getApplicationContext(),Chat.class);
             //    view.getContext().startActivity(intent);
@@ -106,6 +115,7 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
                             if(response.isSuccessful())
                             {
                                 //ofertas.remove(position);
+                                progressBar.setVisibility(View.GONE);
                                 ofertas.removeAll(ofertas.stream().filter(x-> x.getId() == ofertas.get(position).getId()).collect(Collectors.toList()));
                                 notifyDataSetChanged();
 
