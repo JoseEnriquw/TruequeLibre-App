@@ -14,18 +14,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.truequelibre.Entity.CreateOfertaRequest;
 import com.example.truequelibre.Entity.Publicacion;
 import com.example.truequelibre.Utils.Apis;
-import com.example.truequelibre.Utils.Error;
+import com.example.truequelibre.Utils.Notify;
 import com.example.truequelibre.Utils.IOfertaService;
-import com.example.truequelibre.Utils.ImagenConverter;
-import com.example.truequelibre.ui.trueques.TruequesFragment;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -114,11 +109,11 @@ public class AdapterOfrecerACambio extends RecyclerView.Adapter <AdapterOfrecerA
                         }
                         else {
                             Gson gson = new Gson();
-                            Type type = new TypeToken<List<Error>>() {
+                            Type type = new TypeToken<List<Notify>>() {
                             }.getType();
-                            List<Error> message = gson.fromJson(response.errorBody().charStream(), type);
+                            List<Notify> message = gson.fromJson(response.errorBody().charStream(), type);
 
-                            for (Error item : message) {
+                            for (Notify item : message) {
                                 Toast.makeText(context, item.getMessage(), Toast.LENGTH_LONG);
                             }
                         }
