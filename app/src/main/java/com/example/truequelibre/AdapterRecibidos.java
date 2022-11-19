@@ -119,7 +119,7 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
                                 progressBar.setVisibility(View.GONE);
                                 ofertas.removeAll(ofertas.stream().filter(x-> x.getId() == ofertas.get(position).getId()).collect(Collectors.toList()));
                                 notifyDataSetChanged();
-                                Toast.makeText(context,"Oferta rechazada con exito!",Toast.LENGTH_LONG).show();
+                                Toast.makeText(context,"Oferta aceptada con exito!",Toast.LENGTH_LONG).show();
                             }
                             else
                             {
