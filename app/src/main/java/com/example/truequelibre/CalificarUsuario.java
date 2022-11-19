@@ -208,10 +208,10 @@ public class CalificarUsuario extends AppCompatActivity {
                 }
                 else
                 {   Gson gson = new Gson();
-                    Type type = new TypeToken<List<java.lang.Error>>() {}.getType();
-                    List<java.lang.Error> message = gson.fromJson(response.errorBody().charStream(),type);
+                    Type type = new TypeToken<List<Notify>>() {}.getType();
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(),type);
 
-                    for (java.lang.Error item: message) {
+                    for (Notify item: message) {
                         Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG);
                     }
                 }

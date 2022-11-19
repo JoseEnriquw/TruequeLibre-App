@@ -28,10 +28,10 @@ import com.example.truequelibre.Entity.PublicacionCreateRequest;
 import com.example.truequelibre.Entity.UpdatePersonaVM;
 import com.example.truequelibre.Entity.Usuario;
 import com.example.truequelibre.Utils.Apis;
-import com.example.truequelibre.Utils.Error;
 import com.example.truequelibre.Utils.IPersonaService;
 import com.example.truequelibre.Utils.IPublicacionService;
 import com.example.truequelibre.Utils.IUsuarioService;
+import com.example.truequelibre.Utils.Notify;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -129,10 +129,10 @@ Context contex;
                 }
                 else{
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() {}.getType();
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+                    Type type = new TypeToken<List<Notify>>() {}.getType();
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(),type);
 
-                    for (Error item: message) {
+                    for (Notify item: message) {
 
                     }
                 }

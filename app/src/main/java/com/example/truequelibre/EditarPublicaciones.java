@@ -34,6 +34,7 @@ import com.example.truequelibre.Entity.PublicacionResponse;
 import com.example.truequelibre.Utils.Apis;
 import com.example.truequelibre.Utils.IPublicacionService;
 import com.example.truequelibre.Utils.ImagenConverter;
+import com.example.truequelibre.Utils.Notify;
 import com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.Gson;
@@ -182,10 +183,10 @@ public class EditarPublicaciones extends AppCompatActivity {
                 }else
                 {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() {}.getType();
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+                    Type type = new TypeToken<List<Notify>>() {}.getType();
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(),type);
 
-                    for (Error item: message) {
+                    for (Notify item: message) {
                         Toast.makeText(getApplicationContext(),item.getMessage(),Toast.LENGTH_LONG).show();
                     }
                 }
@@ -331,10 +332,10 @@ public class EditarPublicaciones extends AppCompatActivity {
                 else
                 {
                     Gson gson = new Gson();
-                    Type type = new TypeToken<List<Error>>() {}.getType();
-                    List<Error> message = gson.fromJson(response.errorBody().charStream(),type);
+                    Type type = new TypeToken<List<Notify>>() {}.getType();
+                    List<Notify> message = gson.fromJson(response.errorBody().charStream(),type);
 
-                    for (Error item: message) {
+                    for (Notify item: message) {
                         Toast.makeText(getApplicationContext(),item.getMessage(),Toast.LENGTH_LONG).show();
                     }
                     Await(true);
