@@ -119,10 +119,11 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
                                 progressBar.setVisibility(View.GONE);
                                 ofertas.removeAll(ofertas.stream().filter(x-> x.getId() == ofertas.get(position).getId()).collect(Collectors.toList()));
                                 notifyDataSetChanged();
-
+                                Toast.makeText(context,"Oferta rechazada con exito!",Toast.LENGTH_LONG).show();
                             }
                             else
                             {
+                                progressBar.setVisibility(View.GONE);
                                 Gson gson = new Gson();
                                 Type type = new TypeToken<List<Notify>>() {}.getType();
                                 List<Notify> message = gson.fromJson(response.errorBody().charStream(),type);
@@ -130,6 +131,7 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
                                 for (Notify item: message) {
                                     Toast.makeText(context,item.getMessage(),Toast.LENGTH_LONG);
                                 }
+
                             }
 
                         }
@@ -138,6 +140,7 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
                         public void onFailure(Call<ResponseBody> call, Throwable t) {
                             System.out.println(t.getCause()+ " \n"+t.getMessage());
                             Toast.makeText(context,"Hubo un error al traer los datos de la base de datos :(", Toast.LENGTH_LONG).show();
+                            progressBar.setVisibility(View.GONE);
                         }
                     });
 
@@ -147,18 +150,21 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
         holder.btnrechazar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                progressBar.setVisibility(View.VISIBLE);
                 Call<ResponseBody> deleteRequest = service.deleteOferta(ofertas.get(position).getId());
                 deleteRequest.enqueue(new Callback<ResponseBody>() {
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if(response.isSuccessful())
                         {
+                            progressBar.setVisibility(View.GONE);
                             ofertas.remove(position);
                             notifyDataSetChanged();
-
+                            Toast.makeText(context,"Oferta rechazada con exito!",Toast.LENGTH_LONG).show();
                         }
                         else
                         {
+                            progressBar.setVisibility(View.GONE);
                             Gson gson = new Gson();
                             Type type = new TypeToken<List<Notify>>() {}.getType();
                             List<Notify> message = gson.fromJson(response.errorBody().charStream(),type);
@@ -174,6 +180,7 @@ public class AdapterRecibidos extends RecyclerView.Adapter <AdapterRecibidos.Vie
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         System.out.println(t.getCause()+ " \n"+t.getMessage());
                         Toast.makeText(context,"Hubo un error al traer los datos de la base de datos :(", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
             }

@@ -80,6 +80,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
         MenuInflater menuInflater;
         FloatingActionButton campanita;
         FloatingActionButton cerradoicon;
+        TextView descRecibidoPor;
 
 
         public ViewHolderNotificaciones(@NonNull View itemView) {
@@ -93,6 +94,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
             menuInflater=new MenuInflater(itemView.getContext());
             campanita =itemView.findViewById(R.id.notiFinalizartrueque);
             cerradoicon=itemView.findViewById(R.id.cerrartrueque);
+            descRecibidoPor=(TextView) itemView.findViewById(R.id.recibidosNombrepublicacionprincipalNotificaciones);
         }
     }
 
@@ -112,6 +114,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
         positionaux =position;
         holder.tvNombreyapellido.setText(listaChat.get(position).getNombre_ofertante());
         holder.tvdescripcionulo.setText(listaChat.get(position).getDescripcion_ofertante());
+        holder.descRecibidoPor.setText(listaChat.get(position).getNombre_principal());
         id_usuario_principal =listaChat.get(position).getId_usuario_principal();
         id_usuario_ofertante=listaChat.get(position).getId_usuario_ofertante();
         usuario_principal_califico=listaChat.get(position).isUsuario_principal_califico();
@@ -240,7 +243,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
                     public void onClick(DialogInterface dialog, int id) {
                         //  Action for 'NO' Button
                         dialog.cancel();
-                        Toast.makeText(context,"you choose no action for alertbox",
+                        Toast.makeText(context,"Cancelado",
                                 Toast.LENGTH_SHORT).show();
                     }
                 });
@@ -331,6 +334,7 @@ public class AdapterNotificaciones extends RecyclerView.Adapter <AdapterNotifica
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if(response.isSuccessful())
                 {
+                    Toast.makeText(context,"Finalizacion enviada con exito!",Toast.LENGTH_LONG).show();
                 }
                 else
                 {

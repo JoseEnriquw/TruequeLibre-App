@@ -128,6 +128,7 @@ public class AdapterOfrecerACambio extends RecyclerView.Adapter <AdapterOfrecerA
                     public void onFailure(Call<ResponseBody> call, Throwable t) {
                         System.out.println(t.getMessage()+"\n"+t.getCause());
                         Toast.makeText(context,"Hubo un error al traer los datos de la base de datos :(", Toast.LENGTH_LONG).show();
+                        progressBar.setVisibility(View.GONE);
                     }
                 });
 
